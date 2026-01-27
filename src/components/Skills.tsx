@@ -1,25 +1,51 @@
 import { motion } from "framer-motion";
 
+// Tool data with Simple Icons slugs for logos
 const toolCategories = [
   {
     category: "Productivity Suite",
-    tools: ["Google Docs", "Google Sheets", "Google Drive", "Google Calendar", "Microsoft Word", "Microsoft Excel", "Microsoft PowerPoint"],
+    tools: [
+      { name: "Google Docs", icon: "googledocs", color: "#4285F4" },
+      { name: "Google Sheets", icon: "googlesheets", color: "#34A853" },
+      { name: "Google Drive", icon: "googledrive", color: "#4285F4" },
+      { name: "Google Calendar", icon: "googlecalendar", color: "#4285F4" },
+      { name: "Microsoft Word", icon: "microsoftword", color: "#2B579A" },
+      { name: "Microsoft Excel", icon: "microsoftexcel", color: "#217346" },
+      { name: "Microsoft PowerPoint", icon: "microsoftpowerpoint", color: "#B7472A" },
+    ],
   },
   {
     category: "CRM & Automation",
-    tools: ["GoHighLevel", "Zapier", "n8n", "Airtable"],
+    tools: [
+      { name: "GoHighLevel", icon: null, color: "#FF6B35", customIcon: "GHL" },
+      { name: "Zapier", icon: "zapier", color: "#FF4F00" },
+      { name: "n8n", icon: "n8n", color: "#EA4B71" },
+      { name: "Airtable", icon: "airtable", color: "#18BFFF" },
+    ],
   },
   {
     category: "Project Management",
-    tools: ["Monday.com", "ClickUp", "Trello"],
+    tools: [
+      { name: "Monday.com", icon: "monday", color: "#FF3D57" },
+      { name: "ClickUp", icon: "clickup", color: "#7B68EE" },
+      { name: "Trello", icon: "trello", color: "#0052CC" },
+    ],
   },
   {
     category: "Design & Content",
-    tools: ["Canva", "CapCut", "WordPress"],
+    tools: [
+      { name: "Canva", icon: "canva", color: "#00C4CC" },
+      { name: "CapCut", icon: null, color: "#000000", customIcon: "CC" },
+      { name: "WordPress", icon: "wordpress", color: "#21759B" },
+    ],
   },
   {
     category: "Communication",
-    tools: ["Zoom", "Slack", "Calendly"],
+    tools: [
+      { name: "Zoom", icon: "zoom", color: "#0B5CFF" },
+      { name: "Slack", icon: "slack", color: "#4A154B" },
+      { name: "Calendly", icon: "calendly", color: "#006BFF" },
+    ],
   },
 ];
 
@@ -41,6 +67,35 @@ const skillsList = [
   "Content Planning & Scheduling",
   "Order Processing",
 ];
+
+interface Tool {
+  name: string;
+  icon: string | null;
+  color: string;
+  customIcon?: string;
+}
+
+const ToolIcon = ({ tool }: { tool: Tool }) => {
+  if (tool.icon) {
+    return (
+      <img
+        src={`https://cdn.simpleicons.org/${tool.icon}`}
+        alt={tool.name}
+        className="w-6 h-6"
+        loading="lazy"
+      />
+    );
+  }
+  // Fallback for tools without Simple Icons
+  return (
+    <div 
+      className="w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold text-white"
+      style={{ backgroundColor: tool.color }}
+    >
+      {tool.customIcon}
+    </div>
+  );
+};
 
 const Skills = () => {
   return (
@@ -81,6 +136,7 @@ const Skills = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.03 }}
+                whileHover={{ scale: 1.05 }}
                 className="px-4 py-2 bg-card rounded-full text-sm font-medium text-foreground border border-border hover:border-accent hover:bg-accent/5 transition-colors cursor-default"
               >
                 {skill}
@@ -98,19 +154,26 @@ const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -4 }}
               className="card-glass p-6"
             >
               <h4 className="font-semibold text-foreground mb-4 pb-3 border-b border-border">
                 {category.category}
               </h4>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-3">
                 {category.tools.map((tool) => (
-                  <span
-                    key={tool}
-                    className="px-3 py-1.5 text-xs font-medium bg-accent/10 text-accent rounded-lg"
+                  <motion.div
+                    key={tool.name}
+                    className="flex items-center gap-2 px-3 py-2 bg-card rounded-lg border border-border hover:border-accent/50 transition-colors group"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    title={tool.name}
                   >
-                    {tool}
-                  </span>
+                    <ToolIcon tool={tool} />
+                    <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                      {tool.name}
+                    </span>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
