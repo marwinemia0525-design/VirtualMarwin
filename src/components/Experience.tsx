@@ -96,11 +96,19 @@ const Experience = () => {
                 className="relative md:pl-16"
               >
                 {/* Timeline Dot */}
-                <div className="hidden md:flex absolute left-0 top-0 w-12 h-12 rounded-full bg-card border-2 border-accent items-center justify-center">
+                <motion.div 
+                  className="hidden md:flex absolute left-0 top-0 w-12 h-12 rounded-full bg-card border-2 border-accent items-center justify-center"
+                  whileHover={{ scale: 1.2, rotate: 360 }}
+                  transition={{ duration: 0.5 }}
+                >
                   <Briefcase className="w-5 h-5 text-accent" />
-                </div>
+                </motion.div>
                 
-                <div className="card-glass p-6 hover:shadow-xl transition-shadow">
+                <motion.div 
+                  className="card-glass p-6 hover:shadow-xl transition-shadow"
+                  whileHover={{ x: 8 }}
+                  whileTap={{ scale: 0.99 }}
+                >
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
                     <h3 className="text-xl font-semibold text-foreground">{exp.title}</h3>
                     <span className="text-sm text-accent font-medium">{exp.period}</span>
@@ -109,15 +117,16 @@ const Experience = () => {
                   <p className="text-sm text-muted-foreground mb-4">{exp.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {exp.highlights.map((highlight) => (
-                      <span
+                      <motion.span
                         key={highlight}
-                        className="px-3 py-1 text-xs font-medium bg-secondary rounded-full text-secondary-foreground"
+                        className="px-3 py-1 text-xs font-medium bg-secondary rounded-full text-secondary-foreground cursor-default"
+                        whileHover={{ scale: 1.1, backgroundColor: "hsl(var(--accent) / 0.2)" }}
                       >
                         {highlight}
-                      </span>
+                      </motion.span>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
