@@ -96,11 +96,17 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="card-glass p-6 hover:shadow-xl transition-all duration-300 group"
+              whileHover={{ y: -8, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="card-glass p-6 hover:shadow-xl transition-all duration-300 group cursor-pointer"
             >
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
+              <motion.div 
+                className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors"
+                whileHover={{ rotate: [0, -10, 10, 0] }}
+                transition={{ duration: 0.5 }}
+              >
                 <service.icon className="w-6 h-6 text-accent" />
-              </div>
+              </motion.div>
               <h3 className="text-lg font-semibold mb-2 text-foreground">
                 {service.title}
               </h3>

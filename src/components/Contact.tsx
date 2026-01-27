@@ -12,7 +12,7 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-amber font-semibold text-sm uppercase tracking-widest mb-4 block">
+          <span className="text-accent font-semibold text-sm uppercase tracking-widest mb-4 block">
             Get In Touch
           </span>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
@@ -42,7 +42,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-sm text-primary-foreground/60">Email</p>
-                  <p className="font-medium group-hover:text-amber transition-colors">marwinemia0525@gmail.com</p>
+                  <p className="font-medium group-hover:text-accent transition-colors">marwinemia0525@gmail.com</p>
                 </div>
               </a>
 
@@ -55,7 +55,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-sm text-primary-foreground/60">Phone</p>
-                  <p className="font-medium group-hover:text-amber transition-colors">+63 763 147 667</p>
+                  <p className="font-medium group-hover:text-accent transition-colors">+63 763 147 667</p>
                 </div>
               </a>
 

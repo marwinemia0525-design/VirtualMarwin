@@ -90,23 +90,27 @@ const Hero = () => {
             transition={{ delay: 0.7, duration: 0.8 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <a
+            <motion.a
               href="https://calendly.com/marwinemia0525/30min"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
+              whileHover={{ scale: 1.05, boxShadow: "0 12px 30px -6px hsl(var(--accent) / 0.6)" }}
+              whileTap={{ scale: 0.95 }}
             >
               Schedule a Call
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               href="https://www.linkedin.com/in/marwin-emia-74a8aa366"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <Linkedin size={18} />
               Connect on LinkedIn
-            </a>
+            </motion.a>
           </motion.div>
         </motion.div>
 
