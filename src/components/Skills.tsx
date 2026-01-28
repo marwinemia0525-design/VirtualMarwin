@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 
 // Tool data with Simple Icons slugs for logos
@@ -77,26 +76,23 @@ interface Tool {
 }
 
 const ToolIcon = ({ tool }: { tool: Tool }) => {
-  const [hasError, setHasError] = React.useState(false);
-
-  if (tool.icon && !hasError) {
+  if (tool.icon) {
     return (
       <img
         src={`https://cdn.simpleicons.org/${tool.icon}`}
         alt={tool.name}
         className="w-6 h-6"
         loading="lazy"
-        onError={() => setHasError(true)}
       />
     );
   }
-  // Fallback for tools without Simple Icons or failed loads
+  // Fallback for tools without Simple Icons
   return (
     <div 
       className="w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold text-white"
       style={{ backgroundColor: tool.color }}
     >
-      {tool.customIcon || tool.name.substring(0, 2).toUpperCase()}
+      {tool.customIcon}
     </div>
   );
 };
