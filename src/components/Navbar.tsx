@@ -2,19 +2,18 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
-import ContactModal from "./ContactModal";
 
 const navLinks = [
   { href: "#services", label: "Services" },
   { href: "#experience", label: "Experience" },
   { href: "#works", label: "Works" },
   { href: "#testimonials", label: "Testimonials" },
+  { href: "#contact", label: "Contact" },
 ];
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isContactOpen, setIsContactOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,22 +55,17 @@ const Navbar = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full" />
               </a>
             ))}
-            <button
-              onClick={() => setIsContactOpen(true)}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
-            >
-              Contact
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full" />
-            </button>
             <ThemeToggle />
-            <motion.button
-              onClick={() => setIsContactOpen(true)}
+            <motion.a
+              href="https://calendly.com/marwinemia0525/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary text-sm"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               Book a Call
-            </motion.button>
+            </motion.a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -108,30 +102,18 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <button
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  setIsContactOpen(true);
-                }}
-                className="text-foreground font-medium py-2 text-left"
-              >
-                Contact
-              </button>
-              <button
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  setIsContactOpen(true);
-                }}
+              <a
+                href="https://calendly.com/marwinemia0525/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary text-center"
               >
                 Book a Call
-              </button>
+              </a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      <ContactModal open={isContactOpen} onOpenChange={setIsContactOpen} />
     </motion.header>
   );
 };
