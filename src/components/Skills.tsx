@@ -77,12 +77,21 @@ interface Tool {
 
 const ToolIcon = ({ tool }: { tool: Tool }) => {
   if (tool.icon) {
+    // Use Simple Icons with explicit color parameter for better reliability
+    const iconColor = tool.color.replace('#', '');
     return (
       <img
-        src={`https://cdn.simpleicons.org/${tool.icon}`}
+        src={`https://cdn.simpleicons.org/${tool.icon}/${iconColor}`}
         alt={tool.name}
         className="w-6 h-6"
         loading="lazy"
+        onError={(e) => {
+          // Fallback to text if image fails to load
+          const target = e.currentTarget;
+          target.style.display = 'none';
+          const fallback = target.nextElementSibling as HTMLElement;
+          if (fallback) fallback.style.display = 'flex';
+        }}
       />
     );
   }
@@ -161,7 +170,7 @@ const Skills = () => {
                 {category.category}
               </h4>
               <div className="flex flex-wrap gap-3">
-                {category.tools.map((tool) => (
+{category.tools.map((tool) => (
                   <motion.div
                     key={tool.name}
                     className="flex items-center gap-2 px-3 py-2 bg-card rounded-lg border border-border hover:border-accent/50 transition-colors group"
@@ -169,7 +178,16 @@ const Skills = () => {
                     whileTap={{ scale: 0.95 }}
                     title={tool.name}
                   >
-                    <ToolIcon tool={tool} />
+                    <div className="relative">
+                      <ToolIcon tool={tool} />
+                      {/* Hidden fallback that shows if image fails */}
+                      <div 
+                        className="w-6 h-6 rounded items-center justify-center text-[10px] font-bold text-white absolute inset-0 hidden"
+                        style={{ backgroundColor: tool.color }}
+                      >
+                        {tool.name.substring(0, 2).toUpperCase()}
+                      </div>
+                    </div>
                     <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">
                       {tool.name}
                     </span>
