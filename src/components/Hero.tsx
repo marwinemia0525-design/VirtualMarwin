@@ -154,7 +154,7 @@ const Hero = () => {
               <img
                 src={marwinImage}
                 alt="Marwin G. Emia"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover object-center"
               />
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-accent/10 to-transparent" />
