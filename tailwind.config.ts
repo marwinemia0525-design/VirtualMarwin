@@ -15,7 +15,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Playfair Display', 'Georgia', 'serif'],
+        display: ['Orbitron', 'Inter', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -54,10 +54,9 @@ export default {
         navy: "hsl(var(--navy))",
         "navy-light": "hsl(var(--navy-light))",
         slate: "hsl(var(--slate))",
-        gold: "hsl(var(--gold))",
-        "gold-light": "hsl(var(--gold-light))",
-        "gold-dark": "hsl(var(--gold-dark))",
-        cream: "hsl(var(--cream))",
+        cyan: "hsl(var(--cyan))",
+        "cyan-light": "hsl(var(--cyan-light))",
+        "cyan-dark": "hsl(var(--cyan-dark))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -99,6 +98,14 @@ export default {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        pulse: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
+        glow: {
+          "0%, 100%": { boxShadow: "0 0 20px hsl(var(--accent) / 0.3)" },
+          "50%": { boxShadow: "0 0 40px hsl(var(--accent) / 0.5)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -107,6 +114,8 @@ export default {
         "fade-in": "fade-in 0.4s ease-out forwards",
         "slide-in-right": "slide-in-right 0.5s ease-out forwards",
         float: "float 6s ease-in-out infinite",
+        pulse: "pulse 2s ease-in-out infinite",
+        glow: "glow 3s ease-in-out infinite",
       },
     },
   },

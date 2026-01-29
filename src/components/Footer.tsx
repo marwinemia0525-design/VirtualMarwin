@@ -5,8 +5,14 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-8 px-6 md:px-12 border-t border-border bg-background">
-      <div className="container-narrow">
+    <footer className="py-8 px-6 md:px-12 border-t border-accent/10 relative overflow-hidden">
+      {/* Background */}
+      <div 
+        className="absolute inset-0"
+        style={{ background: 'var(--gradient-hero)' }}
+      />
+      
+      <div className="container-narrow relative z-10">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -15,20 +21,20 @@ const Footer = () => {
           className="flex flex-col md:flex-row items-center justify-between gap-4"
         >
           {/* Logo */}
-          <a href="#" className="text-xl font-bold tracking-tight">
+          <a href="#" className="text-xl font-bold tracking-tight hover:text-accent transition-colors">
             MARWIN<span className="text-accent">.</span>
           </a>
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground flex items-center gap-1">
-            © {currentYear} Marwin G. Emia. Built with <Heart size={14} className="text-accent fill-accent" /> 
+            © {currentYear} Marwin G. Emia. Built with <Heart size={14} className="text-accent fill-accent" style={{ filter: 'drop-shadow(0 0 4px hsl(var(--accent)))' }} /> 
           </p>
 
           {/* Nav Links */}
           <nav className="flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#services" className="hover:text-foreground transition-colors">Services</a>
-            <a href="#experience" className="hover:text-foreground transition-colors">Experience</a>
-            <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
+            <a href="#services" className="hover:text-accent transition-colors">Services</a>
+            <a href="#experience" className="hover:text-accent transition-colors">Experience</a>
+            <a href="#contact" className="hover:text-accent transition-colors">Contact</a>
           </nav>
         </motion.div>
       </div>

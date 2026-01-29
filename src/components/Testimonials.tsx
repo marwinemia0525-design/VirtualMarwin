@@ -3,6 +3,12 @@ import { Quote, Star } from "lucide-react";
 
 const testimonials = [
   {
+    name: "Surge Marketplace",
+    role: "Internship Training Center",
+    content: "Marwin successfully completed the Masterclass Virtual Assistant (MVA) program, demonstrating excellent skills in digital tools, workflow automation, and remote collaboration. His dedication and quick learning ability made him stand out among trainees.",
+    rating: 5,
+  },
+  {
     name: "Ronald Juntilla",
     role: "Area Manager",
     content: "Marwin consistently demonstrates exceptional leadership and dedication. His ability to manage operations while maintaining strong customer relationships is truly impressive.",
@@ -24,8 +30,16 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section id="testimonials" className="section-padding">
-      <div className="container-narrow">
+    <section id="testimonials" className="section-padding relative overflow-hidden section-glow">
+      {/* Background effects */}
+      <div 
+        className="absolute inset-0"
+        style={{ background: 'var(--gradient-hero)' }}
+      />
+      <div className="absolute top-0 left-1/3 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
+      <div className="absolute bottom-1/3 right-0 w-80 h-80 bg-accent/5 rounded-full blur-[100px]" />
+      
+      <div className="container-narrow relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -44,7 +58,7 @@ const Testimonials = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
@@ -52,17 +66,20 @@ const Testimonials = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="card-glass p-6 flex flex-col"
+              whileHover={{ y: -8 }}
+              className="card-glass card-glow p-6 flex flex-col"
             >
               {/* Quote Icon */}
               <div className="mb-4">
-                <Quote className="w-8 h-8 text-accent/30" />
+                <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
+                  <Quote className="w-5 h-5 text-accent" />
+                </div>
               </div>
 
               {/* Rating */}
               <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                  <Star key={i} className="w-4 h-4 fill-accent text-accent" style={{ filter: 'drop-shadow(0 0 4px hsl(var(--accent)))' }} />
                 ))}
               </div>
 
@@ -72,9 +89,9 @@ const Testimonials = () => {
               </p>
 
               {/* Author */}
-              <div className="pt-4 border-t border-border">
+              <div className="pt-4 border-t border-border/50">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
                     <span className="text-accent font-semibold text-sm">
                       {testimonial.name.split(' ').map(n => n[0]).join('')}
                     </span>

@@ -61,8 +61,16 @@ const certifications = [
 
 const Experience = () => {
   return (
-    <section id="experience" className="section-padding">
-      <div className="container-narrow">
+    <section id="experience" className="section-padding relative overflow-hidden section-glow">
+      {/* Background effects */}
+      <div 
+        className="absolute inset-0"
+        style={{ background: 'var(--gradient-hero)' }}
+      />
+      <div className="absolute top-1/3 right-0 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
+      <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-accent/5 rounded-full blur-[100px]" />
+      
+      <div className="container-narrow relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,21 +105,22 @@ const Experience = () => {
               >
                 {/* Timeline Dot */}
                 <motion.div 
-                  className="hidden md:flex absolute left-0 top-0 w-12 h-12 rounded-full bg-card border-2 border-accent items-center justify-center"
-                  whileHover={{ scale: 1.2, rotate: 360 }}
-                  transition={{ duration: 0.5 }}
+                  className="hidden md:flex absolute left-0 top-0 w-12 h-12 rounded-full bg-card/80 backdrop-blur-sm border border-accent/50 items-center justify-center"
+                  style={{ boxShadow: '0 0 20px hsl(var(--accent) / 0.3)' }}
+                  whileHover={{ scale: 1.2 }}
+                  transition={{ duration: 0.3 }}
                 >
                   <Briefcase className="w-5 h-5 text-accent" />
                 </motion.div>
                 
                 <motion.div 
-                  className="card-glass p-6 hover:shadow-xl transition-shadow"
+                  className="card-glass card-glow p-6"
                   whileHover={{ x: 8 }}
                   whileTap={{ scale: 0.99 }}
                 >
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
                     <h3 className="text-xl font-semibold text-foreground">{exp.title}</h3>
-                    <span className="text-sm text-accent font-medium">{exp.period}</span>
+                    <span className="text-sm text-accent font-medium px-3 py-1 bg-accent/10 rounded-full border border-accent/20">{exp.period}</span>
                   </div>
                   <p className="text-muted-foreground font-medium mb-3">{exp.company}</p>
                   <p className="text-sm text-muted-foreground mb-4">{exp.description}</p>
@@ -119,8 +128,8 @@ const Experience = () => {
                     {exp.highlights.map((highlight) => (
                       <motion.span
                         key={highlight}
-                        className="px-3 py-1 text-xs font-medium bg-secondary rounded-full text-secondary-foreground cursor-default"
-                        whileHover={{ scale: 1.1, backgroundColor: "hsl(var(--accent) / 0.2)" }}
+                        className="px-3 py-1 text-xs font-medium bg-secondary/50 backdrop-blur-sm rounded-full text-secondary-foreground border border-border/30 cursor-default"
+                        whileHover={{ scale: 1.05, borderColor: "hsl(var(--accent) / 0.5)" }}
                       >
                         {highlight}
                       </motion.span>
@@ -140,10 +149,10 @@ const Experience = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="card-glass p-6"
+            className="card-glass card-glow p-6"
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
                 <GraduationCap className="w-5 h-5 text-accent" />
               </div>
               <h3 className="text-xl font-semibold">Education</h3>
@@ -162,10 +171,10 @@ const Experience = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="card-glass p-6"
+            className="card-glass card-glow p-6"
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
                 <Award className="w-5 h-5 text-accent" />
               </div>
               <h3 className="text-xl font-semibold">Certifications</h3>
@@ -173,7 +182,7 @@ const Experience = () => {
             <ul className="space-y-3">
               {certifications.map((cert, index) => (
                 <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0 shadow-[0_0_6px_hsl(var(--accent))]" />
                   {cert}
                 </li>
               ))}

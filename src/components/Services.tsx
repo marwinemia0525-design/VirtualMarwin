@@ -67,8 +67,16 @@ const services = [
 
 const Services = () => {
   return (
-    <section id="services" className="section-padding bg-secondary/30">
-      <div className="container-narrow">
+    <section id="services" className="section-padding relative overflow-hidden section-glow">
+      {/* Background effects */}
+      <div 
+        className="absolute inset-0"
+        style={{ background: 'var(--gradient-hero)' }}
+      />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/5 rounded-full blur-[100px]" />
+      
+      <div className="container-narrow relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -96,18 +104,18 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -8, scale: 1.02 }}
+              whileHover={{ y: -8 }}
               whileTap={{ scale: 0.98 }}
-              className="card-glass p-6 hover:shadow-xl transition-all duration-300 group cursor-pointer"
+              className="card-glass card-glow p-6 cursor-pointer group"
             >
               <motion.div 
-                className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors"
-                whileHover={{ rotate: [0, -10, 10, 0] }}
-                transition={{ duration: 0.5 }}
+                className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300"
+                whileHover={{ rotate: [0, -5, 5, 0] }}
+                transition={{ duration: 0.4 }}
               >
                 <service.icon className="w-6 h-6 text-accent" />
               </motion.div>
-              <h3 className="text-lg font-semibold mb-2 text-foreground">
+              <h3 className="text-lg font-semibold mb-2 text-foreground group-hover:text-accent transition-colors">
                 {service.title}
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
