@@ -3,8 +3,15 @@ import { Calendar, Linkedin, Mail, MapPin, Phone, ExternalLink, FileText } from 
 
 const Contact = () => {
   return (
-    <section id="contact" className="section-padding bg-primary text-primary-foreground">
-      <div className="container-narrow">
+    <section id="contact" className="section-padding relative overflow-hidden section-glow">
+      {/* Background - using gradient instead of solid color */}
+      <div 
+        className="absolute inset-0"
+        style={{ background: 'var(--gradient-hero)' }}
+      />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[150px]" style={{ background: 'var(--gradient-glow)' }} />
+      
+      <div className="container-narrow relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -18,7 +25,7 @@ const Contact = () => {
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             Let's Work Together
           </h2>
-          <p className="text-primary-foreground/70 max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Ready to streamline your business operations? Let's discuss how I can help you achieve your goals.
           </p>
         </motion.div>
@@ -35,36 +42,36 @@ const Contact = () => {
             <div className="space-y-4">
               <a
                 href="mailto:marwinemia0525@gmail.com"
-                className="flex items-center gap-4 p-4 rounded-xl bg-primary-foreground/5 hover:bg-primary-foreground/10 transition-colors group"
+                className="flex items-center gap-4 p-4 rounded-xl bg-card/60 backdrop-blur-sm border border-border/50 hover:border-accent/50 transition-all group"
               >
-                <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center shrink-0">
-                  <Mail className="w-5 h-5 text-accent-foreground" />
+                <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                  <Mail className="w-5 h-5 text-accent" />
                 </div>
                 <div>
-                  <p className="text-sm text-primary-foreground/60">Email</p>
+                  <p className="text-sm text-muted-foreground">Email</p>
                   <p className="font-medium group-hover:text-accent transition-colors">marwinemia0525@gmail.com</p>
                 </div>
               </a>
 
               <a
                 href="tel:+63763147667"
-                className="flex items-center gap-4 p-4 rounded-xl bg-primary-foreground/5 hover:bg-primary-foreground/10 transition-colors group"
+                className="flex items-center gap-4 p-4 rounded-xl bg-card/60 backdrop-blur-sm border border-border/50 hover:border-accent/50 transition-all group"
               >
-                <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center shrink-0">
-                  <Phone className="w-5 h-5 text-accent-foreground" />
+                <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                  <Phone className="w-5 h-5 text-accent" />
                 </div>
                 <div>
-                  <p className="text-sm text-primary-foreground/60">Phone</p>
+                  <p className="text-sm text-muted-foreground">Phone</p>
                   <p className="font-medium group-hover:text-accent transition-colors">+63 763 147 667</p>
                 </div>
               </a>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-primary-foreground/5">
-                <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5 text-accent-foreground" />
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-card/60 backdrop-blur-sm border border-border/50">
+                <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0">
+                  <MapPin className="w-5 h-5 text-accent" />
                 </div>
                 <div>
-                  <p className="text-sm text-primary-foreground/60">Location</p>
+                  <p className="text-sm text-muted-foreground">Location</p>
                   <p className="font-medium">Davao del Sur, Philippines 8007</p>
                 </div>
               </div>
@@ -76,7 +83,7 @@ const Contact = () => {
                 href="https://www.linkedin.com/in/marwin-emia-74a8aa366"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors text-sm"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-card/60 backdrop-blur-sm border border-border/50 hover:border-accent/50 hover:text-accent transition-all text-sm"
               >
                 <Linkedin size={18} />
                 LinkedIn
@@ -85,7 +92,7 @@ const Contact = () => {
                 href="https://www.onlinejobs.ph/jobseekers/info/4179763"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors text-sm"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-card/60 backdrop-blur-sm border border-border/50 hover:border-accent/50 hover:text-accent transition-all text-sm"
               >
                 <FileText size={18} />
                 OnlineJobs Profile
@@ -101,12 +108,12 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             className="flex flex-col justify-center"
           >
-            <div className="p-8 rounded-2xl bg-primary-foreground/5 border border-primary-foreground/10">
-              <div className="w-16 h-16 rounded-2xl bg-accent flex items-center justify-center mb-6">
-                <Calendar className="w-8 h-8 text-accent-foreground" />
+            <div className="card-glass card-glow p-8">
+              <div className="w-16 h-16 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-6" style={{ boxShadow: '0 0 30px hsl(var(--accent) / 0.2)' }}>
+                <Calendar className="w-8 h-8 text-accent" />
               </div>
               <h3 className="text-2xl font-bold mb-3">Schedule a Discovery Call</h3>
-              <p className="text-primary-foreground/70 mb-6">
+              <p className="text-muted-foreground mb-6">
                 Book a free 30-minute consultation to discuss your business needs and how I can help streamline your operations.
               </p>
               <a

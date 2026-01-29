@@ -76,40 +76,56 @@ interface Tool {
 }
 
 const ToolIcon = ({ tool }: { tool: Tool }) => {
-  if (tool.icon) {
-    // Use Simple Icons with explicit color parameter for better reliability
-    const iconColor = tool.color.replace('#', '');
+  if (tool.customIcon) {
+    // Custom icon for tools without Simple Icons
     return (
-      <img
-        src={`https://cdn.simpleicons.org/${tool.icon}/${iconColor}`}
-        alt={tool.name}
-        className="w-6 h-6"
-        loading="lazy"
-        onError={(e) => {
-          // Fallback to text if image fails to load
-          const target = e.currentTarget;
-          target.style.display = 'none';
-          const fallback = target.nextElementSibling as HTMLElement;
-          if (fallback) fallback.style.display = 'flex';
-        }}
-      />
+      <div 
+        className="w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold text-white"
+        style={{ backgroundColor: tool.color }}
+      >
+        {tool.customIcon}
+      </div>
     );
   }
-  // Fallback for tools without Simple Icons
+  
+  if (tool.icon) {
+    // Use Simple Icons CDN with the tool's brand color
+    const iconColor = tool.color.replace('#', '');
+    return (
+      <div className="w-6 h-6 flex items-center justify-center">
+        <img
+          src={`https://cdn.simpleicons.org/${tool.icon}/${iconColor}`}
+          alt={tool.name}
+          className="w-5 h-5"
+          loading="lazy"
+        />
+      </div>
+    );
+  }
+  
+  // Fallback initials
   return (
     <div 
       className="w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold text-white"
       style={{ backgroundColor: tool.color }}
     >
-      {tool.customIcon}
+      {tool.name.substring(0, 2).toUpperCase()}
     </div>
   );
 };
 
 const Skills = () => {
   return (
-    <section id="works" className="section-padding bg-secondary/30">
-      <div className="container-narrow">
+    <section id="works" className="section-padding relative overflow-hidden section-glow">
+      {/* Background effects */}
+      <div 
+        className="absolute inset-0"
+        style={{ background: 'var(--gradient-hero)' }}
+      />
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-[100px]" />
+      
+      <div className="container-narrow relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -145,8 +161,8 @@ const Skills = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.03 }}
-                whileHover={{ scale: 1.05 }}
-                className="px-4 py-2 bg-card rounded-full text-sm font-medium text-foreground border border-border hover:border-accent hover:bg-accent/5 transition-colors cursor-default"
+                whileHover={{ scale: 1.05, y: -2 }}
+                className="px-4 py-2 bg-card/60 backdrop-blur-sm rounded-full text-sm font-medium text-foreground border border-border/50 hover:border-accent/50 hover:bg-accent/5 hover:text-accent transition-all cursor-default"
               >
                 {skill}
               </motion.span>
@@ -164,30 +180,22 @@ const Skills = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -4 }}
-              className="card-glass p-6"
+              className="card-glass card-glow p-6"
             >
-              <h4 className="font-semibold text-foreground mb-4 pb-3 border-b border-border">
+              <h4 className="font-semibold text-foreground mb-4 pb-3 border-b border-border/50 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-accent" />
                 {category.category}
               </h4>
               <div className="flex flex-wrap gap-3">
-{category.tools.map((tool) => (
+                {category.tools.map((tool) => (
                   <motion.div
                     key={tool.name}
-                    className="flex items-center gap-2 px-3 py-2 bg-card rounded-lg border border-border hover:border-accent/50 transition-colors group"
+                    className="flex items-center gap-2 px-3 py-2 bg-secondary/50 backdrop-blur-sm rounded-lg border border-border/30 hover:border-accent/50 hover:bg-accent/5 transition-all group"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     title={tool.name}
                   >
-                    <div className="relative">
-                      <ToolIcon tool={tool} />
-                      {/* Hidden fallback that shows if image fails */}
-                      <div 
-                        className="w-6 h-6 rounded items-center justify-center text-[10px] font-bold text-white absolute inset-0 hidden"
-                        style={{ backgroundColor: tool.color }}
-                      >
-                        {tool.name.substring(0, 2).toUpperCase()}
-                      </div>
-                    </div>
+                    <ToolIcon tool={tool} />
                     <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">
                       {tool.name}
                     </span>
