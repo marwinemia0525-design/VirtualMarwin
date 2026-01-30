@@ -34,7 +34,7 @@ const toolCategories = [
   {
     category: "Design & Content",
     tools: [
-      { name: "Canva", icon: "canva", color: "#00C4CC" },
+      { name: "Canva", icon: null, color: "#00C4CC", customIcon: "C" },
       { name: "CapCut", icon: null, color: "#000000", customIcon: "CC" },
       { name: "WordPress", icon: "wordpress", color: "#21759B" },
     ],
