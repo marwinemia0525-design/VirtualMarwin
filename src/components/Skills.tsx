@@ -9,9 +9,9 @@ const toolCategories = [
       { name: "Google Sheets", icon: "googlesheets", color: "#34A853" },
       { name: "Google Drive", icon: "googledrive", color: "#4285F4" },
       { name: "Google Calendar", icon: "googlecalendar", color: "#4285F4" },
-      { name: "Microsoft Word", icon: "microsoftword", color: "#2B579A" },
-      { name: "Microsoft Excel", icon: "microsoftexcel", color: "#217346" },
-      { name: "Microsoft PowerPoint", icon: "microsoftpowerpoint", color: "#B7472A" },
+      { name: "Microsoft Word", icon: null, color: "#2B579A", customIcon: "W" },
+      { name: "Microsoft Excel", icon: null, color: "#217346", customIcon: "X" },
+      { name: "Microsoft PowerPoint", icon: null, color: "#B7472A", customIcon: "P" },
     ],
   },
   {
@@ -26,7 +26,7 @@ const toolCategories = [
   {
     category: "Project Management",
     tools: [
-      { name: "Monday.com", icon: "monday", color: "#FF3D57" },
+      { name: "Monday.com", icon: null, color: "#FF3D57", customIcon: "M" },
       { name: "ClickUp", icon: "clickup", color: "#7B68EE" },
       { name: "Trello", icon: "trello", color: "#0052CC" },
     ],
