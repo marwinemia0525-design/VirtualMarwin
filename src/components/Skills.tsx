@@ -125,6 +125,19 @@ const Skills = () => {
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
       <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-[100px]" />
       
+      {/* Animated geometric shapes */}
+      <motion.div
+        className="absolute top-20 right-20 w-32 h-32 border border-accent/20 rounded-lg"
+        animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div
+        className="absolute bottom-32 left-16 w-24 h-24 border border-accent/15"
+        style={{ borderRadius: "30% 70% 70% 30% / 30% 30% 70% 70%" }}
+        animate={{ rotate: -360, borderRadius: ["30% 70% 70% 30% / 30% 30% 70% 70%", "70% 30% 30% 70% / 70% 70% 30% 30%", "30% 70% 70% 30% / 30% 30% 70% 70%"] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+      />
+      
       <div className="container-narrow relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -133,9 +146,15 @@ const Skills = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-accent font-semibold text-sm uppercase tracking-widest mb-4 block">
+          <motion.span 
+            className="text-accent font-semibold text-sm uppercase tracking-widest mb-4 block"
+            initial={{ opacity: 0, letterSpacing: "0.1em" }}
+            whileInView={{ opacity: 1, letterSpacing: "0.2em" }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             Expertise
-          </span>
+          </motion.span>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             Skills & Tools
           </h2>
@@ -157,11 +176,11 @@ const Skills = () => {
             {skillsList.map((skill, index) => (
               <motion.span
                 key={skill}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.03 }}
-                whileHover={{ scale: 1.05, y: -2 }}
+                transition={{ duration: 0.4, delay: index * 0.03 }}
+                whileHover={{ scale: 1.08, y: -4, boxShadow: "0 10px 30px hsl(var(--accent) / 0.2)" }}
                 className="px-4 py-2 bg-card/60 backdrop-blur-sm rounded-full text-sm font-medium text-foreground border border-border/50 hover:border-accent/50 hover:bg-accent/5 hover:text-accent transition-all cursor-default"
               >
                 {skill}
@@ -175,28 +194,44 @@ const Skills = () => {
           {toolCategories.map((category, index) => (
             <motion.div
               key={category.category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -4 }}
-              className="card-glass card-glow p-6"
+              whileHover={{ y: -6, scale: 1.02 }}
+              className="card-glass card-glow p-6 relative group overflow-hidden"
             >
-              <h4 className="font-semibold text-foreground mb-4 pb-3 border-b border-border/50 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-accent" />
+              {/* Animated gradient border */}
+              <motion.div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background: "linear-gradient(135deg, hsl(var(--accent) / 0.1) 0%, transparent 50%, hsl(var(--accent) / 0.05) 100%)",
+                }}
+              />
+              
+              <h4 className="font-semibold text-foreground mb-4 pb-3 border-b border-border/50 flex items-center gap-2 relative z-10">
+                <motion.span 
+                  className="w-2 h-2 rounded-full bg-accent"
+                  animate={{ scale: [1, 1.3, 1], opacity: [1, 0.7, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
                 {category.category}
               </h4>
-              <div className="flex flex-wrap gap-3">
-                {category.tools.map((tool) => (
+              <div className="flex flex-wrap gap-3 relative z-10">
+                {category.tools.map((tool, toolIndex) => (
                   <motion.div
                     key={tool.name}
-                    className="flex items-center gap-2 px-3 py-2 bg-secondary/50 backdrop-blur-sm rounded-lg border border-border/30 hover:border-accent/50 hover:bg-accent/5 transition-all group"
-                    whileHover={{ scale: 1.05 }}
+                    className="flex items-center gap-2 px-3 py-2 bg-secondary/50 backdrop-blur-sm rounded-lg border border-border/30 hover:border-accent/50 hover:bg-accent/5 transition-all group/tool"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: index * 0.1 + toolIndex * 0.05 }}
+                    whileHover={{ scale: 1.08, x: 5 }}
                     whileTap={{ scale: 0.95 }}
                     title={tool.name}
                   >
                     <ToolIcon tool={tool} />
-                    <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                    <span className="text-xs font-medium text-muted-foreground group-hover/tool:text-foreground transition-colors">
                       {tool.name}
                     </span>
                   </motion.div>

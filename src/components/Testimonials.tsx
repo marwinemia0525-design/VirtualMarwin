@@ -39,6 +39,18 @@ const Testimonials = () => {
       <div className="absolute top-0 left-1/3 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
       <div className="absolute bottom-1/3 right-0 w-80 h-80 bg-accent/5 rounded-full blur-[100px]" />
       
+      {/* Animated decorative elements */}
+      <motion.div
+        className="absolute top-20 right-20 w-20 h-20 border border-accent/20 rounded-full"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-40 left-10 w-16 h-16 border border-accent/15 rounded-full"
+        animate={{ scale: [1.2, 1, 1.2], opacity: [0.15, 0.3, 0.15] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      />
+      
       <div className="container-narrow relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -47,9 +59,15 @@ const Testimonials = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-accent font-semibold text-sm uppercase tracking-widest mb-4 block">
+          <motion.span 
+            className="text-accent font-semibold text-sm uppercase tracking-widest mb-4 block"
+            initial={{ opacity: 0, letterSpacing: "0.1em" }}
+            whileInView={{ opacity: 1, letterSpacing: "0.2em" }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             Testimonials
-          </span>
+          </motion.span>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             What People Say
           </h2>
@@ -62,40 +80,62 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 30, rotateY: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -8 }}
-              className="card-glass card-glow p-6 flex flex-col"
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+              whileHover={{ y: -10, scale: 1.02 }}
+              className="card-glass card-glow p-6 flex flex-col relative group overflow-hidden"
             >
+              {/* Animated shine effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-accent/10 to-transparent -translate-x-full"
+                animate={{ translateX: ["200%", "-200%"] }}
+                transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
+              />
+              
               {/* Quote Icon */}
-              <div className="mb-4">
-                <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
+              <motion.div 
+                className="mb-4"
+                whileHover={{ rotate: [0, -10, 10, 0] }}
+                transition={{ duration: 0.4 }}
+              >
+                <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
                   <Quote className="w-5 h-5 text-accent" />
                 </div>
-              </div>
+              </motion.div>
 
               {/* Rating */}
               <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-accent text-accent" style={{ filter: 'drop-shadow(0 0 4px hsl(var(--accent)))' }} />
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: index * 0.1 + i * 0.1 }}
+                  >
+                    <Star className="w-4 h-4 fill-accent text-accent" style={{ filter: 'drop-shadow(0 0 4px hsl(var(--accent)))' }} />
+                  </motion.div>
                 ))}
               </div>
 
               {/* Content */}
-              <p className="text-muted-foreground text-sm leading-relaxed flex-grow mb-6">
+              <p className="text-muted-foreground text-sm leading-relaxed flex-grow mb-6 relative z-10">
                 "{testimonial.content}"
               </p>
 
               {/* Author */}
-              <div className="pt-4 border-t border-border/50">
+              <div className="pt-4 border-t border-border/50 relative z-10">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
+                  <motion.div 
+                    className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center"
+                    whileHover={{ scale: 1.1, borderColor: "hsl(var(--accent) / 0.5)" }}
+                  >
                     <span className="text-accent font-semibold text-sm">
                       {testimonial.name.split(' ').map(n => n[0]).join('')}
                     </span>
-                  </div>
+                  </motion.div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{testimonial.name}</p>
                     <p className="text-xs text-muted-foreground">{testimonial.role}</p>

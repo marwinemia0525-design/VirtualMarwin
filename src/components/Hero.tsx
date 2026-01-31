@@ -148,7 +148,13 @@ const Hero = () => {
                 className="w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full border border-accent/30"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              />
+              >
+                {/* Orbiting dot */}
+                <motion.div
+                  className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-accent rounded-full"
+                  style={{ boxShadow: "0 0 15px hsl(var(--accent))" }}
+                />
+              </motion.div>
             </div>
             
             {/* Second decorative ring */}
@@ -157,7 +163,13 @@ const Hero = () => {
                 className="w-80 h-80 md:w-88 md:h-88 lg:w-[420px] lg:h-[420px] rounded-full border border-accent/10"
                 animate={{ rotate: -360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-              />
+              >
+                {/* Orbiting dot */}
+                <motion.div
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-accent/60 rounded-full"
+                  style={{ boxShadow: "0 0 10px hsl(var(--accent) / 0.5)" }}
+                />
+              </motion.div>
             </div>
             
             {/* Accent dots */}
