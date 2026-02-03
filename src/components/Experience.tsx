@@ -97,27 +97,25 @@ const Experience = () => {
             {experiences.map((exp, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: index * 0.12,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
                 className="relative md:pl-16"
               >
                 {/* Timeline Dot */}
-                <motion.div 
-                  className="hidden md:flex absolute left-0 top-0 w-12 h-12 rounded-full bg-card/80 backdrop-blur-sm border border-accent/50 items-center justify-center"
+                <div 
+                  className="hidden md:flex absolute left-0 top-0 w-12 h-12 rounded-full bg-card/80 backdrop-blur-sm border border-accent/50 items-center justify-center transition-all duration-500 ease-out hover:scale-110 hover:border-accent"
                   style={{ boxShadow: '0 0 20px hsl(var(--accent) / 0.3)' }}
-                  whileHover={{ scale: 1.2 }}
-                  transition={{ duration: 0.3 }}
                 >
                   <Briefcase className="w-5 h-5 text-accent" />
-                </motion.div>
+                </div>
                 
-                <motion.div 
-                  className="card-glass card-glow p-6"
-                  whileHover={{ x: 8 }}
-                  whileTap={{ scale: 0.99 }}
-                >
+                <div className="card-glass card-glow p-6 transition-all duration-500 ease-out hover:translate-x-2">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
                     <h3 className="text-xl font-semibold text-foreground">{exp.title}</h3>
                     <span className="text-sm text-accent font-medium px-3 py-1 bg-accent/10 rounded-full border border-accent/20">{exp.period}</span>
@@ -126,16 +124,15 @@ const Experience = () => {
                   <p className="text-sm text-muted-foreground mb-4">{exp.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {exp.highlights.map((highlight) => (
-                      <motion.span
+                      <span
                         key={highlight}
-                        className="px-3 py-1 text-xs font-medium bg-secondary/50 backdrop-blur-sm rounded-full text-secondary-foreground border border-border/30 cursor-default"
-                        whileHover={{ scale: 1.05, borderColor: "hsl(var(--accent) / 0.5)" }}
+                        className="px-3 py-1 text-xs font-medium bg-secondary/50 backdrop-blur-sm rounded-full text-secondary-foreground border border-border/30 cursor-default transition-all duration-300 ease-out hover:scale-105 hover:border-accent/50"
                       >
                         {highlight}
-                      </motion.span>
+                      </span>
                     ))}
                   </div>
-                </motion.div>
+                </div>
               </motion.div>
             ))}
           </div>

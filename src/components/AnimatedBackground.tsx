@@ -25,16 +25,16 @@ const FloatingOrb = ({
       top: initialY,
     }}
     animate={{
-      x: [0, 100, -50, 80, 0],
-      y: [0, -80, 60, -40, 0],
-      scale: [1, 1.2, 0.9, 1.1, 1],
-      opacity: [0.2, 0.3, 0.15, 0.25, 0.2],
+      x: [0, 60, -30, 50, 0],
+      y: [0, -50, 40, -25, 0],
+      scale: [1, 1.1, 0.95, 1.05, 1],
+      opacity: [0.15, 0.25, 0.12, 0.2, 0.15],
     }}
     transition={{
       duration,
       delay,
       repeat: Infinity,
-      ease: "easeInOut",
+      ease: [0.45, 0.05, 0.55, 0.95],
     }}
   />
 );
@@ -52,15 +52,15 @@ const FloatingShape = ({
     className="absolute w-1 h-1 bg-accent rounded-full"
     style={{ left: x, top: y }}
     animate={{
-      y: [0, -30, 0],
-      opacity: [0.3, 0.8, 0.3],
-      scale: [1, 1.5, 1],
+      y: [0, -20, 0],
+      opacity: [0.2, 0.6, 0.2],
+      scale: [1, 1.3, 1],
     }}
     transition={{
-      duration: 3,
+      duration: 4,
       delay,
       repeat: Infinity,
-      ease: "easeInOut",
+      ease: [0.45, 0.05, 0.55, 0.95],
     }}
   />
 );
