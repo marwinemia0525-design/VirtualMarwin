@@ -29,9 +29,9 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-center lg:text-left"
           >
             {/* Badge */}
@@ -132,9 +132,9 @@ const Hero = () => {
 
           {/* Right - Profile Image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, x: 50 }}
+            initial={{ opacity: 0, scale: 0.95, x: 60 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
+            transition={{ delay: 0.3, duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="relative flex justify-center lg:justify-end"
           >
             {/* Glow effect behind image */}

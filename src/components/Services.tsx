@@ -129,27 +129,24 @@ const Services = () => {
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="card-glass card-glow p-6 cursor-pointer group relative overflow-hidden"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 0.7, 
+                delay: index * 0.08,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+              whileHover={{ y: -8 }}
+              className="card-glass card-glow p-6 cursor-pointer group relative overflow-hidden transition-transform duration-500 ease-out"
             >
               {/* Card hover glow effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              />
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
               
-              <motion.div 
-                className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300 relative z-10"
-                whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
-                transition={{ duration: 0.4 }}
-              >
-                <service.icon className="w-6 h-6 text-accent" />
-              </motion.div>
-              <h3 className="text-lg font-semibold mb-2 text-foreground group-hover:text-accent transition-colors relative z-10">
+              <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-500 ease-out relative z-10 group-hover:scale-110">
+                <service.icon className="w-6 h-6 text-accent transition-transform duration-500 group-hover:rotate-6" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2 text-foreground group-hover:text-accent transition-colors duration-400 ease-out relative z-10">
                 {service.title}
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed relative z-10">
@@ -157,12 +154,7 @@ const Services = () => {
               </p>
               
               {/* Animated border on hover */}
-              <motion.div
-                className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent"
-                initial={{ width: "0%", left: "50%" }}
-                whileHover={{ width: "100%", left: "0%" }}
-                transition={{ duration: 0.3 }}
-              />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent w-0 group-hover:w-full transition-all duration-700 ease-out" />
             </motion.div>
           ))}
         </div>
