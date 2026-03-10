@@ -85,7 +85,7 @@ const Hero = () => {
               <div className="flex items-center gap-2 mb-6">
                 <div className="w-3 h-3 rounded-full bg-destructive/60" />
                 <div className="w-3 h-3 rounded-full bg-accent/60" />
-                <div className="w-3 h-3 rounded-full bg-green-500/60" />
+                <div className="w-3 h-3 rounded-full bg-primary/60" />
                 <span className="ml-3 text-xs text-muted-foreground font-medium">Automation Workflow</span>
               </div>
               
