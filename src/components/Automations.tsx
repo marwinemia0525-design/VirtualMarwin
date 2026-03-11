@@ -1,7 +1,18 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Zap, Workflow, Settings, UserCheck, ArrowRight, X, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Zap, Workflow, Settings, UserCheck, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+
+import aiContentImg from "@/assets/workflows/AI_Content_Repurposing.png";
+import asanaCrmImg from "@/assets/workflows/Asana_CRM_LEAD_Engagement_Workflow.png";
+import leadEnrichmentImg from "@/assets/workflows/Automated_Lead_Enrichment.png";
+
+interface WorkflowItem {
+  image: string;
+  fileName: string;
+  description: string;
+  steps: string;
+}
 
 interface PortfolioProject {
   id: string;
@@ -17,6 +28,7 @@ interface PortfolioProject {
     workflow: string;
     result: string;
   }[];
+  workflows?: WorkflowItem[];
 }
 
 const portfolioItems: PortfolioProject[] = [
@@ -41,6 +53,26 @@ const portfolioItems: PortfolioProject[] = [
         tools: ["Zapier", "Typeform", "Trello", "Gmail"],
         workflow: "Intake Form → Welcome Email → Task Board Setup",
         result: "Reduced onboarding time from 2 hours to 10 minutes per client.",
+      },
+    ],
+    workflows: [
+      {
+        image: aiContentImg,
+        fileName: "AI Content Repurposing",
+        description: "Monitors Google Drive for new files, extracts content using AI, generates blog posts, then splits into paths for publishing to Facebook Pages and LinkedIn simultaneously.",
+        steps: "Google Drive Trigger → Filter by Zapier → AI Extract Content → AI Generate Blog Posts → Loop Line Items → Split into Paths → Facebook & LinkedIn Publishing",
+      },
+      {
+        image: asanaCrmImg,
+        fileName: "Asana CRM LEAD Engagement Workflow",
+        description: "A 26-step CRM engagement workflow that routes Asana task updates through multiple paths — Ready to Start, No Response, Quoted, Approved, and Paid & Closed — each triggering tailored emails, follow-ups, and document generation.",
+        steps: "Asana Updated Task → Split into Paths → Path Conditions → AI Email Generation → Gmail Send → Delay → Filter → Follow-up Emails → Google Drive → Welcome Email",
+      },
+      {
+        image: leadEnrichmentImg,
+        fileName: "Automated Lead Enrichment",
+        description: "Captures incoming leads via webhook, enriches them using Apollo, then splits into priority paths — high-priority leads are saved to Google Sheets with Slack notifications and AI-drafted client emails.",
+        steps: "Webhook Lead In → Formatter Get URL → Apollo Enrichment → Split Paths → High Priority: Sheets + Slack + AI Email Draft + Gmail → Low Priority: Gmail Notification",
       },
     ],
   },
@@ -118,6 +150,7 @@ const easing = [0.25, 0.46, 0.45, 0.94] as const;
 
 const Automations = () => {
   const [selected, setSelected] = useState<PortfolioProject | null>(null);
+  const [selectedWorkflow, setSelectedWorkflow] = useState<WorkflowItem | null>(null);
 
   return (
     <section id="automations" className="section-padding relative overflow-hidden section-glow">
@@ -149,18 +182,27 @@ const Automations = () => {
               onClick={() => setSelected(item)}
               className="card-glass p-6 text-left group hover:-translate-y-1 transition-all duration-500 ease-out cursor-pointer"
             >
-              <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-colors duration-300"
-                style={{
-                  background: `hsl(var(--${item.color}) / 0.1)`,
-                  border: `1px solid hsl(var(--${item.color}) / 0.2)`,
-                }}
-              >
-                <item.icon
-                  className="w-5 h-5"
-                  style={{ color: `hsl(var(--${item.color}))` }}
-                />
-              </div>
+              {/* Show thumbnail preview for categories with workflows */}
+              {item.workflows && item.workflows.length > 0 && (
+                <div className="mb-4 rounded-lg overflow-hidden aspect-[16/9] border border-border/50">
+                  <img
+                    src={item.workflows[0].image}
+                    alt={item.title}
+                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+              )}
+              {!item.workflows && (
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-colors duration-300"
+                  style={{
+                    background: `hsl(var(--${item.color}) / 0.1)`,
+                    border: `1px solid hsl(var(--${item.color}) / 0.2)`,
+                  }}
+                >
+                  <item.icon className="w-5 h-5" style={{ color: `hsl(var(--${item.color}))` }} />
+                </div>
+              )}
               <h3 className="font-semibold text-foreground mb-1 group-hover:text-accent transition-colors duration-300">
                 {item.title}
               </h3>
@@ -175,9 +217,9 @@ const Automations = () => {
         </div>
       </div>
 
-      {/* Detail Modal */}
-      <Dialog open={!!selected} onOpenChange={() => setSelected(null)}>
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto bg-card border-border">
+      {/* Category Detail Modal */}
+      <Dialog open={!!selected && !selectedWorkflow} onOpenChange={() => setSelected(null)}>
+        <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto bg-card border-border">
           {selected && (
             <>
               <DialogHeader>
@@ -189,10 +231,7 @@ const Automations = () => {
                       border: `1px solid hsl(var(--${selected.color}) / 0.2)`,
                     }}
                   >
-                    <selected.icon
-                      className="w-5 h-5"
-                      style={{ color: `hsl(var(--${selected.color}))` }}
-                    />
+                    <selected.icon className="w-5 h-5" style={{ color: `hsl(var(--${selected.color}))` }} />
                   </div>
                   <div>
                     <DialogTitle className="text-xl">{selected.title}</DialogTitle>
@@ -201,7 +240,40 @@ const Automations = () => {
                 </div>
               </DialogHeader>
 
-              <div className="space-y-6 mt-4">
+              {/* Workflow Screenshots */}
+              {selected.workflows && selected.workflows.length > 0 && (
+                <div className="mt-4">
+                  <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wider">
+                    Workflow Screenshots
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {selected.workflows.map((wf) => (
+                      <button
+                        key={wf.fileName}
+                        onClick={() => setSelectedWorkflow(wf)}
+                        className="rounded-xl border border-border bg-secondary/30 overflow-hidden text-left group hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
+                      >
+                        <div className="aspect-[16/10] overflow-hidden">
+                          <img
+                            src={wf.image}
+                            alt={wf.fileName}
+                            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                          />
+                        </div>
+                        <div className="p-3">
+                          <h5 className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors line-clamp-1">
+                            {wf.fileName}
+                          </h5>
+                          <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{wf.description}</p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Text-based Projects */}
+              <div className="space-y-4 mt-4">
                 {selected.projects.map((project) => (
                   <div
                     key={project.name}
@@ -212,7 +284,6 @@ const Automations = () => {
                       {project.name}
                     </h4>
                     <p className="text-sm text-muted-foreground">{project.description}</p>
-
                     <div className="flex flex-wrap gap-1.5">
                       {project.tools.map((tool) => (
                         <span
@@ -223,7 +294,6 @@ const Automations = () => {
                         </span>
                       ))}
                     </div>
-
                     <div className="text-sm space-y-1">
                       <p>
                         <span className="font-medium text-foreground">Workflow: </span>
@@ -236,6 +306,44 @@ const Automations = () => {
                     </div>
                   </div>
                 ))}
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Workflow Detail Modal */}
+      <Dialog open={!!selectedWorkflow} onOpenChange={() => setSelectedWorkflow(null)}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-card border-border p-0">
+          {selectedWorkflow && (
+            <>
+              <div className="relative w-full">
+                <img
+                  src={selectedWorkflow.image}
+                  alt={selectedWorkflow.fileName}
+                  className="w-full rounded-t-lg"
+                />
+                <span className="absolute top-4 left-4 text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-accent/90 text-white backdrop-blur-sm">
+                  Zapier
+                </span>
+              </div>
+              <div className="p-6 space-y-5">
+                <DialogHeader>
+                  <DialogTitle className="text-2xl">{selectedWorkflow.fileName}</DialogTitle>
+                  <DialogDescription>Platform: Zapier</DialogDescription>
+                </DialogHeader>
+                <div className="rounded-xl border border-border bg-secondary/30 p-5 space-y-2">
+                  <h4 className="text-sm font-semibold text-foreground">Automation Flow</h4>
+                  <p className="text-sm text-muted-foreground font-mono leading-relaxed">
+                    {selectedWorkflow.steps}
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="text-sm font-semibold text-foreground">Brief Explanation</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {selectedWorkflow.description}
+                  </p>
+                </div>
               </div>
             </>
           )}
