@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Zap, Workflow, Settings, UserCheck, Calendar, Mail, FileText, CheckSquare, Search, ListTodo, PenTool, BarChart3, Globe, MessageSquare, Video } from "lucide-react";
+import { Zap, PenTool, Scissors, Monitor, FileSpreadsheet, Presentation } from "lucide-react";
 
 const easing = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -7,29 +7,44 @@ interface ToolCard {
   name: string;
   icon?: string | null;
   lucideIcon?: React.ElementType;
+  customLabel?: string;
   color: string;
   category: string;
 }
 
 const tools: ToolCard[] = [
+  // Automation
   { name: "Zapier", icon: "zapier", color: "#FF4F00", category: "Automation" },
   { name: "n8n", icon: "n8n", color: "#EA4B71", category: "Automation" },
   { name: "Make", icon: "make", color: "#6D00CC", category: "Automation" },
   { name: "GoHighLevel", lucideIcon: Zap, color: "#FF6B35", category: "CRM" },
-  { name: "Google Calendar", icon: "googlecalendar", color: "#4285F4", category: "EA Tools" },
-  { name: "Gmail", icon: "gmail", color: "#EA4335", category: "EA Tools" },
-  { name: "Google Sheets", icon: "googlesheets", color: "#34A853", category: "EA Tools" },
-  { name: "Google Docs", icon: "googledocs", color: "#4285F4", category: "EA Tools" },
+  // Productivity
+  { name: "Google Calendar", icon: "googlecalendar", color: "#4285F4", category: "Productivity" },
+  { name: "Gmail", icon: "gmail", color: "#EA4335", category: "Productivity" },
+  { name: "Google Sheets", icon: "googlesheets", color: "#34A853", category: "Productivity" },
+  { name: "Google Docs", icon: "googledocs", color: "#4285F4", category: "Productivity" },
+  { name: "Google Drive", icon: "googledrive", color: "#4285F4", category: "Productivity" },
+  // Communication
   { name: "Slack", icon: "slack", color: "#4A154B", category: "Communication" },
-  { name: "Notion", icon: "notion", color: "#000000", category: "EA Tools" },
-  { name: "ClickUp", icon: "clickup", color: "#7B68EE", category: "EA Tools" },
-  { name: "Trello", icon: "trello", color: "#0052CC", category: "EA Tools" },
-  { name: "Calendly", icon: "calendly", color: "#006BFF", category: "EA Tools" },
-  { name: "Canva", lucideIcon: PenTool, color: "#00C4CC", category: "EA Tools" },
   { name: "Zoom", icon: "zoom", color: "#0B5CFF", category: "Communication" },
-  { name: "Airtable", icon: "airtable", color: "#18BFFF", category: "EA Tools" },
-  { name: "WordPress", icon: "wordpress", color: "#21759B", category: "EA Tools" },
+  { name: "Calendly", icon: "calendly", color: "#006BFF", category: "Communication" },
+  // Project Management
+  { name: "Notion", icon: "notion", color: "#000000", category: "Management" },
+  { name: "ClickUp", icon: "clickup", color: "#7B68EE", category: "Management" },
+  { name: "Trello", icon: "trello", color: "#0052CC", category: "Management" },
+  { name: "Monday.com", lucideIcon: Monitor, color: "#FF3D57", category: "Management" },
+  { name: "Asana", icon: "asana", color: "#F06A6A", category: "Management" },
+  { name: "Airtable", icon: "airtable", color: "#18BFFF", category: "Management" },
+  // Design & Content
+  { name: "Canva", icon: "canva", color: "#00C4CC", category: "Design" },
+  { name: "CapCut", lucideIcon: Scissors, color: "#000000", category: "Design" },
+  { name: "WordPress", icon: "wordpress", color: "#21759B", category: "Design" },
+  // CRM & Marketing
   { name: "HubSpot", icon: "hubspot", color: "#FF7A59", category: "CRM" },
+  // Microsoft
+  { name: "Microsoft Word", lucideIcon: FileSpreadsheet, color: "#2B579A", category: "Productivity" },
+  { name: "Microsoft Excel", lucideIcon: FileSpreadsheet, color: "#217346", category: "Productivity" },
+  { name: "Microsoft PowerPoint", lucideIcon: Presentation, color: "#B7472A", category: "Productivity" },
 ];
 
 const ToolsPlatforms = () => {
