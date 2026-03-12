@@ -221,3 +221,12 @@
     text-shadow: 0 0 30px hsl(var(--accent) / 0.3);
   }
 }
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
