@@ -6,6 +6,7 @@ import ToolsPlatforms from "@/components/ToolsPlatforms";
 import About from "@/components/About";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
+import UpworkCTA from "@/components/UpworkCTA";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -19,6 +20,7 @@ const Index = () => {
         <ToolsPlatforms />
         <About />
         <Testimonials />
+        <UpworkCTA />
         <Contact />
       </main>
       <Footer />
