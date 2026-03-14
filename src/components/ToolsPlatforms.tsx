@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Zap, PenTool, Scissors, Monitor, FileSpreadsheet, Presentation, FileText } from "lucide-react";
+import { Zap, Scissors, Monitor, FileSpreadsheet, Presentation, FileText } from "lucide-react";
 import { useState } from "react";
 
 const easing = [0.25, 0.46, 0.45, 0.94] as const;
@@ -9,6 +9,7 @@ interface ToolCard {
   icon?: string | null;
   lucideIcon?: React.ElementType;
   color: string;
+  customIcon?: string;
 }
 
 const allTools: ToolCard[] = [
@@ -21,7 +22,7 @@ const allTools: ToolCard[] = [
   { name: "Google Sheets", icon: "googlesheets", color: "#34A853" },
   { name: "Google Docs", icon: "googledocs", color: "#4285F4" },
   { name: "Google Drive", icon: "googledrive", color: "#4285F4" },
-  { name: "Slack", icon: "slack", color: "#4A154B" },
+  { name: "Slack", customIcon: "S", color: "#4A154B" },
   { name: "Zoom", icon: "zoom", color: "#0B5CFF" },
   { name: "Calendly", icon: "calendly", color: "#006BFF" },
   { name: "Notion", icon: "notion", color: "#000000" },
@@ -30,7 +31,7 @@ const allTools: ToolCard[] = [
   { name: "Monday.com", lucideIcon: Monitor, color: "#FF3D57" },
   { name: "Asana", icon: "asana", color: "#F06A6A" },
   { name: "Airtable", icon: "airtable", color: "#18BFFF" },
-  { name: "Canva", icon: "canva", color: "#00C4CC" },
+  { name: "Canva", customIcon: "C", color: "#00C4CC" },
   { name: "CapCut", lucideIcon: Scissors, color: "#000000" },
   { name: "WordPress", icon: "wordpress", color: "#21759B" },
   { name: "HubSpot", icon: "hubspot", color: "#FF7A59" },
@@ -39,7 +40,6 @@ const allTools: ToolCard[] = [
   { name: "MS PowerPoint", lucideIcon: Presentation, color: "#B7472A" },
 ];
 
-// Split tools into 4 rows
 const chunkTools = (arr: ToolCard[], chunks: number) => {
   const result: ToolCard[][] = Array.from({ length: chunks }, () => []);
   arr.forEach((item, i) => result[i % chunks].push(item));
@@ -77,7 +77,7 @@ const ScrollRow = ({ tools, direction, speed = 40 }: ScrollRowProps) => {
         {duplicated.map((tool, index) => (
           <a
             key={`${tool.name}-${index}`}
-            href={`${UPWORK_URL}`}
+            href={UPWORK_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="group flex-shrink-0 w-32 cursor-pointer"
@@ -86,13 +86,18 @@ const ScrollRow = ({ tools, direction, speed = 40 }: ScrollRowProps) => {
               <div
                 className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 style={{
-                  background:
-                    "radial-gradient(circle at center, hsl(var(--accent) / 0.08) 0%, transparent 70%)",
+                  background: "radial-gradient(circle at center, hsl(var(--accent) / 0.08) 0%, transparent 70%)",
                 }}
               />
-
               <div className="w-9 h-9 flex items-center justify-center relative z-10">
-                {tool.icon ? (
+                {tool.customIcon ? (
+                  <div
+                    className="w-7 h-7 rounded flex items-center justify-center text-xs font-bold text-white transition-transform duration-300 group-hover:scale-110"
+                    style={{ backgroundColor: tool.color }}
+                  >
+                    {tool.customIcon}
+                  </div>
+                ) : tool.icon ? (
                   <img
                     src={`https://cdn.simpleicons.org/${tool.icon}/${tool.color.replace("#", "")}`}
                     alt={tool.name}
@@ -106,7 +111,6 @@ const ScrollRow = ({ tools, direction, speed = 40 }: ScrollRowProps) => {
                   />
                 ) : null}
               </div>
-
               <span className="text-[11px] font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300 text-center leading-tight relative z-10">
                 {tool.name}
               </span>
@@ -123,7 +127,6 @@ const ToolsPlatforms = () => {
     <section id="tools" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-card to-background" />
       <div className="absolute inset-0" style={{ background: "var(--gradient-glow)" }} />
-
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[150px]" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cta/5 rounded-full blur-[120px]" />
 
@@ -146,7 +149,6 @@ const ToolsPlatforms = () => {
           </p>
         </motion.div>
 
-        {/* Carousel container with fade edges */}
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
