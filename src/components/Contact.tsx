@@ -1,13 +1,41 @@
 import { motion } from "framer-motion";
-import { Calendar, Linkedin, Mail, MapPin, Phone, ExternalLink, Send } from "lucide-react";
+import { Calendar, Linkedin, Mail, MapPin, Phone, Send, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const { toast } = useToast();
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Please enter a valid email";
+    if (!formData.message.trim()) newErrors.message = "Message is required";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = `mailto:marwinemia0525@gmail.com?subject=Inquiry from ${formData.name}&body=${formData.message}`;
+    if (!validate()) return;
+
+    const subject = encodeURIComponent("New Message From My Website");
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}\n\n---\nSource: Website Contact Form`
+    );
+    window.open(`mailto:marwinemia0525@gmail.com?subject=${subject}&body=${body}`, "_self");
+    
+    setIsSubmitted(true);
+    toast({
+      title: "Message prepared!",
+      description: "Your email client will open with the message. I will get back to you soon.",
+    });
+    setFormData({ name: "", email: "", message: "" });
+    setTimeout(() => setIsSubmitted(false), 5000);
   };
 
   return (
@@ -20,82 +48,81 @@ const Contact = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em] mb-4 block">
-            Contact
-          </span>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Let's Automate Your Business.
-          </h2>
+          <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em] mb-4 block">Contact</span>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">Let's Automate Your Business.</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Ready to eliminate manual work? Let's discuss how automation can transform your operations.
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-10">
-          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1.5">Name</label>
-                <input
-                  id="name"
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all text-sm"
-                  placeholder="Your name"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1.5">Email</label>
-                <input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all text-sm"
-                  placeholder="your@email.com"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1.5">Message</label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all text-sm resize-none"
-                  placeholder="Tell me about your project..."
-                  required
-                />
-              </div>
-              <button type="submit" className="btn-cta w-full justify-center">
-                <Send size={16} />
-                Send Message
-              </button>
-            </form>
+            {isSubmitted ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="card-glass p-8 text-center"
+              >
+                <CheckCircle2 className="w-12 h-12 text-accent mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-foreground mb-2">Message Prepared!</h3>
+                <p className="text-sm text-muted-foreground">Your email client should open with your message. I will get back to you soon.</p>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1.5">Name</label>
+                  <input
+                    id="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => { setFormData({ ...formData, name: e.target.value }); setErrors({ ...errors, name: "" }); }}
+                    className={`w-full px-4 py-3 rounded-xl bg-card border ${errors.name ? "border-destructive" : "border-border"} text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all text-sm`}
+                    placeholder="Your name"
+                  />
+                  {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1.5">Email</label>
+                  <input
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => { setFormData({ ...formData, email: e.target.value }); setErrors({ ...errors, email: "" }); }}
+                    className={`w-full px-4 py-3 rounded-xl bg-card border ${errors.email ? "border-destructive" : "border-border"} text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all text-sm`}
+                    placeholder="your@email.com"
+                  />
+                  {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1.5">Message</label>
+                  <textarea
+                    id="message"
+                    rows={4}
+                    value={formData.message}
+                    onChange={(e) => { setFormData({ ...formData, message: e.target.value }); setErrors({ ...errors, message: "" }); }}
+                    className={`w-full px-4 py-3 rounded-xl bg-card border ${errors.message ? "border-destructive" : "border-border"} text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all text-sm resize-none`}
+                    placeholder="Tell me about your project..."
+                  />
+                  {errors.message && <p className="text-xs text-destructive mt-1">{errors.message}</p>}
+                </div>
+                <button type="submit" className="btn-cta w-full justify-center">
+                  <Send size={16} />
+                  Send Message
+                </button>
+              </form>
+            )}
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="mailto:marwinemia0525@gmail.com"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-card border border-border hover:border-accent/30 transition-all duration-300 text-sm text-muted-foreground hover:text-foreground"
-              >
+              <a href="mailto:marwinemia0525@gmail.com" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-card border border-border hover:border-accent/30 transition-all duration-300 text-sm text-muted-foreground hover:text-foreground">
                 <Mail size={16} className="text-accent" />
                 Email Me
               </a>
-              <a
-                href="https://calendly.com/marwinemia0525/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-card border border-border hover:border-accent/30 transition-all duration-300 text-sm text-muted-foreground hover:text-foreground"
-              >
+              <a href="https://calendly.com/marwinemia0525/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-card border border-border hover:border-accent/30 transition-all duration-300 text-sm text-muted-foreground hover:text-foreground">
                 <Calendar size={16} className="text-accent" />
                 Schedule Call
               </a>
@@ -114,7 +141,6 @@ const Contact = () => {
             </div>
           </motion.div>
 
-          {/* Right side info */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -123,10 +149,7 @@ const Contact = () => {
             className="flex flex-col justify-between"
           >
             <div className="space-y-4">
-              <a
-                href="mailto:marwinemia0525@gmail.com"
-                className="flex items-center gap-4 p-4 card-glass hover:-translate-y-0.5 transition-transform duration-300"
-              >
+              <a href="mailto:marwinemia0525@gmail.com" className="flex items-center gap-4 p-4 card-glass hover:-translate-y-0.5 transition-transform duration-300">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'hsl(var(--accent) / 0.1)', border: '1px solid hsl(var(--accent) / 0.2)' }}>
                   <Mail className="w-5 h-5 text-accent" />
                 </div>
@@ -135,11 +158,7 @@ const Contact = () => {
                   <p className="text-sm font-medium">marwinemia0525@gmail.com</p>
                 </div>
               </a>
-
-              <a
-                href="tel:+63763147667"
-                className="flex items-center gap-4 p-4 card-glass hover:-translate-y-0.5 transition-transform duration-300"
-              >
+              <a href="tel:+63763147667" className="flex items-center gap-4 p-4 card-glass hover:-translate-y-0.5 transition-transform duration-300">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'hsl(var(--accent) / 0.1)', border: '1px solid hsl(var(--accent) / 0.2)' }}>
                   <Phone className="w-5 h-5 text-accent" />
                 </div>
@@ -148,7 +167,6 @@ const Contact = () => {
                   <p className="text-sm font-medium">+63 763 147 667</p>
                 </div>
               </a>
-
               <div className="flex items-center gap-4 p-4 card-glass">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'hsl(var(--accent) / 0.1)', border: '1px solid hsl(var(--accent) / 0.2)' }}>
                   <MapPin className="w-5 h-5 text-accent" />
@@ -159,14 +177,8 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-
             <div className="mt-6 flex gap-3">
-              <a
-                href="https://www.linkedin.com/in/marwin-emia-74a8aa366"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-card border border-border hover:border-accent/30 transition-all duration-300 text-sm text-muted-foreground hover:text-foreground"
-              >
+              <a href="https://www.linkedin.com/in/marwin-emia-74a8aa366" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-card border border-border hover:border-accent/30 transition-all duration-300 text-sm text-muted-foreground hover:text-foreground">
                 <Linkedin size={16} />
                 LinkedIn
               </a>

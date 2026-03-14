@@ -4,11 +4,9 @@ import { ArrowRight, Calendar, Zap, GitBranch, Mail, MessageSquare, ArrowDown } 
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Subtle gradient background */}
       <div className="absolute inset-0 bg-background" />
       <div className="absolute inset-0" style={{ background: 'var(--gradient-glow)' }} />
       
-      {/* Grid pattern */}
       <div 
         className="absolute inset-0 opacity-[0.03] dark:opacity-[0.04]"
         style={{
@@ -19,7 +17,6 @@ const Hero = () => {
 
       <div className="container-narrow relative z-10 px-6 md:px-12 py-32">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -30,29 +27,26 @@ const Hero = () => {
             <span className="text-xs font-semibold uppercase tracking-wider">Available for Projects</span>
           </motion.div>
 
-          {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.6 }}
             className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.1] mb-6 tracking-tight"
           >
-            I Build Automations That{" "}
-            <span className="text-gradient glow-text">Save Businesses Hours</span>{" "}
-            Every Week.
+            Helping Businesses{" "}
+            <span className="text-gradient glow-text">Save Time, Reduce Errors,</span>{" "}
+            and Automate Repetitive Work
           </motion.h1>
 
-          {/* Subheadline */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            Tech Virtual Assistant specializing in workflow automation, system integration, and productivity solutions.
+            I help businesses streamline their operations by building automation workflows and providing reliable executive assistance. My goal is to eliminate repetitive tasks, improve efficiency, and help teams focus on high-value work instead of manual processes.
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -60,7 +54,7 @@ const Hero = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <a href="#automations" className="btn-cta">
-              View My Automations
+              View My Work
               <ArrowRight size={16} />
             </a>
             <a
@@ -104,7 +98,6 @@ const Hero = () => {
                 <span className="ml-3 text-xs text-muted-foreground font-medium">Automation Workflow</span>
               </div>
               
-              {/* Workflow visualization */}
               <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
                 {[
                   { icon: Mail, label: "Incoming Email", color: "accent" },
@@ -120,10 +113,11 @@ const Hero = () => {
                     transition={{ delay: 0.8 + i * 0.15, duration: 0.5 }}
                   >
                     <div className="flex flex-col items-center gap-2">
-                      <div className={`w-12 h-12 rounded-xl bg-${step.color}/10 border border-${step.color}/20 flex items-center justify-center`}
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center"
                         style={{
                           background: `hsl(var(--${step.color}) / 0.1)`,
                           borderColor: `hsl(var(--${step.color}) / 0.25)`,
+                          border: `1px solid hsl(var(--${step.color}) / 0.25)`,
                         }}
                       >
                         <step.icon size={20} style={{ color: `hsl(var(--${step.color}))` }} />
@@ -142,7 +136,6 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

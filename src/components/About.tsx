@@ -1,12 +1,30 @@
 import { motion } from "framer-motion";
-import { Clock, ShieldCheck, Rocket, Settings, Zap, User } from "lucide-react";
+import { Clock, ShieldCheck, Rocket, Settings, Zap, Workflow, UserCheck, TrendingUp } from "lucide-react";
 import marwinImage from "@/assets/marwin-emia.png";
 
-const benefits = [
-  { icon: Clock, title: "Save 10+ Hours Weekly", description: "Automate repetitive tasks so you can focus on growth." },
-  { icon: ShieldCheck, title: "Reduce Human Errors", description: "Consistent, reliable automation for accuracy." },
-  { icon: Rocket, title: "Faster Operations", description: "Streamlined workflows for quicker turnaround." },
-  { icon: Settings, title: "Reliable Systems", description: "Automation that runs 24/7 without intervention." },
+const metrics = [
+  {
+    value: "10–20+",
+    unit: "Hours Saved Weekly",
+    description: "Automating repetitive tasks allows businesses to recover valuable time each week.",
+  },
+  {
+    value: "30–50%",
+    unit: "Reduction in Manual Tasks",
+    description: "Workflow automation reduces the need for repetitive manual work and improves productivity.",
+  },
+  {
+    value: "Faster",
+    unit: "Workflows, Fewer Errors",
+    description: "Automated systems improve consistency and minimize human mistakes.",
+  },
+];
+
+const skills = [
+  { icon: Zap, title: "Workflow Automation" },
+  { icon: Workflow, title: "System Integrations" },
+  { icon: TrendingUp, title: "Business Process Optimization" },
+  { icon: UserCheck, title: "Executive Assistance" },
 ];
 
 const About = () => {
@@ -62,19 +80,15 @@ const About = () => {
                   className="w-full h-full object-cover object-center"
                 />
               </div>
-              {/* Decorative accent */}
               <div 
                 className="absolute -bottom-3 -right-3 w-64 h-64 md:w-72 md:h-72 rounded-2xl -z-10"
-                style={{ 
-                  background: 'var(--gradient-accent)',
-                  opacity: 0.15,
-                }}
+                style={{ background: 'var(--gradient-accent)', opacity: 0.15 }}
               />
             </div>
           </motion.div>
         </div>
 
-        {/* Why Work With Me */}
+        {/* Results Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -83,17 +97,50 @@ const About = () => {
           className="text-center mb-12"
         >
           <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em] mb-4 block">
-            Benefits
+            Results
           </span>
           <h2 className="text-3xl md:text-4xl font-bold">
-            Why Work With Me
+            The Results Businesses Get When They Work With Me
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {benefits.map((benefit, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+          {metrics.map((metric, index) => (
             <motion.div
-              key={benefit.title}
+              key={metric.unit}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="card-glass p-8 text-center hover:-translate-y-1 transition-transform duration-300"
+            >
+              <div className="text-4xl md:text-5xl font-extrabold text-accent mb-2">{metric.value}</div>
+              <div className="text-sm font-semibold text-foreground mb-3">{metric.unit}</div>
+              <p className="text-xs text-muted-foreground leading-relaxed">{metric.description}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Skills Highlight */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em] mb-4 block">
+            Expertise
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold">
+            What I Specialize In
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          {skills.map((skill, index) => (
+            <motion.div
+              key={skill.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -107,10 +154,9 @@ const About = () => {
                   border: `1px solid hsl(var(--accent) / 0.2)`,
                 }}
               >
-                <benefit.icon className="w-6 h-6 text-accent" />
+                <skill.icon className="w-6 h-6 text-accent" />
               </div>
-              <h3 className="font-semibold text-foreground mb-2 text-sm">{benefit.title}</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">{benefit.description}</p>
+              <h3 className="font-semibold text-foreground text-sm">{skill.title}</h3>
             </motion.div>
           ))}
         </div>
