@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Quote, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
 const testimonials = [
   {
@@ -37,20 +37,20 @@ const Testimonials = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em] mb-4 block">
+          <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em] mb-3 sm:mb-4 block">
             Testimonials
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
             What People Say
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-2">
             Trusted by managers and colleagues throughout my professional journey.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
@@ -58,27 +58,27 @@ const Testimonials = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="card-glass p-6 hover:-translate-y-1 transition-transform duration-300"
+              className="card-glass p-4 sm:p-6 hover:-translate-y-1 transition-transform duration-300"
             >
-              <div className="flex items-center gap-1 mb-4">
+              <div className="flex items-center gap-0.5 sm:gap-1 mb-3 sm:mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                  <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-accent text-accent" />
                 ))}
               </div>
 
-              <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+              <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6">
                 "{testimonial.content}"
               </p>
 
-              <div className="flex items-center gap-3 pt-4 border-t border-border">
-                <div className="w-9 h-9 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
-                  <span className="text-accent font-semibold text-xs">
+              <div className="flex items-center gap-2.5 sm:gap-3 pt-3 sm:pt-4 border-t border-border">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0">
+                  <span className="text-accent font-semibold text-[10px] sm:text-xs">
                     {testimonial.name.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
-                <div>
-                  <p className="font-semibold text-foreground text-sm">{testimonial.name}</p>
-                  <p className="text-xs text-muted-foreground">{testimonial.role}</p>
+                <div className="min-w-0">
+                  <p className="font-semibold text-foreground text-xs sm:text-sm truncate">{testimonial.name}</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">{testimonial.role}</p>
                 </div>
               </div>
             </motion.div>

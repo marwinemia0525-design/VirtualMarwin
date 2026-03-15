@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Zap, Workflow, Settings, UserCheck, ArrowRight, CheckCircle2, X } from "lucide-react";
+import { Zap, Workflow, Settings, UserCheck, ArrowRight, ArrowLeft, CheckCircle2, X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 import aiContentImg from "@/assets/workflows/AI_Content_Repurposing.png";
@@ -177,12 +177,48 @@ const portfolioItems: PortfolioProject[] = [
   },
 ];
 
+// Flatten all viewable items for next/prev navigation
+const getAllViewableItems = (project: PortfolioProject) => {
+  const items: { type: "workflow" | "ea"; data: WorkflowItem | EASample }[] = [];
+  project.workflows?.forEach((wf) => items.push({ type: "workflow", data: wf }));
+  project.eaSamples?.forEach((ea) => items.push({ type: "ea", data: ea }));
+  return items;
+};
+
 const easing = [0.25, 0.46, 0.45, 0.94] as const;
 
 const Automations = () => {
   const [selected, setSelected] = useState<PortfolioProject | null>(null);
   const [selectedWorkflow, setSelectedWorkflow] = useState<WorkflowItem | null>(null);
   const [selectedEA, setSelectedEA] = useState<EASample | null>(null);
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
+
+  const navigateItem = useCallback((direction: 1 | -1) => {
+    if (!selected) return;
+    const items = getAllViewableItems(selected);
+    const currentIndex = items.findIndex((item) => {
+      if (selectedWorkflow && item.type === "workflow") return (item.data as WorkflowItem).fileName === selectedWorkflow.fileName;
+      if (selectedEA && item.type === "ea") return (item.data as EASample).title === selectedEA.title;
+      return false;
+    });
+    if (currentIndex === -1) return;
+    const newIndex = (currentIndex + direction + items.length) % items.length;
+    const next = items[newIndex];
+    if (next.type === "workflow") { setSelectedWorkflow(next.data as WorkflowItem); setSelectedEA(null); }
+    else { setSelectedEA(next.data as EASample); setSelectedWorkflow(null); }
+  }, [selected, selectedWorkflow, selectedEA]);
+
+  const currentItemLabel = () => {
+    if (!selected) return "";
+    const items = getAllViewableItems(selected);
+    const currentIndex = items.findIndex((item) => {
+      if (selectedWorkflow && item.type === "workflow") return (item.data as WorkflowItem).fileName === selectedWorkflow.fileName;
+      if (selectedEA && item.type === "ea") return (item.data as EASample).title === selectedEA.title;
+      return false;
+    });
+    if (currentIndex === -1) return "";
+    return `${currentIndex + 1} / ${items.length}`;
+  };
 
   return (
     <section id="automations" className="section-padding relative overflow-hidden section-glow">
@@ -192,18 +228,18 @@ const Automations = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: easing }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em] mb-4 block">
+          <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em] mb-3 sm:mb-4 block">
             Portfolio
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">My Work</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">My Work</h2>
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-2">
             Real projects and systems I've built for businesses — click to explore details.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {portfolioItems.map((item, index) => (
             <motion.button
               key={item.id}
@@ -212,41 +248,43 @@ const Automations = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: index * 0.08, ease: easing }}
               onClick={() => setSelected(item)}
-              className="card-glass p-6 text-left group hover:-translate-y-1 transition-all duration-500 ease-out cursor-pointer"
+              className="card-glass p-4 sm:p-6 text-left group hover:-translate-y-1 transition-all duration-500 ease-out cursor-pointer"
             >
               {item.workflows && item.workflows.length > 0 && (
-                <div className="mb-4 rounded-lg overflow-hidden aspect-[16/9] border border-border/50">
+                <div className="mb-3 sm:mb-4 rounded-lg overflow-hidden aspect-[16/9] border border-border/50">
                   <img
                     src={item.workflows[0].image}
                     alt={item.title}
                     className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
                   />
                 </div>
               )}
               {item.eaSamples && item.eaSamples.length > 0 && !item.workflows && (
-                <div className="mb-4 rounded-lg overflow-hidden aspect-[16/9] border border-border/50">
+                <div className="mb-3 sm:mb-4 rounded-lg overflow-hidden aspect-[16/9] border border-border/50">
                   <img
                     src={item.eaSamples[0].image}
                     alt={item.title}
                     className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
                   />
                 </div>
               )}
               {!item.workflows && !item.eaSamples && (
                 <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-colors duration-300"
+                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center mb-3 sm:mb-4 transition-colors duration-300"
                   style={{
                     background: `hsl(var(--${item.color}) / 0.1)`,
                     border: `1px solid hsl(var(--${item.color}) / 0.2)`,
                   }}
                 >
-                  <item.icon className="w-5 h-5" style={{ color: `hsl(var(--${item.color}))` }} />
+                  <item.icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: `hsl(var(--${item.color}))` }} />
                 </div>
               )}
-              <h3 className="font-semibold text-foreground mb-1 group-hover:text-accent transition-colors duration-300">
+              <h3 className="font-semibold text-foreground mb-1 text-sm sm:text-base group-hover:text-accent transition-colors duration-300">
                 {item.title}
               </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+              <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed mb-3 sm:mb-4">
                 {item.summary}
               </p>
               <span className="inline-flex items-center gap-1 text-xs font-medium text-accent group-hover:gap-2 transition-all duration-300">
@@ -258,24 +296,24 @@ const Automations = () => {
       </div>
 
       {/* Category Detail Modal */}
-      <Dialog open={!!selected && !selectedWorkflow} onOpenChange={() => setSelected(null)}>
-        <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto bg-card border-border">
+      <Dialog open={!!selected && !selectedWorkflow && !selectedEA} onOpenChange={() => setSelected(null)}>
+        <DialogContent className="max-w-[95vw] sm:max-w-3xl max-h-[85vh] overflow-y-auto bg-card border-border">
           {selected && (
             <>
               <DialogHeader>
                 <div className="flex items-center gap-3 mb-1">
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0"
                     style={{
                       background: `hsl(var(--${selected.color}) / 0.1)`,
                       border: `1px solid hsl(var(--${selected.color}) / 0.2)`,
                     }}
                   >
-                    <selected.icon className="w-5 h-5" style={{ color: `hsl(var(--${selected.color}))` }} />
+                    <selected.icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: `hsl(var(--${selected.color}))` }} />
                   </div>
-                  <div>
-                    <DialogTitle className="text-xl">{selected.title}</DialogTitle>
-                    <DialogDescription>{selected.summary}</DialogDescription>
+                  <div className="min-w-0">
+                    <DialogTitle className="text-lg sm:text-xl">{selected.title}</DialogTitle>
+                    <DialogDescription className="text-xs sm:text-sm">{selected.summary}</DialogDescription>
                   </div>
                 </div>
               </DialogHeader>
@@ -283,10 +321,10 @@ const Automations = () => {
               {/* Workflow Screenshots */}
               {selected.workflows && selected.workflows.length > 0 && (
                 <div className="mt-4">
-                  <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wider">
+                  <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-3 uppercase tracking-wider">
                     Workflow Screenshots
                   </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {selected.workflows.map((wf) => (
                       <button
                         key={wf.fileName}
@@ -294,11 +332,11 @@ const Automations = () => {
                         className="rounded-xl border border-border bg-secondary/30 overflow-hidden text-left group hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         <div className="aspect-[16/10] overflow-hidden">
-                          <img src={wf.image} alt={wf.fileName} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
+                          <img src={wf.image} alt={wf.fileName} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                         </div>
-                        <div className="p-3">
-                          <h5 className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors line-clamp-1">{wf.fileName}</h5>
-                          <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{wf.description}</p>
+                        <div className="p-2.5 sm:p-3">
+                          <h5 className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-accent transition-colors line-clamp-1">{wf.fileName}</h5>
+                          <p className="text-[10px] sm:text-xs text-muted-foreground line-clamp-1 mt-0.5">{wf.description}</p>
                         </div>
                       </button>
                     ))}
@@ -309,10 +347,10 @@ const Automations = () => {
               {/* EA Work Samples Grid */}
               {selected.eaSamples && selected.eaSamples.length > 0 && (
                 <div className="mt-4">
-                  <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wider">
+                  <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-3 uppercase tracking-wider">
                     Work Samples
                   </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {selected.eaSamples.map((sample) => (
                       <button
                         key={sample.title}
@@ -320,11 +358,11 @@ const Automations = () => {
                         className="rounded-xl border border-border bg-secondary/30 overflow-hidden text-left group hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         <div className="aspect-[16/10] overflow-hidden">
-                          <img src={sample.image} alt={sample.title} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
+                          <img src={sample.image} alt={sample.title} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                         </div>
-                        <div className="p-3">
-                          <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-accent block mb-0.5">{sample.task}</span>
-                          <h5 className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors line-clamp-1">{sample.title}</h5>
+                        <div className="p-2.5 sm:p-3">
+                          <span className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.15em] text-accent block mb-0.5">{sample.task}</span>
+                          <h5 className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-accent transition-colors line-clamp-1">{sample.title}</h5>
                         </div>
                       </button>
                     ))}
@@ -333,20 +371,20 @@ const Automations = () => {
               )}
 
               {/* Text-based Projects */}
-              <div className="space-y-4 mt-4">
+              <div className="space-y-3 sm:space-y-4 mt-4">
                 {selected.projects.map((project) => (
-                  <div key={project.name} className="rounded-xl border border-border bg-secondary/30 p-5 space-y-3">
-                    <h4 className="font-semibold text-foreground flex items-center gap-2">
+                  <div key={project.name} className="rounded-xl border border-border bg-secondary/30 p-4 sm:p-5 space-y-2 sm:space-y-3">
+                    <h4 className="font-semibold text-foreground flex items-center gap-2 text-sm sm:text-base">
                       <CheckCircle2 size={16} className="text-accent shrink-0" />
                       {project.name}
                     </h4>
-                    <p className="text-sm text-muted-foreground">{project.description}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">{project.description}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {project.tools.map((tool) => (
-                        <span key={tool} className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-accent/10 text-accent border border-accent/20">{tool}</span>
+                        <span key={tool} className="text-[10px] sm:text-[11px] font-medium px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-accent/10 text-accent border border-accent/20">{tool}</span>
                       ))}
                     </div>
-                    <div className="text-sm space-y-1">
+                    <div className="text-xs sm:text-sm space-y-1">
                       <p><span className="font-medium text-foreground">Workflow: </span><span className="text-muted-foreground">{project.workflow}</span></p>
                       <p><span className="font-medium text-foreground">Result: </span><span className="text-muted-foreground">{project.result}</span></p>
                     </div>
@@ -359,32 +397,78 @@ const Automations = () => {
       </Dialog>
 
       {/* Workflow Detail Modal */}
-      <Dialog open={!!selectedWorkflow} onOpenChange={() => setSelectedWorkflow(null)}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-card border-border p-0">
-          {selectedWorkflow && (
-            <>
+      <AnimatePresence>
+        {selectedWorkflow && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/70 backdrop-blur-sm"
+            onClick={() => setSelectedWorkflow(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className="bg-card border border-border rounded-2xl max-w-[95vw] sm:max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="relative w-full">
-                <img src={selectedWorkflow.image} alt={selectedWorkflow.fileName} className="w-full rounded-t-lg" />
-                <span className="absolute top-4 left-4 text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-accent/90 text-white backdrop-blur-sm">Zapier</span>
+                <img
+                  src={selectedWorkflow.image}
+                  alt={selectedWorkflow.fileName}
+                  className="w-full rounded-t-2xl cursor-zoom-in"
+                  onClick={() => setZoomedImage(selectedWorkflow.image)}
+                />
+                <span className="absolute top-3 left-3 sm:top-4 sm:left-4 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-accent/90 text-white backdrop-blur-sm">Zapier</span>
+                <button
+                  onClick={() => setSelectedWorkflow(null)}
+                  className="absolute top-3 right-3 sm:top-4 sm:right-4 p-1.5 sm:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors"
+                >
+                  <X size={16} />
+                </button>
+                <button
+                  onClick={() => setZoomedImage(selectedWorkflow.image)}
+                  className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 p-1.5 sm:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors"
+                >
+                  <ZoomIn size={16} />
+                </button>
               </div>
-              <div className="p-6 space-y-5">
-                <DialogHeader>
-                  <DialogTitle className="text-2xl">{selectedWorkflow.fileName}</DialogTitle>
-                  <DialogDescription>Platform: Zapier</DialogDescription>
-                </DialogHeader>
-                <div className="rounded-xl border border-border bg-secondary/30 p-5 space-y-2">
-                  <h4 className="text-sm font-semibold text-foreground">Automation Flow</h4>
-                  <p className="text-sm text-muted-foreground font-mono leading-relaxed">{selectedWorkflow.steps}</p>
+              <div className="p-4 sm:p-6 space-y-4 sm:space-y-5">
+                <div>
+                  <h3 className="text-lg sm:text-2xl font-bold text-foreground">{selectedWorkflow.fileName}</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">Platform: Zapier</p>
+                </div>
+                <div className="rounded-xl border border-border bg-secondary/30 p-3 sm:p-5 space-y-2">
+                  <h4 className="text-xs sm:text-sm font-semibold text-foreground">Automation Flow</h4>
+                  <p className="text-xs sm:text-sm text-muted-foreground font-mono leading-relaxed break-words">{selectedWorkflow.steps}</p>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="text-sm font-semibold text-foreground">Brief Explanation</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{selectedWorkflow.description}</p>
+                  <h4 className="text-xs sm:text-sm font-semibold text-foreground">Brief Explanation</h4>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{selectedWorkflow.description}</p>
                 </div>
+                {/* Navigation */}
+                <div className="flex items-center justify-between pt-3 border-t border-border">
+                  <button onClick={() => navigateItem(-1)} className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-accent hover:text-foreground transition-colors">
+                    <ChevronLeft size={16} /> Previous
+                  </button>
+                  <span className="text-xs text-muted-foreground">{currentItemLabel()}</span>
+                  <button onClick={() => navigateItem(1)} className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-accent hover:text-foreground transition-colors">
+                    Next <ChevronRight size={16} />
+                  </button>
+                </div>
+                <button
+                  onClick={() => { setSelectedWorkflow(null); }}
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <ArrowLeft size={14} /> Back to {selected?.title}
+                </button>
               </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* EA Sample Detail Modal */}
       <AnimatePresence>
@@ -393,7 +477,7 @@ const Automations = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/70 backdrop-blur-sm"
             onClick={() => setSelectedEA(null)}
           >
             <motion.div
@@ -401,24 +485,80 @@ const Automations = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3 }}
-              className="bg-card border border-border rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+              className="bg-card border border-border rounded-2xl max-w-[95vw] sm:max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative">
-                <img src={selectedEA.image} alt={selectedEA.title} className="w-full rounded-t-2xl object-cover max-h-[50vh]" />
+                <img
+                  src={selectedEA.image}
+                  alt={selectedEA.title}
+                  className="w-full rounded-t-2xl object-cover max-h-[50vh] cursor-zoom-in"
+                  onClick={() => setZoomedImage(selectedEA.image)}
+                />
                 <button
                   onClick={() => setSelectedEA(null)}
-                  className="absolute top-3 right-3 p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors"
+                  className="absolute top-3 right-3 p-1.5 sm:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors"
                 >
-                  <X size={18} />
+                  <X size={16} />
+                </button>
+                <button
+                  onClick={() => setZoomedImage(selectedEA.image)}
+                  className="absolute bottom-3 right-3 p-1.5 sm:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors"
+                >
+                  <ZoomIn size={16} />
                 </button>
               </div>
-              <div className="p-6 md:p-8">
-                <span className="text-xs font-semibold uppercase tracking-[0.15em] text-accent mb-2 block">{selectedEA.task}</span>
-                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">{selectedEA.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{selectedEA.description}</p>
+              <div className="p-4 sm:p-6 md:p-8">
+                <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-accent mb-1.5 sm:mb-2 block">{selectedEA.task}</span>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-3 sm:mb-4">{selectedEA.title}</h3>
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{selectedEA.description}</p>
+                {/* Navigation */}
+                <div className="flex items-center justify-between pt-4 mt-4 border-t border-border">
+                  <button onClick={() => navigateItem(-1)} className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-accent hover:text-foreground transition-colors">
+                    <ChevronLeft size={16} /> Previous
+                  </button>
+                  <span className="text-xs text-muted-foreground">{currentItemLabel()}</span>
+                  <button onClick={() => navigateItem(1)} className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-accent hover:text-foreground transition-colors">
+                    Next <ChevronRight size={16} />
+                  </button>
+                </div>
+                <button
+                  onClick={() => { setSelectedEA(null); }}
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors mt-3"
+                >
+                  <ArrowLeft size={14} /> Back to {selected?.title}
+                </button>
               </div>
             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Full-screen Image Zoom Lightbox */}
+      <AnimatePresence>
+        {zoomedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 backdrop-blur-md cursor-zoom-out"
+            onClick={() => setZoomedImage(null)}
+          >
+            <button
+              onClick={() => setZoomedImage(null)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-colors z-10"
+            >
+              <X size={20} />
+            </button>
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              src={zoomedImage}
+              alt="Zoomed view"
+              className="max-w-[95vw] max-h-[90vh] object-contain rounded-lg touch-pinch-zoom"
+              onClick={(e) => e.stopPropagation()}
+            />
           </motion.div>
         )}
       </AnimatePresence>

@@ -68,7 +68,7 @@ const ScrollRow = ({ tools, direction, speed = 40 }: ScrollRowProps) => {
       onMouseLeave={() => setIsPaused(false)}
     >
       <div
-        className="flex gap-4 w-max"
+        className="flex gap-3 sm:gap-4 w-max"
         style={{
           animation: `scroll-${direction} ${duration}s linear infinite`,
           animationPlayState: isPaused ? "paused" : "running",
@@ -80,19 +80,19 @@ const ScrollRow = ({ tools, direction, speed = 40 }: ScrollRowProps) => {
             href={UPWORK_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex-shrink-0 w-32 cursor-pointer"
+            className="group flex-shrink-0 w-24 sm:w-28 md:w-32 cursor-pointer"
           >
-            <div className="relative flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-300 ease-out hover:-translate-y-2 hover:border-accent/40 hover:shadow-[0_8px_30px_hsl(var(--accent)/0.15)] aspect-square">
+            <div className="relative flex flex-col items-center justify-center gap-2 sm:gap-2.5 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-300 ease-out hover:-translate-y-2 hover:border-accent/40 hover:shadow-[0_8px_30px_hsl(var(--accent)/0.15)] aspect-square">
               <div
-                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                className="absolute inset-0 rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 style={{
                   background: "radial-gradient(circle at center, hsl(var(--accent) / 0.08) 0%, transparent 70%)",
                 }}
               />
-              <div className="w-9 h-9 flex items-center justify-center relative z-10">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 flex items-center justify-center relative z-10">
                 {tool.customIcon ? (
                   <div
-                    className="w-7 h-7 rounded flex items-center justify-center text-xs font-bold text-white transition-transform duration-300 group-hover:scale-110"
+                    className="w-6 h-6 sm:w-7 sm:h-7 rounded flex items-center justify-center text-[10px] sm:text-xs font-bold text-white transition-transform duration-300 group-hover:scale-110"
                     style={{ backgroundColor: tool.color }}
                   >
                     {tool.customIcon}
@@ -101,17 +101,17 @@ const ScrollRow = ({ tools, direction, speed = 40 }: ScrollRowProps) => {
                   <img
                     src={`https://cdn.simpleicons.org/${tool.icon}/${tool.color.replace("#", "")}`}
                     alt={tool.name}
-                    className="w-7 h-7 transition-transform duration-300 group-hover:scale-110"
+                    className="w-6 h-6 sm:w-7 sm:h-7 transition-transform duration-300 group-hover:scale-110"
                     loading="lazy"
                   />
                 ) : tool.lucideIcon ? (
                   <tool.lucideIcon
-                    className="w-7 h-7 transition-transform duration-300 group-hover:scale-110"
+                    className="w-6 h-6 sm:w-7 sm:h-7 transition-transform duration-300 group-hover:scale-110"
                     style={{ color: tool.color }}
                   />
                 ) : null}
               </div>
-              <span className="text-[11px] font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300 text-center leading-tight relative z-10">
+              <span className="text-[9px] sm:text-[10px] md:text-[11px] font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300 text-center leading-tight relative z-10">
                 {tool.name}
               </span>
             </div>
@@ -136,24 +136,24 @@ const ToolsPlatforms = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: easing }}
-          className="text-center mb-14"
+          className="text-center mb-10 sm:mb-14 px-4"
         >
-          <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em] mb-4 block">
+          <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em] mb-3 sm:mb-4 block">
             Integrations
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
             Tools & Platforms I Work With
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
             A curated stack of automation, productivity, and communication tools I use to deliver results.
           </p>
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-20 md:w-32 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-20 md:w-32 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
 
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             <ScrollRow tools={rows[0]} direction="left" speed={5} />
             <ScrollRow tools={rows[1]} direction="left" speed={6} />
             <ScrollRow tools={rows[2]} direction="right" speed={5.5} />

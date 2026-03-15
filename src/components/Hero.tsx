@@ -15,23 +15,23 @@ const Hero = () => {
         }}
       />
 
-      <div className="container-narrow relative z-10 px-6 md:px-12 py-32">
+      <div className="container-narrow relative z-10 px-4 sm:px-6 md:px-12 pt-24 pb-16 md:py-32">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent mb-8"
+            className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent mb-6 sm:mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-xs font-semibold uppercase tracking-wider">Available for Projects</span>
+            <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider">Available for Projects</span>
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.6 }}
-            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.1] mb-6 tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.1] mb-4 sm:mb-6 tracking-tight"
           >
             Helping Businesses{" "}
             <span className="text-gradient glow-text">Save Time, Reduce Errors,</span>{" "}
@@ -42,7 +42,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-2"
           >
             I help businesses streamline their operations by building automation workflows and providing reliable executive assistance. My goal is to eliminate repetitive tasks, improve efficiency, and help teams focus on high-value work instead of manual processes.
           </motion.p>
@@ -51,9 +51,9 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45, duration: 0.6 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full px-4 sm:px-0"
           >
-            <a href="#automations" className="btn-cta">
+            <a href="#automations" className="btn-cta w-full sm:w-auto">
               View My Work
               <ArrowRight size={16} />
             </a>
@@ -61,7 +61,7 @@ const Hero = () => {
               href="https://www.upwork.com/freelancers/~0176000d5826043a12"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 text-sm hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 text-sm hover:-translate-y-0.5 w-full sm:w-auto"
               style={{
                 background: "linear-gradient(135deg, #14A800 0%, #1DBF00 100%)",
                 boxShadow: "0 4px 16px rgba(20, 168, 0, 0.3)",
@@ -76,7 +76,7 @@ const Hero = () => {
               href="https://calendly.com/marwinemia0525/30min"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-secondary"
+              className="btn-secondary w-full sm:w-auto"
             >
               <Calendar size={16} />
               Book a Free Discovery Call
@@ -88,17 +88,17 @@ const Hero = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="mt-20 relative"
+            className="mt-12 sm:mt-20 relative"
           >
-            <div className="card-glass p-6 md:p-8 max-w-3xl mx-auto">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-3 h-3 rounded-full bg-destructive/60" />
-                <div className="w-3 h-3 rounded-full bg-accent/60" />
-                <div className="w-3 h-3 rounded-full bg-primary/60" />
-                <span className="ml-3 text-xs text-muted-foreground font-medium">Automation Workflow</span>
+            <div className="card-glass p-4 sm:p-6 md:p-8 max-w-3xl mx-auto">
+              <div className="flex items-center gap-2 mb-4 sm:mb-6">
+                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-destructive/60" />
+                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-accent/60" />
+                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-primary/60" />
+                <span className="ml-2 sm:ml-3 text-[10px] sm:text-xs text-muted-foreground font-medium">Automation Workflow</span>
               </div>
               
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
+              <div className="grid grid-cols-2 md:flex md:flex-row items-center justify-between gap-3 sm:gap-4 md:gap-6">
                 {[
                   { icon: Mail, label: "Incoming Email", color: "accent" },
                   { icon: Zap, label: "Zapier Trigger", color: "cta" },
@@ -107,22 +107,21 @@ const Hero = () => {
                 ].map((step, i) => (
                   <motion.div 
                     key={step.label}
-                    className="flex items-center gap-4 md:gap-6"
+                    className="flex flex-col md:flex-row items-center gap-2 md:gap-4"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.8 + i * 0.15, duration: 0.5 }}
                   >
-                    <div className="flex flex-col items-center gap-2">
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center"
+                    <div className="flex flex-col items-center gap-1.5 sm:gap-2">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center"
                         style={{
                           background: `hsl(var(--${step.color}) / 0.1)`,
-                          borderColor: `hsl(var(--${step.color}) / 0.25)`,
                           border: `1px solid hsl(var(--${step.color}) / 0.25)`,
                         }}
                       >
-                        <step.icon size={20} style={{ color: `hsl(var(--${step.color}))` }} />
+                        <step.icon size={18} className="sm:w-5 sm:h-5" style={{ color: `hsl(var(--${step.color}))` }} />
                       </div>
-                      <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">{step.label}</span>
+                      <span className="text-[10px] sm:text-xs text-muted-foreground font-medium whitespace-nowrap">{step.label}</span>
                     </div>
                     {i < 3 && (
                       <div className="hidden md:block">
@@ -140,7 +139,7 @@ const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          className="hidden sm:block absolute bottom-10 left-1/2 -translate-x-1/2"
         >
           <a href="#services" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-accent transition-colors">
             <span className="text-xs uppercase tracking-widest">Scroll</span>
