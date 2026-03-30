@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
@@ -8,23 +10,34 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import UpworkCTA from "@/components/UpworkCTA";
 import Footer from "@/components/Footer";
+import BrandedLoader from "@/components/BrandedLoader";
 
 const Index = () => {
+  const [loading, setLoading] = useState(true);
+
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <main>
-        <Hero />
-        <Services />
-        <Automations />
-        <ToolsPlatforms />
-        <About />
-        <Testimonials />
-        <UpworkCTA />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <>
+      {loading && <BrandedLoader onComplete={() => setLoading(false)} />}
+      <motion.div
+        className="min-h-screen bg-background"
+        initial={{ opacity: 0, y: 20 }}
+        animate={loading ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+      >
+        <Navbar />
+        <main>
+          <Hero />
+          <Services />
+          <Automations />
+          <ToolsPlatforms />
+          <About />
+          <Testimonials />
+          <UpworkCTA />
+          <Contact />
+        </main>
+        <Footer />
+      </motion.div>
+    </>
   );
 };
 
