@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, Zap, GitBranch, Mail, MessageSquare, ArrowDown } from "lucide-react";
+import { ArrowRight, Calendar, ArrowDown } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -83,56 +83,7 @@ const Hero = () => {
             </a>
           </motion.div>
 
-          {/* Automation Visual */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="mt-12 sm:mt-20 relative"
-          >
-            <div className="card-glass p-4 sm:p-6 md:p-8 max-w-3xl mx-auto">
-              <div className="flex items-center gap-2 mb-4 sm:mb-6">
-                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-destructive/60" />
-                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-accent/60" />
-                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-primary/60" />
-                <span className="ml-2 sm:ml-3 text-[10px] sm:text-xs text-muted-foreground font-medium">Automation Workflow</span>
-              </div>
-              
-              <div className="grid grid-cols-2 md:flex md:flex-row items-center justify-between gap-3 sm:gap-4 md:gap-6">
-                {[
-                  { icon: Mail, label: "Incoming Email", color: "accent" },
-                  { icon: Zap, label: "Zapier Trigger", color: "cta" },
-                  { icon: GitBranch, label: "Auto-Route", color: "accent" },
-                  { icon: MessageSquare, label: "Notify Team", color: "cta" },
-                ].map((step, i) => (
-                  <motion.div 
-                    key={step.label}
-                    className="flex flex-col md:flex-row items-center gap-2 md:gap-4"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.8 + i * 0.15, duration: 0.5 }}
-                  >
-                    <div className="flex flex-col items-center gap-1.5 sm:gap-2">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center"
-                        style={{
-                          background: `hsl(var(--${step.color}) / 0.1)`,
-                          border: `1px solid hsl(var(--${step.color}) / 0.25)`,
-                        }}
-                      >
-                        <step.icon size={18} className="sm:w-5 sm:h-5" style={{ color: `hsl(var(--${step.color}))` }} />
-                      </div>
-                      <span className="text-[10px] sm:text-xs text-muted-foreground font-medium whitespace-nowrap">{step.label}</span>
-                    </div>
-                    {i < 3 && (
-                      <div className="hidden md:block">
-                        <ArrowRight size={16} className="text-muted-foreground/40" />
-                      </div>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+
         </div>
 
         <motion.div
