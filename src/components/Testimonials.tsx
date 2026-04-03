@@ -1,17 +1,18 @@
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star, Award } from "lucide-react";
 
 const testimonials = [
+  {
+    name: "Kuys RJ Villamer",
+    role: "Mentor — Technical Virtual Assistants PH",
+    badge: "n8n Ambassador 🇵🇭",
+    content: "Marwin has shown strong dedication in learning automation and technical VA skills. His ability to understand workflows, build systems, and continuously improve makes him a promising automation specialist. He is reliable, resourceful, and committed to delivering quality work.",
+    rating: 5,
+  },
   {
     name: "Surge Marketplace",
     role: "Internship Training Center",
     content: "Marwin successfully completed the Masterclass Virtual Assistant (MVA) program, demonstrating excellent skills in digital tools, workflow automation, and remote collaboration.",
-    rating: 5,
-  },
-  {
-    name: "Ronald Juntilla",
-    role: "Area Manager",
-    content: "Marwin consistently demonstrates exceptional leadership and dedication. His ability to manage operations while maintaining strong customer relationships is truly impressive.",
     rating: 5,
   },
   {
