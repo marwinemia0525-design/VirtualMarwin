@@ -4,6 +4,18 @@ import { Briefcase, GraduationCap, Award } from "lucide-react";
 const experiences = [
   {
     type: "work",
+    title: "AI Workflow & Automation Specialist (Member)",
+    company: "Technical Virtual Assistants PH",
+    period: "2025 — Present",
+    description: "Joined a pioneering AI-powered Technical VA community in the Philippines focused on workflow automation.",
+    highlights: [
+      "Mastering GoHighLevel, Make.com, n8n, Zapier, WordPress & Lovable",
+      "Building AI integrations with ChatGPT, Gemini, Claude & Grok",
+      "Developing CRM automation, lead capture flows & multi-system integrations",
+    ],
+  },
+  {
+    type: "work",
     title: "Branch Manager",
     company: "Desmark Corporation - Digos Branch",
     period: "July 2022 - Present",

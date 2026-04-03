@@ -6,6 +6,7 @@ import Services from "@/components/Services";
 import Automations from "@/components/Automations";
 import ToolsPlatforms from "@/components/ToolsPlatforms";
 import About from "@/components/About";
+import Experience from "@/components/Experience";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import UpworkCTA from "@/components/UpworkCTA";
@@ -28,9 +29,10 @@ const Index = () => {
         <main>
           <Hero />
           <Services />
-          <Automations />
-          <ToolsPlatforms />
           <About />
+          <Experience />
+          <ToolsPlatforms />
+          <Automations />
           <Testimonials />
           <UpworkCTA />
           <Contact />
