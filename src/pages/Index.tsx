@@ -33,7 +33,7 @@ const Index = () => {
           <ToolsPlatforms />
           <Automations />
           <Testimonials />
-          <UpworkCTA />
+          
           <Contact />
         </main>
         <Footer />
