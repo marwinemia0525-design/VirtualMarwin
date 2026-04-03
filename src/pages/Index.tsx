@@ -9,7 +9,6 @@ import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
-import UpworkCTA from "@/components/UpworkCTA";
 import Footer from "@/components/Footer";
 import BrandedLoader from "@/components/BrandedLoader";
 
@@ -34,7 +33,7 @@ const Index = () => {
           <ToolsPlatforms />
           <Automations />
           <Testimonials />
-          <UpworkCTA />
+          
           <Contact />
         </main>
         <Footer />
