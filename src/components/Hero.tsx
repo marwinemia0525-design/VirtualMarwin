@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, Zap, GitBranch, Mail, MessageSquare, ArrowDown } from "lucide-react";
+import { ArrowRight, Calendar, ArrowDown } from "lucide-react";
 
 const Hero = () => {
   return (
