@@ -158,13 +158,13 @@ const Contact = () => {
                   <p className="text-xs sm:text-sm font-medium truncate">marwinemia0525@gmail.com</p>
                 </div>
               </a>
-              <a href="tel:+63763147667" className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 card-glass hover:-translate-y-0.5 transition-transform duration-300">
+              <a href="tel:+639300531734" className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 card-glass hover:-translate-y-0.5 transition-transform duration-300">
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'hsl(var(--accent) / 0.1)', border: '1px solid hsl(var(--accent) / 0.2)' }}>
                   <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-accent" />
                 </div>
                 <div>
                   <p className="text-[10px] sm:text-xs text-muted-foreground">Phone</p>
-                  <p className="text-xs sm:text-sm font-medium">+63 763 147 667</p>
+                  <p className="text-xs sm:text-sm font-medium">+63 930 053 1734</p>
                 </div>
               </a>
               <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 card-glass">
