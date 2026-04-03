@@ -1,17 +1,18 @@
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star, Award } from "lucide-react";
 
 const testimonials = [
+  {
+    name: "Kuys RJ Villamer",
+    role: "Mentor — Technical Virtual Assistants PH",
+    badge: "n8n Ambassador 🇵🇭",
+    content: "Marwin has shown strong dedication in learning automation and technical VA skills. His ability to understand workflows, build systems, and continuously improve makes him a promising automation specialist. He is reliable, resourceful, and committed to delivering quality work.",
+    rating: 5,
+  },
   {
     name: "Surge Marketplace",
     role: "Internship Training Center",
     content: "Marwin successfully completed the Masterclass Virtual Assistant (MVA) program, demonstrating excellent skills in digital tools, workflow automation, and remote collaboration.",
-    rating: 5,
-  },
-  {
-    name: "Ronald Juntilla",
-    role: "Area Manager",
-    content: "Marwin consistently demonstrates exceptional leadership and dedication. His ability to manage operations while maintaining strong customer relationships is truly impressive.",
     rating: 5,
   },
   {
@@ -76,8 +77,16 @@ const Testimonials = () => {
                     {testimonial.name.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
-                <div className="min-w-0">
-                  <p className="font-semibold text-foreground text-xs sm:text-sm truncate">{testimonial.name}</p>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="font-semibold text-foreground text-xs sm:text-sm truncate">{testimonial.name}</p>
+                    {"badge" in testimonial && testimonial.badge && (
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-[9px] sm:text-[10px] font-medium whitespace-nowrap">
+                        <Award className="w-2.5 h-2.5" />
+                        {testimonial.badge}
+                      </span>
+                    )}
+                  </div>
                   <p className="text-[10px] sm:text-xs text-muted-foreground">{testimonial.role}</p>
                 </div>
               </div>
