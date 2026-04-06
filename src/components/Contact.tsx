@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Calendar, Linkedin, Mail, MapPin, Phone, Send, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, Calendar, Linkedin, Mail, MapPin, Phone, Send, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -50,9 +50,34 @@ const Contact = () => {
         >
           <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em] mb-3 sm:mb-4 block">Contact</span>
           <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">Let's Automate Your Business.</h2>
-          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-2">
-            Ready to eliminate manual work? Let's discuss how automation can transform your operations.
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-2 mb-6 sm:mb-8">
+            Ready to streamline your business with AI automation? Let's work together.
           </p>
+
+          <motion.a
+            href="https://www.upwork.com/freelancers/~0176000d5826043a12"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ y: -3, scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-2.5 px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl font-semibold text-white transition-all duration-300 text-sm sm:text-base"
+            style={{
+              background: "linear-gradient(135deg, #14A800 0%, #1DBF00 100%)",
+              boxShadow: "0 4px 24px rgba(20, 168, 0, 0.35)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = "0 8px 32px rgba(20, 168, 0, 0.5)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 4px 24px rgba(20, 168, 0, 0.35)";
+            }}
+          >
+            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+              <path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.548-1.405-.002-2.543-1.143-2.545-2.548V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/>
+            </svg>
+            Hire Me on Upwork
+            <ArrowUpRight size={18} />
+          </motion.a>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
