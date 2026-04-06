@@ -6,6 +6,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import aiContentImg from "@/assets/workflows/AI_Content_Repurposing.png";
 import asanaCrmImg from "@/assets/workflows/Asana_CRM_LEAD_Engagement_Workflow.png";
 import leadEnrichmentImg from "@/assets/workflows/Automated_Lead_Enrichment.png";
+import gmailAttachmentImg from "@/assets/workflows/AI_Powered_Gmail_Attachment_Auto_Renamer_Organizer_Make.png";
+import xeroAsanaImg from "@/assets/workflows/Automated_Xero_Asana_CSV_Attachment_Make.png";
 
 import approvedContent from "@/assets/ea-samples/Approved_Content_Scheduled.png";
 import carouselScheduling from "@/assets/ea-samples/Carousel_Post_Scheduling.png";
@@ -126,6 +128,20 @@ const portfolioItems: PortfolioProject[] = [
         tools: ["Make", "Gmail", "ClickUp", "Slack"],
         workflow: "Email Received → Parse Content → Create Task → Notify Team",
         result: "Eliminated 5+ hours of weekly manual task entry.",
+      },
+    ],
+    workflows: [
+      {
+        image: gmailAttachmentImg,
+        fileName: "AI-Powered Gmail Attachment Auto-Renamer & Organizer",
+        description: "Watches Gmail for new emails, lists attachments, uploads files to AI for analysis, generates smart file names, uploads renamed attachments to Google Drive, logs everything to Google Sheets, and sends an email notification summary.",
+        steps: "Gmail Watch → List Attachments → Upload to AI (Analyza) → Generate New File Name → Upload to Google Drive → Save Log to Google Sheets → Send Email Notification",
+      },
+      {
+        image: xeroAsanaImg,
+        fileName: "Automated Xero → Asana CSV Attachment",
+        description: "Monitors Asana for completed tasks, pulls financial data from Xero via API, routes through a multi-path workflow that iterates data, logs to Google Sheets, aggregates text, and uploads CSV attachments back to Asana with automatic sheet cleanup.",
+        steps: "Asana Watch Tasks → Xero API Call → Router → Iterator → Google Sheets Log → Tools Sleep → Get Range Values → Text Aggregator → Asana Upload Attachment → Google Sheets Clear Range",
       },
     ],
   },
@@ -421,7 +437,7 @@ const Automations = () => {
                   className="w-full rounded-t-2xl cursor-zoom-in"
                   onClick={() => setZoomedImage(selectedWorkflow.image)}
                 />
-                <span className="absolute top-3 left-3 sm:top-4 sm:left-4 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-accent/90 text-white backdrop-blur-sm">Zapier</span>
+                <span className="absolute top-3 left-3 sm:top-4 sm:left-4 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-accent/90 text-white backdrop-blur-sm">{selected?.platform}</span>
                 <button
                   onClick={() => setSelectedWorkflow(null)}
                   className="absolute top-3 right-3 sm:top-4 sm:right-4 p-1.5 sm:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors"
@@ -438,7 +454,7 @@ const Automations = () => {
               <div className="p-4 sm:p-6 space-y-4 sm:space-y-5">
                 <div>
                   <h3 className="text-lg sm:text-2xl font-bold text-foreground">{selectedWorkflow.fileName}</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">Platform: Zapier</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">Platform: {selected?.platform}</p>
                 </div>
                 <div className="rounded-xl border border-border bg-secondary/30 p-3 sm:p-5 space-y-2">
                   <h4 className="text-xs sm:text-sm font-semibold text-foreground">Automation Flow</h4>
