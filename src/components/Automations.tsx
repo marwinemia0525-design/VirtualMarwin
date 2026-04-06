@@ -454,7 +454,7 @@ const Automations = () => {
               <div className="p-4 sm:p-6 space-y-4 sm:space-y-5">
                 <div>
                   <h3 className="text-lg sm:text-2xl font-bold text-foreground">{selectedWorkflow.fileName}</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">Platform: Zapier</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">Platform: {selected?.platform}</p>
                 </div>
                 <div className="rounded-xl border border-border bg-secondary/30 p-3 sm:p-5 space-y-2">
                   <h4 className="text-xs sm:text-sm font-semibold text-foreground">Automation Flow</h4>
