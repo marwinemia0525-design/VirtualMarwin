@@ -6,6 +6,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import aiContentImg from "@/assets/workflows/AI_Content_Repurposing.png";
 import asanaCrmImg from "@/assets/workflows/Asana_CRM_LEAD_Engagement_Workflow.png";
 import leadEnrichmentImg from "@/assets/workflows/Automated_Lead_Enrichment.png";
+import gmailAttachmentImg from "@/assets/workflows/AI_Powered_Gmail_Attachment_Auto_Renamer_Organizer_Make.png";
+import xeroAsanaImg from "@/assets/workflows/Automated_Xero_Asana_CSV_Attachment_Make.png";
 
 import approvedContent from "@/assets/ea-samples/Approved_Content_Scheduled.png";
 import carouselScheduling from "@/assets/ea-samples/Carousel_Post_Scheduling.png";
