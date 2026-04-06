@@ -130,6 +130,20 @@ const portfolioItems: PortfolioProject[] = [
         result: "Eliminated 5+ hours of weekly manual task entry.",
       },
     ],
+    workflows: [
+      {
+        image: gmailAttachmentImg,
+        fileName: "AI-Powered Gmail Attachment Auto-Renamer & Organizer",
+        description: "Watches Gmail for new emails, lists attachments, uploads files to AI for analysis, generates smart file names, uploads renamed attachments to Google Drive, logs everything to Google Sheets, and sends an email notification summary.",
+        steps: "Gmail Watch → List Attachments → Upload to AI (Analyza) → Generate New File Name → Upload to Google Drive → Save Log to Google Sheets → Send Email Notification",
+      },
+      {
+        image: xeroAsanaImg,
+        fileName: "Automated Xero → Asana CSV Attachment",
+        description: "Monitors Asana for completed tasks, pulls financial data from Xero via API, routes through a multi-path workflow that iterates data, logs to Google Sheets, aggregates text, and uploads CSV attachments back to Asana with automatic sheet cleanup.",
+        steps: "Asana Watch Tasks → Xero API Call → Router → Iterator → Google Sheets Log → Tools Sleep → Get Range Values → Text Aggregator → Asana Upload Attachment → Google Sheets Clear Range",
+      },
+    ],
   },
   {
     id: "ghl",
