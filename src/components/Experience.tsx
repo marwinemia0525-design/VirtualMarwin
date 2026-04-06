@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap } from "lucide-react";
-import Certifications from "./Certifications";
+import { Briefcase, GraduationCap, Award } from "lucide-react";
 
 const experiences = [
   {
@@ -64,6 +63,13 @@ const education = {
   period: "November 2015 - May 2017",
 };
 
+const certifications = [
+  "Civil Service Exam Passer - Professional Level (80.26%)",
+  "Masterclass Virtual Assistant (MVA) - Surge Marketplace Training Center",
+  "Safety Officer 1 - DOLE Occupational Safety and Health Center",
+  "Honda Phil. Multi Brand Staff Training",
+  "Capability Building Seminar - DTI Davao del Sur",
+];
 
 const Experience = () => {
   return (
@@ -144,14 +150,15 @@ const Experience = () => {
           </div>
         </div>
 
-        {/* Education */}
-        <div className="mt-16">
+        {/* Education & Certifications */}
+        <div className="grid md:grid-cols-2 gap-8 mt-16">
+          {/* Education */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="card-glass card-glow p-6 max-w-xl"
+            className="card-glass card-glow p-6"
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
@@ -166,17 +173,29 @@ const Experience = () => {
               <p className="text-sm text-accent mt-2">{education.period}</p>
             </div>
           </motion.div>
-        </div>
 
-        {/* Certifications */}
-        <div className="mt-12">
+          {/* Certifications */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
+            className="card-glass card-glow p-6"
           >
-            <Certifications />
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
+                <Award className="w-5 h-5 text-accent" />
+              </div>
+              <h3 className="text-xl font-semibold">Certifications</h3>
+            </div>
+            <ul className="space-y-3">
+              {certifications.map((cert, index) => (
+                <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0 shadow-[0_0_6px_hsl(var(--accent))]" />
+                  {cert}
+                </li>
+              ))}
+            </ul>
           </motion.div>
         </div>
       </div>

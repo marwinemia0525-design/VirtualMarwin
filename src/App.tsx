@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import CustomCursor from "@/components/CustomCursor";
-import FloatingCVButton from "@/components/FloatingCVButton";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -16,7 +15,6 @@ const App = () => (
     <ThemeProvider defaultTheme="light" storageKey="portfolio-theme">
       <TooltipProvider>
         <CustomCursor />
-        <FloatingCVButton />
         <Toaster />
         <Sonner />
         <BrowserRouter>
