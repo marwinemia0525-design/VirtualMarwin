@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Calendar, Linkedin, Mail, MapPin, Phone, Send, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, Calendar, Linkedin, Mail, MapPin, Phone, Send, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
