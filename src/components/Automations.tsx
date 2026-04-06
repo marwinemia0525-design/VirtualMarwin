@@ -437,7 +437,7 @@ const Automations = () => {
                   className="w-full rounded-t-2xl cursor-zoom-in"
                   onClick={() => setZoomedImage(selectedWorkflow.image)}
                 />
-                <span className="absolute top-3 left-3 sm:top-4 sm:left-4 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-accent/90 text-white backdrop-blur-sm">Zapier</span>
+                <span className="absolute top-3 left-3 sm:top-4 sm:left-4 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-accent/90 text-white backdrop-blur-sm">{selected?.platform}</span>
                 <button
                   onClick={() => setSelectedWorkflow(null)}
                   className="absolute top-3 right-3 sm:top-4 sm:right-4 p-1.5 sm:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors"
