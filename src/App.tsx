@@ -16,6 +16,7 @@ const App = () => (
     <ThemeProvider defaultTheme="light" storageKey="portfolio-theme">
       <TooltipProvider>
         <CustomCursor />
+        <FloatingCVButton />
         <Toaster />
         <Sonner />
         <BrowserRouter>

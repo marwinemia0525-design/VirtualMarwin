@@ -64,13 +64,6 @@ const education = {
   period: "November 2015 - May 2017",
 };
 
-const certifications = [
-  "Civil Service Exam Passer - Professional Level (80.26%)",
-  "Masterclass Virtual Assistant (MVA) - Surge Marketplace Training Center",
-  "Safety Officer 1 - DOLE Occupational Safety and Health Center",
-  "Honda Phil. Multi Brand Staff Training",
-  "Capability Building Seminar - DTI Davao del Sur",
-];
 
 const Experience = () => {
   return (
