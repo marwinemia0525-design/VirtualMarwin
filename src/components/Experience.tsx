@@ -144,15 +144,14 @@ const Experience = () => {
           </div>
         </div>
 
-        {/* Education & Certifications */}
-        <div className="grid md:grid-cols-2 gap-8 mt-16">
-          {/* Education */}
+        {/* Education */}
+        <div className="mt-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="card-glass card-glow p-6"
+            className="card-glass card-glow p-6 max-w-xl"
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
@@ -167,13 +166,15 @@ const Experience = () => {
               <p className="text-sm text-accent mt-2">{education.period}</p>
             </div>
           </motion.div>
+        </div>
 
+        {/* Certifications */}
+        <div className="mt-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="card-glass card-glow p-6"
           >
             <Certifications />
           </motion.div>
