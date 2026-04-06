@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, Award } from "lucide-react";
+import { Briefcase, GraduationCap } from "lucide-react";
+import Certifications from "./Certifications";
 
 const experiences = [
   {
