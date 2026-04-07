@@ -103,7 +103,8 @@ const Experience = () => {
 
         {/* Timeline */}
         <div className="relative">
-          <div className="timeline-line hidden md:block" />
+          {/* Timeline line */}
+          <div className="hidden md:block absolute left-6 top-0 bottom-0 w-px bg-border" />
           
           <div className="space-y-8">
             {experiences.map((exp, index) => (
@@ -127,7 +128,7 @@ const Experience = () => {
                   <Briefcase className="w-5 h-5 text-accent" />
                 </div>
                 
-                <div className="card-glass card-glow p-6 transition-all duration-500 ease-out hover:translate-x-2">
+                <div className="card-glass p-6 transition-all duration-500 ease-out hover:translate-x-2">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
                     <h3 className="text-xl font-semibold text-foreground">{exp.title}</h3>
                     <span className="text-sm text-accent font-medium px-3 py-1 bg-accent/10 rounded-full border border-accent/20">{exp.period}</span>
@@ -158,7 +159,7 @@ const Experience = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="card-glass card-glow p-6"
+            className="card-glass p-6"
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
@@ -180,7 +181,7 @@ const Experience = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="card-glass card-glow p-6"
+            className="card-glass p-6"
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">

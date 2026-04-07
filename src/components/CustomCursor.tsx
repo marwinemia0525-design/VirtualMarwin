@@ -22,7 +22,7 @@ const CustomCursor = () => {
       cursorY.set(e.clientY);
       if (!isVisible) setIsVisible(true);
     });
-  }, [cursorX, cursorY, isVisible]);
+  }, [cursorX, cursorY]); // removed isVisible to prevent re-registering listeners
 
   useEffect(() => {
     if (isTouchDevice) return;
