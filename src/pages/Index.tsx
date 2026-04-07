@@ -7,6 +7,7 @@ import Automations from "@/components/Automations";
 import ToolsPlatforms from "@/components/ToolsPlatforms";
 import About from "@/components/About";
 import Experience from "@/components/Experience";
+import Certifications from "@/components/Certifications";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -30,10 +31,10 @@ const Index = () => {
           <Services />
           <About />
           <Experience />
+          <Certifications />
           <ToolsPlatforms />
           <Automations />
           <Testimonials />
-          
           <Contact />
         </main>
         <Footer />
