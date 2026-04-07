@@ -205,7 +205,7 @@ const Skills = () => {
                 delay: index * 0.1,
                 ease: [0.25, 0.46, 0.45, 0.94]
               }}
-              className="card-glass card-glow p-6 relative group overflow-hidden transition-all duration-500 ease-out hover:-translate-y-2"
+              className="card-glass p-6 relative group overflow-hidden transition-all duration-500 ease-out hover:-translate-y-2"
             >
               {/* Animated gradient border */}
               <div
