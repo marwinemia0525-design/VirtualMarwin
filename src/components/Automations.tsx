@@ -62,17 +62,17 @@ const portfolioItems: PortfolioProject[] = [
     summary: "Multi-step automations connecting business apps to eliminate manual work.",
     projects: [
       {
-        name: "Lead Capture Automation",
-        description: "Automated lead intake from website forms into CRM with instant email notifications to the sales team.",
-        tools: ["Zapier", "Google Forms", "Google Sheets", "Gmail"],
-        workflow: "Form Submission → Google Sheets → Email Notification",
-        result: "Leads automatically organized and notified to the client within seconds.",
+        name: "Lead Capture & Nurture Automation",
+        description: "A mid-size marketing agency was manually copying leads from web forms into spreadsheets, then sending follow-up emails one by one — losing hours daily and missing hot leads.",
+        tools: ["Zapier", "Google Forms", "Google Sheets", "Gmail", "Slack"],
+        workflow: "Problem: Manual lead entry caused 2-day response delays and lost prospects.\n\nSolution: Built a multi-step Zap that captures form submissions, enriches lead data, logs to Google Sheets, sends personalized welcome emails, and alerts the sales team via Slack — all in under 10 seconds.\n\nOutcome: Response time dropped from 2 days to instant. Client reported 35% more qualified leads converting in the first month.",
+        result: "Saved 12+ hours/week and increased lead conversion by 35%.",
       },
       {
         name: "Client Onboarding Automation",
-        description: "Streamlined the entire client onboarding process from form submission to task creation.",
+        description: "An agency spent 2+ hours per new client manually setting up tasks, sending welcome emails, and creating project boards.",
         tools: ["Zapier", "Typeform", "Trello", "Gmail"],
-        workflow: "Intake Form → Welcome Email → Task Board Setup",
+        workflow: "Problem: Onboarding each new client took 2+ hours of repetitive admin work.\n\nSolution: Created an automation that triggers on intake form submission — auto-generates a Trello board with templated tasks, sends a branded welcome email sequence, and notifies the account manager.\n\nOutcome: Onboarding time reduced from 2 hours to 10 minutes per client.",
         result: "Reduced onboarding time from 2 hours to 10 minutes per client.",
       },
     ],
@@ -123,11 +123,11 @@ const portfolioItems: PortfolioProject[] = [
     summary: "Visual automation scenarios for marketing, operations, and data sync.",
     projects: [
       {
-        name: "Task Management Automation",
-        description: "Automated task creation and assignment based on incoming emails and form submissions.",
-        tools: ["Make", "Gmail", "ClickUp", "Slack"],
-        workflow: "Email Received → Parse Content → Create Task → Notify Team",
-        result: "Eliminated 5+ hours of weekly manual task entry.",
+        name: "AI-Powered Email & File Organizer",
+        description: "A growing e-commerce brand received 200+ emails/day with invoices, receipts, and contracts as attachments — all manually renamed and filed.",
+        tools: ["Make", "Gmail", "Google Drive", "Google Sheets", "OpenAI"],
+        workflow: "Problem: Staff spent 3+ hours daily sorting, renaming, and filing email attachments manually — leading to misfiled documents and compliance risks.\n\nSolution: Built a Make scenario that watches Gmail, extracts attachments, sends them to AI for content analysis, generates smart filenames, uploads to organized Google Drive folders, and logs everything to Sheets.\n\nOutcome: Eliminated 3 hours/day of manual filing. Zero misfiled documents since launch.",
+        result: "Saved 15+ hours/week and eliminated document misfiling errors.",
       },
     ],
     workflows: [
@@ -154,11 +154,11 @@ const portfolioItems: PortfolioProject[] = [
     summary: "Full CRM and marketing automation setup for agencies and service businesses.",
     projects: [
       {
-        name: "Agency CRM & Pipeline Setup",
-        description: "Configured a complete GoHighLevel instance with pipelines, automations, and client portals.",
-        tools: ["GoHighLevel", "Calendly", "Stripe"],
-        workflow: "Lead Capture → Pipeline Stage → Automated Follow-up → Booking",
-        result: "Client converted 40% more leads with automated follow-ups.",
+        name: "Full Agency CRM & Pipeline Automation",
+        description: "A digital marketing agency was tracking leads in spreadsheets, missing follow-ups, and losing deals due to no structured pipeline.",
+        tools: ["GoHighLevel", "Calendly", "Stripe", "Twilio"],
+        workflow: "Problem: No CRM system — leads were scattered across spreadsheets, emails, and sticky notes. Follow-up was inconsistent, and 60%+ of leads went cold.\n\nSolution: Configured a complete GoHighLevel instance with custom pipelines, automated SMS/email follow-up sequences, Calendly booking integration, Stripe payment links, and a client portal for onboarding.\n\nOutcome: Client converted 40% more leads with automated follow-ups. Revenue increased by $12K/month within 90 days.",
+        result: "40% increase in lead conversion and $12K/month revenue boost.",
       },
     ],
   },

@@ -21,10 +21,10 @@ const metrics = [
 ];
 
 const skills = [
-  { icon: Zap, title: "Workflow Automation" },
-  { icon: Workflow, title: "System Integrations" },
-  { icon: TrendingUp, title: "Business Process Optimization" },
-  { icon: UserCheck, title: "Executive Assistance" },
+  { icon: Zap, title: "Workflow Automation", description: "I build multi-step automations using Make.com, n8n, and Zapier to eliminate manual data entry and connect your business apps. From lead capture to invoice generation — if it's repetitive, I automate it." },
+  { icon: Workflow, title: "System Integrations", description: "I connect your CRM, email, spreadsheets, and third-party tools into one seamless system. No more copy-pasting between platforms — your data flows automatically where it needs to go." },
+  { icon: TrendingUp, title: "Business Process Optimization", description: "I map your current workflows, identify bottlenecks, and redesign processes for speed and accuracy. My 7+ years in operations management means I understand how real businesses run." },
+  { icon: UserCheck, title: "Executive Assistance", description: "I provide high-level administrative support including calendar management, email workflows, research, and reporting. Powered by AI tools so I work faster and smarter than a traditional VA." },
 ];
 
 const About = () => {
@@ -157,7 +157,8 @@ const About = () => {
               >
                 <skill.icon className="w-5 h-5 sm:w-6 sm:h-6 text-accent" />
               </div>
-              <h3 className="font-semibold text-foreground text-xs sm:text-sm">{skill.title}</h3>
+              <h3 className="font-semibold text-foreground text-xs sm:text-sm mb-2">{skill.title}</h3>
+              <p className="text-[10px] sm:text-xs text-muted-foreground leading-relaxed">{skill.description}</p>
             </motion.div>
           ))}
         </div>
