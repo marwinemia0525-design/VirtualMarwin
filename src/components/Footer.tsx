@@ -6,13 +6,12 @@ const Footer = () => {
       <div className="container-narrow">
         <div className="flex flex-col items-center gap-3 sm:gap-4 md:flex-row md:justify-between">
           <a href="#" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[hsl(199,89%,60%)] to-[hsl(263,70%,58%)] flex items-center justify-center">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="M2 17l10 5 10-5" />
-                <path d="M2 12l10 5 10-5" />
-              </svg>
-            </div>
+            <img
+              src="/logo.png"
+              alt="Automate With Marwin logo"
+              className="w-7 h-7 rounded-lg"
+              loading="lazy"
+            />
             <span className="text-sm font-bold tracking-tight">
               <span className="text-foreground">Automate</span>
               <span className="text-accent"> With Marwin</span>
