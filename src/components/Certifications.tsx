@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Award, X, ZoomIn, Star } from "lucide-react";
+import { Award, GraduationCap, X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 
 import zapierCert from "@/assets/certifications/zapier_certificate.png";
 import makeCert from "@/assets/certifications/make_certificate.png";
@@ -18,66 +18,51 @@ interface Certification {
   caption?: string;
 }
 
-const certificationRows: { label: string; items: Certification[] }[] = [
+const allCertifications: Certification[] = [
   {
-    label: "Top Priority — Automation & Tech",
-    items: [
-      {
-        title: "No Code Automation with Zapier — Full Training",
-        image: zapierCert,
-        badges: ["Automation", "Zapier"],
-        featured: true,
-        caption: "Technical Virtual Assistants PH · March 2026",
-      },
-      {
-        title: "No Code Automation with Make.com — Full Training",
-        image: makeCert,
-        badges: ["Automation", "Make.com"],
-        featured: true,
-        caption: "Technical Virtual Assistants PH · April 2026",
-      },
-      {
-        title: "Masterclass Virtual Assistant (MVA) — Completion",
-        image: mvaCompletion,
-        badges: ["Virtual Assistant", "Business Training"],
-        featured: true,
-        caption: "Surge Marketplace · May 2025 · 40 Hours",
-      },
-    ],
+    title: "No Code Automation with Zapier — Full Training",
+    image: zapierCert,
+    badges: ["Automation", "Zapier"],
+    featured: true,
+    caption: "Technical Virtual Assistants PH · March 2026",
   },
   {
-    label: "Supporting Skills",
-    items: [
-      {
-        title: "Masterclass Virtual Assistant (MVA) — Attendance",
-        image: mvaAttendance,
-        badges: ["Virtual Assistant"],
-        caption: "Surge Marketplace · May 2025",
-      },
-      {
-        title: "Best in Content Plan Award",
-        image: bestContentPlan,
-        badges: ["Content Strategy", "Award 🏆"],
-        caption: "Surge Freelancing Marketplace · May 2025",
-      },
-    ],
+    title: "No Code Automation with Make.com — Full Training",
+    image: makeCert,
+    badges: ["Automation", "Make.com"],
+    featured: true,
+    caption: "Technical Virtual Assistants PH · April 2026",
   },
   {
-    label: "Additional Certifications",
-    items: [
-      {
-        title: "DavSur Free Virtual Assistant Workshop",
-        image: davsurWorkshop,
-        badges: ["Virtual Assistant", "Workshop"],
-        caption: "Digos City · September 2025",
-      },
-      {
-        title: "Civil Service Eligibility — Professional Level",
-        image: civilService,
-        badges: ["Compliance", "Government"],
-        caption: "CSC Region XI · Rating: 80.26% · March 2022",
-      },
-    ],
+    title: "Masterclass Virtual Assistant (MVA) — Completion",
+    image: mvaCompletion,
+    badges: ["Virtual Assistant", "Business Training"],
+    featured: true,
+    caption: "Surge Marketplace · May 2025 · 40 Hours",
+  },
+  {
+    title: "Masterclass Virtual Assistant (MVA) — Attendance",
+    image: mvaAttendance,
+    badges: ["Virtual Assistant"],
+    caption: "Surge Marketplace · May 2025",
+  },
+  {
+    title: "Best in Content Plan Award",
+    image: bestContentPlan,
+    badges: ["Content Strategy", "Award 🏆"],
+    caption: "Surge Freelancing Marketplace · May 2025",
+  },
+  {
+    title: "DavSur Free Virtual Assistant Workshop",
+    image: davsurWorkshop,
+    badges: ["Virtual Assistant", "Workshop"],
+    caption: "Digos City · September 2025",
+  },
+  {
+    title: "Civil Service Eligibility — Professional Level",
+    image: civilService,
+    badges: ["Compliance", "Government"],
+    caption: "CSC Region XI · Rating: 80.26% · March 2022",
   },
 ];
 
@@ -94,13 +79,65 @@ const badgeColors: Record<string, string> = {
   Government: "bg-[hsl(215,16%,47%)]/15 text-[hsl(215,16%,47%)] border-[hsl(215,16%,47%)]/30",
 };
 
+const education = {
+  degree: "Bachelor of Arts",
+  major: "Major in English",
+  school: "Southeastern College of Padada",
+  period: "November 2015 – May 2017",
+};
+
 const Certifications = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
   const [zoom, setZoom] = useState(false);
+  const [direction, setDirection] = useState(0);
+  const touchStart = useRef(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  const cert = allCertifications[currentIndex];
+
+  const goTo = useCallback((idx: number, dir: number) => {
+    setDirection(dir);
+    setCurrentIndex((idx + allCertifications.length) % allCertifications.length);
+  }, []);
+
+  const prev = useCallback(() => goTo(currentIndex - 1, -1), [currentIndex, goTo]);
+  const next = useCallback(() => goTo(currentIndex + 1, 1), [currentIndex, goTo]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (selectedCert) return;
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [prev, next, selectedCert]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStart.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const diff = touchStart.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) next();
+      else prev();
+    }
+  };
+
+  const slideVariants = {
+    enter: (d: number) => ({ x: d > 0 ? 300 : -300, opacity: 0, scale: 0.95 }),
+    center: { x: 0, opacity: 1, scale: 1 },
+    exit: (d: number) => ({ x: d > 0 ? -300 : 300, opacity: 0, scale: 0.95 }),
+  };
 
   return (
-    <section id="certifications" className="section-padding relative">
-      <div className="container-narrow mx-auto">
+    <section id="certifications" className="section-padding relative overflow-hidden">
+      <div className="absolute inset-0" style={{ background: "var(--gradient-glow)" }} />
+
+      <div className="container-narrow relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -122,34 +159,49 @@ const Certifications = () => {
           </p>
         </motion.div>
 
-        {/* Certification Rows */}
-        {certificationRows.map((row, rowIdx) => (
-          <div key={row.label} className="mb-10 last:mb-0">
-            <motion.p
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: rowIdx * 0.1 }}
-              className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4 flex items-center gap-2"
+        {/* Two-column: Education (left) + Slider (right) */}
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-6 md:gap-8 items-start">
+          {/* Education Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="card-glass p-6 md:sticky md:top-24"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
+                <GraduationCap className="w-5 h-5 text-accent" />
+              </div>
+              <h3 className="text-xl font-semibold">Education</h3>
+            </div>
+            <div>
+              <h4 className="font-semibold text-foreground">{education.degree}</h4>
+              <p className="text-muted-foreground">{education.major}</p>
+              <p className="text-sm text-muted-foreground mt-1">{education.school}</p>
+              <p className="text-sm text-accent mt-2">{education.period}</p>
+            </div>
+          </motion.div>
+
+          {/* Certifications Slider */}
+          <div>
+            <div
+              ref={sliderRef}
+              className="relative overflow-hidden rounded-2xl"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
             >
-              {rowIdx === 0 && <Star className="w-3.5 h-3.5 text-accent" />}
-              {row.label}
-            </motion.p>
-            <div className={`grid gap-5 ${row.items.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"} grid-cols-1`}>
-              {row.items.map((cert, i) => (
+              <AnimatePresence custom={direction} mode="wait">
                 <motion.div
-                  key={cert.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 + rowIdx * 0.15 }}
-                  whileHover={{ y: -4 }}
+                  key={currentIndex}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="card-glass cursor-pointer group"
                   onClick={() => { setSelectedCert(cert); setZoom(false); }}
-                  className={`card-glass cursor-pointer group relative ${
-                    cert.featured
-                      ? "ring-1 ring-accent/30 shadow-[0_0_20px_hsl(var(--accent)/0.08)]"
-                      : ""
-                  }`}
                 >
                   {cert.featured && (
                     <div className="absolute top-3 right-3 z-10 px-2 py-0.5 rounded-full bg-accent/15 border border-accent/30 text-[10px] font-semibold text-accent uppercase tracking-wider">
@@ -160,15 +212,15 @@ const Certifications = () => {
                     <img
                       src={cert.image}
                       alt={cert.title}
-                      className="w-full h-44 sm:h-52 object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-56 sm:h-72 md:h-80 object-cover object-top transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-300 flex items-center justify-center">
                       <ZoomIn className="w-8 h-8 text-accent opacity-0 group-hover:opacity-80 transition-opacity duration-300" />
                     </div>
                   </div>
-                  <div className="p-4">
-                    <h3 className="text-sm font-semibold text-foreground mb-1.5 line-clamp-2 leading-snug">
+                  <div className="p-4 sm:p-5">
+                    <h3 className="text-sm sm:text-base font-semibold text-foreground mb-1.5 leading-snug">
                       {cert.title}
                     </h3>
                     {cert.caption && (
@@ -188,10 +240,42 @@ const Certifications = () => {
                     </div>
                   </div>
                 </motion.div>
+              </AnimatePresence>
+
+              {/* Arrow buttons */}
+              <button
+                onClick={(e) => { e.stopPropagation(); prev(); }}
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-card/80 backdrop-blur-sm border border-border hover:border-accent/50 text-foreground hover:text-accent transition-all duration-200 shadow-lg"
+                aria-label="Previous certification"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); next(); }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-card/80 backdrop-blur-sm border border-border hover:border-accent/50 text-foreground hover:text-accent transition-all duration-200 shadow-lg"
+                aria-label="Next certification"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+
+            {/* Dot indicators */}
+            <div className="flex items-center justify-center gap-2 mt-4">
+              {allCertifications.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i, i > currentIndex ? 1 : -1)}
+                  className={`rounded-full transition-all duration-300 ${
+                    i === currentIndex
+                      ? "w-6 h-2 bg-accent"
+                      : "w-2 h-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                  }`}
+                  aria-label={`Go to certification ${i + 1}`}
+                />
               ))}
             </div>
           </div>
-        ))}
+        </div>
       </div>
 
       {/* Lightbox Modal */}
