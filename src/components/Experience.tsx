@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, ExternalLink } from "lucide-react";
+import { Briefcase, ExternalLink } from "lucide-react";
 
 const experiences = [
   {
@@ -17,13 +17,6 @@ const experiences = [
     highlights: ["Operations Management", "Team Leadership", "Process Optimization"],
   },
 ];
-
-const education = {
-  degree: "Bachelor of Arts",
-  major: "Major in English",
-  school: "Southeastern College of Padada",
-  period: "November 2015 - May 2017",
-};
 
 const CV_LINK = "https://drive.google.com/file/d/1Mm46QUWXtofvPvMsZzwZLrEOx10Ch8IT/view?usp=sharing";
 
@@ -50,7 +43,6 @@ const Experience = () => {
           </p>
         </motion.div>
 
-        {/* Timeline */}
         <div className="relative">
           <div className="hidden md:block absolute left-6 top-0 bottom-0 w-px bg-border" />
           <div className="space-y-8">
@@ -92,7 +84,6 @@ const Experience = () => {
           </div>
         </div>
 
-        {/* CV Download Link */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -111,30 +102,6 @@ const Experience = () => {
             <ExternalLink size={14} />
           </a>
         </motion.div>
-
-        {/* Education */}
-        <div className="mt-16 max-w-lg mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="card-glass p-6"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
-                <GraduationCap className="w-5 h-5 text-accent" />
-              </div>
-              <h3 className="text-xl font-semibold">Education</h3>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground">{education.degree}</h4>
-              <p className="text-muted-foreground">{education.major}</p>
-              <p className="text-sm text-muted-foreground mt-1">{education.school}</p>
-              <p className="text-sm text-accent mt-2">{education.period}</p>
-            </div>
-          </motion.div>
-        </div>
       </div>
     </section>
   );
