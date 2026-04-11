@@ -41,7 +41,7 @@ const Navbar = () => {
             <img
               src="/logo.png"
               alt="Automate With Marwin logo"
-              className="w-9 h-9 rounded-xl shadow-[0_0_16px_hsl(199_89%_60%/0.3)] group-hover:shadow-[0_0_24px_hsl(199_89%_60%/0.5)] transition-shadow duration-300"
+              className="w-9 h-9 rounded-xl shadow-[0_0_16px_hsl(46_65%_52%/0.3)] group-hover:shadow-[0_0_24px_hsl(46_65%_52%/0.5)] transition-shadow duration-300"
             />
             <span className="text-base font-bold tracking-tight">
               <span className="text-foreground">Automate</span>
