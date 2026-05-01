@@ -8,6 +8,8 @@ import asanaCrmImg from "@/assets/workflows/Asana_CRM_LEAD_Engagement_Workflow.p
 import leadEnrichmentImg from "@/assets/workflows/Automated_Lead_Enrichment.png";
 import gmailAttachmentImg from "@/assets/workflows/AI_Powered_Gmail_Attachment_Auto_Renamer_Organizer_Make.png";
 import xeroAsanaImg from "@/assets/workflows/Automated_Xero_Asana_CSV_Attachment_Make.png";
+import aiJobsScraperImg from "@/assets/workflows/AI_Jobs_Scraper_Resume_Optimizer.png";
+import fbPageAiAgentImg from "@/assets/workflows/Marwin_Emia_FB_PAGE_AI_Agent.png";
 
 import approvedContent from "@/assets/ea-samples/Approved_Content_Scheduled.png";
 import carouselScheduling from "@/assets/ea-samples/Carousel_Post_Scheduling.png";
@@ -111,6 +113,20 @@ const portfolioItems: PortfolioProject[] = [
         tools: ["n8n", "HubSpot", "Slack", "Google Sheets"],
         workflow: "Deal Stage Change → Slack Alert → Follow-up Email → Log to Sheet",
         result: "Sales team response time improved by 60%.",
+      },
+    ],
+    workflows: [
+      {
+        image: aiJobsScraperImg,
+        fileName: "AI Jobs Scraper + Resume Optimizer",
+        description: "An end-to-end n8n workflow triggered from Slack that validates a job-search query, scrapes matching job listings, loops through each result, generates a tailored resume using an AI structured output model, saves and updates the resume document in Google Drive, and sends the finalized details (with resume link) back to the job channel via an automated email draft.",
+        steps: "Slack Trigger → Check if Query is Valid → Send Searching for Jobs → Get All Jobs → Check Results → Split Out → Loop Over Items → Get Resume Context → OpenRouter Structured Output Parser → Create Resume Content → Search Files & Folders → Resume Exists? → Copy Resume → Update Document → Create Email Draft → Send Details to Job Channel",
+      },
+      {
+        image: fbPageAiAgentImg,
+        fileName: "Marwin Emia – FB Page AI Agent",
+        description: "A Facebook Page AI Agent built in n8n that handles incoming Messenger webhooks, filters valid messages, retrieves a knowledge document, and routes the conversation through an AI Agent powered by an OpenAI Chat Model with persistent Simple Memory — then sends the AI-generated reply back to the user via the Messenger HTTP API.",
+        steps: "Webhook (GET/POST) → If (Verification) → Respond to Webhook → Filter → Get a Document → AI Agent (OpenAI Chat Model + Simple Memory) → HTTP Request (Send Reply)",
       },
     ],
   },
