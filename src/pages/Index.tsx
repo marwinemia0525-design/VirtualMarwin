@@ -30,13 +30,13 @@ const Index = () => {
         <main>
           <Hero />
           <Services />
-          <Process />
           <Automations />
           <About />
           <Experience />
           <Certifications />
           <ToolsPlatforms />
           <Testimonials />
+          <Process />
           <Contact />
         </main>
         <Footer />
