@@ -10,6 +10,7 @@ import gmailAttachmentImg from "@/assets/workflows/AI_Powered_Gmail_Attachment_A
 import xeroAsanaImg from "@/assets/workflows/Automated_Xero_Asana_CSV_Attachment_Make.png";
 import aiJobsScraperImg from "@/assets/workflows/AI_Jobs_Scraper_Resume_Optimizer.png";
 import fbPageAiAgentImg from "@/assets/workflows/Marwin_Emia_FB_PAGE_AI_Agent.png";
+import basicRagDemoImg from "@/assets/workflows/Basic_RAG_Demo.png";
 
 import approvedContent from "@/assets/ea-samples/Approved_Content_Scheduled.png";
 import carouselScheduling from "@/assets/ea-samples/Carousel_Post_Scheduling.png";
@@ -127,6 +128,12 @@ const portfolioItems: PortfolioProject[] = [
         fileName: "Marwin Emia – FB Page AI Agent",
         description: "A Facebook Page AI Agent built in n8n that handles incoming Messenger webhooks, filters valid messages, retrieves a knowledge document, and routes the conversation through an AI Agent powered by an OpenAI Chat Model with persistent Simple Memory — then sends the AI-generated reply back to the user via the Messenger HTTP API.",
         steps: "Webhook (GET/POST) → If (Verification) → Respond to Webhook → Filter → Get a Document → AI Agent (OpenAI Chat Model + Simple Memory) → HTTP Request (Send Reply)",
+      },
+      {
+        image: basicRagDemoImg,
+        fileName: "Basic RAG Demo",
+        description: "A Retrieval-Augmented Generation (RAG) system built in n8n featuring an AI Agent with Google Gemini Chat Model, Supabase Vector Store for semantic search, and Google Vertex Embeddings. Includes automated document ingestion pipelines triggered by Google Drive file events (created, updated, deleted) that download, embed, and sync documents into the vector store via a Default Data Loader.",
+        steps: "Chat Trigger → AI Agent (Google Gemini + Supabase Vector Store + Google Vertex Embeddings) → File Created/Updated/Deleted Triggers → Download File → Supabase Vector Store Upsert → Default Data Loader",
       },
     ],
   },
