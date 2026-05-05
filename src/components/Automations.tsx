@@ -11,6 +11,10 @@ import xeroAsanaImg from "@/assets/workflows/Automated_Xero_Asana_CSV_Attachment
 import aiJobsScraperImg from "@/assets/workflows/AI_Jobs_Scraper_Resume_Optimizer.png";
 import fbPageAiAgentImg from "@/assets/workflows/Marwin_Emia_FB_PAGE_AI_Agent.png";
 import basicRagDemoImg from "@/assets/workflows/Basic_RAG_Demo.png";
+import appointmentConfirmationImg from "@/assets/workflows/Appointment_Confirmation_Workflow.png";
+import leadIntakeImg from "@/assets/workflows/Lead_Intake_Immediate_Response.png";
+import postRentalReviewImg from "@/assets/workflows/Post_Rental_Review_Requests.png";
+import followUpSequenceImg from "@/assets/workflows/Van_Rental_Follow_Up_Sequence.png";
 
 import approvedContent from "@/assets/ea-samples/Approved_Content_Scheduled.png";
 import carouselScheduling from "@/assets/ea-samples/Carousel_Post_Scheduling.png";
@@ -184,6 +188,32 @@ const portfolioItems: PortfolioProject[] = [
         result: "40% increase in lead conversion and $12K/month revenue boost.",
       },
     ],
+  workflows: [
+    {
+      image: appointmentConfirmationImg,
+      fileName: "Appointment Confirmation Workflow",
+      description: "A full-cycle appointment management workflow triggered by confirmed bookings — updates opportunity stage, tags contacts, sends SMS and email booking confirmations, waits until 1 hour before the appointment to send a reminder SMS, then follows up with a thank-you/next-steps email after the meeting.",
+      steps: "Appointment Status Trigger → Update Opportunity Stage → Add Tag 'appointment-set' → Remove Tag 'new-lead' → Send SMS Booking Confirmation → Send Booking Confirmation Email → Wait Until 1 Hour Before → Send SMS Reminder → Wait 2 Hours After → Send Thank You/Next Steps Email",
+    },
+    {
+      image: leadIntakeImg,
+      fileName: "Lead Intake – Immediate Response",
+      description: "An instant lead response workflow triggered when a Van Rental form is submitted — adds the contact to the pipeline as a new lead, tags them, sends an instant SMS acknowledgment and welcome email, moves the pipeline stage to 'Contacted', and assigns the lead to a team member.",
+      steps: "Form Submitted Trigger → Add to Pipeline (New Lead) → Add Tag 'New Lead' → Send SMS Instant Acknowledgment → Welcome Email → Move Stage to Contacted → Assign to Team Member",
+    },
+    {
+      image: postRentalReviewImg,
+      fileName: "Post-Rental Review Requests",
+      description: "A post-service review automation triggered by pipeline stage changes — tags the contact as a customer, sends a welcome email, waits until after the rental end date, then sends both an SMS and email requesting a review to boost online reputation.",
+      steps: "Pipeline Stage Changed Trigger → Add Customer Tag → Send Welcome Email → Wait 2 Days After Rental End Date → Tag as Customer → Send Welcome Email → Wait 3 Days → Send Review Request SMS → Send Review Request Email",
+    },
+    {
+      image: followUpSequenceImg,
+      fileName: "Follow-Up Sequence (No Reply)",
+      description: "A comprehensive multi-touch follow-up sequence for unresponsive leads — featuring multiple rounds of conditional SMS/email follow-ups with wait periods, branching logic based on reply status, and escalating outreach to re-engage cold leads over several weeks.",
+      steps: "Trigger → Tag & Stage Updates → SMS + Email Follow-ups → Wait Periods → If/Else Reply Checks → Multi-Round Escalation → Branch Conditions → Final Follow-up Attempts",
+    },
+  ],
   },
   {
     id: "ea",
