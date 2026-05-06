@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, ArrowDown, Eye, Zap } from "lucide-react";
+import { ArrowRight, Calendar, ArrowDown, Eye } from "lucide-react";
 import marwinImage from "@/assets/marwin-emia.png";
+import ghlLogo from "@/assets/ghl-logo.png";
 
 const heroTools = [
-  { name: "GoHighLevel", icon: null, lucideIcon: Zap, color: "hsl(var(--accent))" },
+  { name: "GoHighLevel", imgSrc: ghlLogo },
   { name: "n8n", iconUrl: "https://cdn.simpleicons.org/n8n/EA4B71" },
   { name: "Make.com", iconUrl: "https://cdn.simpleicons.org/make/6D00CC" },
   { name: "Zapier", iconUrl: "https://cdn.simpleicons.org/zapier/FF4F00" },
@@ -117,7 +118,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="absolute -bottom-16 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4 sm:gap-5"
+                className="absolute -bottom-20 left-1/2 -translate-x-1/2 z-20 flex items-center gap-5 sm:gap-7"
               >
                 {heroTools.map((tool, i) => (
                   <motion.div
@@ -125,13 +126,13 @@ const Hero = () => {
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 + i * 0.08, duration: 0.5, ease: "easeOut" }}
-                    className="opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-300"
+                    className="opacity-95 hover:opacity-100 hover:scale-[1.08] transition-all duration-300 hover:drop-shadow-[0_0_8px_hsla(var(--accent),0.4)]"
                     title={tool.name}
                   >
-                    {tool.iconUrl ? (
-                      <img src={tool.iconUrl} alt={tool.name} className="w-6 h-6 sm:w-7 sm:h-7" loading="lazy" />
-                    ) : tool.lucideIcon ? (
-                      <tool.lucideIcon className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: tool.color }} />
+                    {tool.imgSrc ? (
+                      <img src={tool.imgSrc} alt={tool.name} className="h-8 sm:h-10 w-auto object-contain" loading="lazy" />
+                    ) : tool.iconUrl ? (
+                      <img src={tool.iconUrl} alt={tool.name} className="w-9 h-9 sm:w-11 sm:h-11" loading="lazy" />
                     ) : null}
                   </motion.div>
                 ))}
