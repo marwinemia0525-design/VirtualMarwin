@@ -92,9 +92,9 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1, duration: 0.4 }}
-            className="flex justify-center lg:justify-end"
+            className="flex justify-center lg:justify-end lg:-mt-8"
           >
-            <div className="relative">
+            <div className="relative mb-16 sm:mb-20">
               <div className="w-56 h-56 sm:w-64 sm:h-64 md:w-68 md:h-68 lg:w-76 lg:h-76 rounded-2xl overflow-hidden border border-border shadow-lg relative z-10">
                 <img
                   src={marwinImage}
