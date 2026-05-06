@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, ArrowDown, Eye } from "lucide-react";
+import { ArrowRight, Calendar, ArrowDown, Eye, Zap } from "lucide-react";
 import marwinImage from "@/assets/marwin-emia.png";
+
+const heroTools = [
+  { name: "GoHighLevel", icon: null, lucideIcon: Zap, color: "hsl(var(--accent))" },
+  { name: "n8n", iconUrl: "https://cdn.simpleicons.org/n8n/EA4B71" },
+  { name: "Make.com", iconUrl: "https://cdn.simpleicons.org/make/6D00CC" },
+  { name: "Zapier", iconUrl: "https://cdn.simpleicons.org/zapier/FF4F00" },
+];
 
 const stats = [
   { value: "7+", label: "Years Experience" },
@@ -104,6 +111,31 @@ const Hero = () => {
               <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 z-20 px-4 py-2 rounded-full bg-card/90 backdrop-blur-sm border border-border shadow-lg">
                 <p className="text-[10px] sm:text-xs font-semibold text-accent whitespace-nowrap">AI Automation Specialist</p>
               </div>
+
+              {/* Tool logos row */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="absolute -bottom-16 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4 sm:gap-5"
+              >
+                {heroTools.map((tool, i) => (
+                  <motion.div
+                    key={tool.name}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 + i * 0.08, duration: 0.5, ease: "easeOut" }}
+                    className="opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-300"
+                    title={tool.name}
+                  >
+                    {tool.iconUrl ? (
+                      <img src={tool.iconUrl} alt={tool.name} className="w-6 h-6 sm:w-7 sm:h-7" loading="lazy" />
+                    ) : tool.lucideIcon ? (
+                      <tool.lucideIcon className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: tool.color }} />
+                    ) : null}
+                  </motion.div>
+                ))}
+              </motion.div>
             </div>
           </motion.div>
         </div>
