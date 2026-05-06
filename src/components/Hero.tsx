@@ -95,17 +95,17 @@ const Hero = () => {
             className="flex justify-center lg:justify-end"
           >
             <div className="relative">
-              <div className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-2xl overflow-hidden border border-border shadow-lg relative z-10">
+              <div className="w-56 h-56 sm:w-64 sm:h-64 md:w-68 md:h-68 lg:w-76 lg:h-76 rounded-2xl overflow-hidden border border-border shadow-lg relative z-10">
                 <img
                   src={marwinImage}
                   alt="Marwin G. Emia - AI Automation Specialist"
                   className="w-full h-full object-cover object-center"
-                  width={320}
-                  height={320}
+                  width={304}
+                  height={304}
                 />
               </div>
               <div 
-                className="absolute -bottom-3 -right-3 w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-2xl -z-0"
+                className="absolute -bottom-3 -right-3 w-56 h-56 sm:w-64 sm:h-64 md:w-68 md:h-68 lg:w-76 lg:h-76 rounded-2xl -z-0"
                 style={{ background: 'var(--gradient-accent)', opacity: 0.15 }}
               />
               {/* Badge under photo */}
@@ -118,7 +118,8 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="absolute -bottom-20 left-1/2 -translate-x-1/2 z-20 flex items-center gap-5 sm:gap-7"
+                className="absolute -bottom-24 left-1/2 -translate-x-1/2 z-20 flex items-center gap-6 sm:gap-8 px-5 py-3 rounded-2xl"
+                style={{ background: 'radial-gradient(ellipse at center, hsla(var(--accent), 0.06) 0%, transparent 70%)' }}
               >
                 {heroTools.map((tool, i) => (
                   <motion.div
@@ -130,9 +131,9 @@ const Hero = () => {
                     title={tool.name}
                   >
                     {tool.imgSrc ? (
-                      <img src={tool.imgSrc} alt={tool.name} className="h-8 sm:h-10 w-auto object-contain" loading="lazy" />
+                      <img src={tool.imgSrc} alt={tool.name} className="h-10 sm:h-14 w-auto object-contain" loading="lazy" />
                     ) : tool.iconUrl ? (
-                      <img src={tool.iconUrl} alt={tool.name} className="w-9 h-9 sm:w-11 sm:h-11" loading="lazy" />
+                      <img src={tool.iconUrl} alt={tool.name} className="w-11 h-11 sm:w-14 sm:h-14" loading="lazy" />
                     ) : null}
                   </motion.div>
                 ))}
