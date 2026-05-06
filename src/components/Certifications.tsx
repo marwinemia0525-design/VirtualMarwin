@@ -10,6 +10,7 @@ import bestContentPlan from "@/assets/certifications/best_content_plan.png";
 import davsurWorkshop from "@/assets/certifications/davsur_va_workshop.png";
 import civilService from "@/assets/certifications/civil_service_eligibility.png";
 import n8nCert from "@/assets/certs/n8n_certificate.png";
+import ghlCert from "@/assets/certs/ghl_certificate.png";
 
 interface Certification {
   title: string;
@@ -20,6 +21,13 @@ interface Certification {
 }
 
 const allCertifications: Certification[] = [
+  {
+    title: "HighLevel CRM — Full Training",
+    image: ghlCert,
+    badges: ["CRM", "GoHighLevel"],
+    featured: true,
+    caption: "Technical Virtual Assistants PH · May 2026",
+  },
   {
     title: "AI Automation with n8n — Full Training",
     image: n8nCert,
@@ -79,6 +87,8 @@ const badgeColors: Record<string, string> = {
   "Make.com": "bg-[hsl(263,70%,58%)]/15 text-[hsl(263,70%,58%)] border-[hsl(263,70%,58%)]/30",
   Zapier: "bg-[hsl(24,100%,50%)]/15 text-[hsl(24,100%,50%)] border-[hsl(24,100%,50%)]/30",
   "n8n": "bg-[hsl(342,78%,60%)]/15 text-[hsl(342,78%,60%)] border-[hsl(342,78%,60%)]/30",
+  "CRM": "bg-[hsl(210,70%,50%)]/15 text-[hsl(210,70%,50%)] border-[hsl(210,70%,50%)]/30",
+  "GoHighLevel": "bg-[hsl(36,90%,50%)]/15 text-[hsl(36,90%,50%)] border-[hsl(36,90%,50%)]/30",
   "Virtual Assistant": "bg-[hsl(192,91%,43%)]/15 text-[hsl(192,91%,43%)] border-[hsl(192,91%,43%)]/30",
   "Business Training": "bg-[hsl(224,64%,33%)]/15 text-[hsl(224,64%,50%)] border-[hsl(224,64%,33%)]/30",
   "Content Strategy": "bg-[hsl(263,70%,58%)]/15 text-[hsl(263,70%,58%)] border-[hsl(263,70%,58%)]/30",
