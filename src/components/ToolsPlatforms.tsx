@@ -96,7 +96,7 @@ const ToolCard = memo(({ tool }: { tool: Tool }) => {
 ToolCard.displayName = "ToolCard";
 
 const InfiniteRow = ({ tools, direction }: { tools: Tool[]; direction: "left" | "right" }) => {
-  const animationClass = direction === "left" ? "animate-[scroll-left_80s_linear_infinite]" : "animate-[scroll-right_80s_linear_infinite]";
+  const animationClass = direction === "left" ? "animate-[scroll-left_40s_linear_infinite]" : "animate-[scroll-right_40s_linear_infinite]";
 
   return (
     <div className="relative overflow-hidden group/row">
