@@ -16,6 +16,14 @@ import leadIntakeImg from "@/assets/workflows/Lead_Intake_Immediate_Response.png
 import postRentalReviewImg from "@/assets/workflows/Post_Rental_Review_Requests.png";
 import followUpSequenceImg from "@/assets/workflows/Van_Rental_Follow_Up_Sequence.png";
 
+import vrsWorkflowList from "@/assets/workflows/vrs_workflow_list.png";
+import vrsNewLeadIntake from "@/assets/workflows/vrs_new_lead_intake.png";
+import vrsQuoteBooking from "@/assets/workflows/vrs_quote_booking.png";
+import vrsBookingConfirmation from "@/assets/workflows/vrs_booking_confirmation.png";
+import vrsReplyDetection from "@/assets/workflows/vrs_reply_detection.png";
+import vrsNoReplyFollowup from "@/assets/workflows/vrs_no_reply_followup.png";
+import vrsPostRental from "@/assets/workflows/vrs_post_rental.png";
+
 import approvedContent from "@/assets/ea-samples/Approved_Content_Scheduled.png";
 import carouselScheduling from "@/assets/ea-samples/Carousel_Post_Scheduling.png";
 import funFriday from "@/assets/ea-samples/Fun_Friday_Content_Scheduling.png";
@@ -189,6 +197,48 @@ const portfolioItems: PortfolioProject[] = [
       },
     ],
   workflows: [
+    {
+      image: vrsWorkflowList,
+      fileName: "Vehicle Rental Service – Complete Automation System",
+      description: "End-to-end automated workflow ecosystem for a Vehicle Rental Service built inside GoHighLevel. 7 interconnected workflows handle the entire customer journey: lead intake, quote & booking, booking confirmation, reply detection, no-reply follow-ups, and post-rental engagement — delivering automatic lead qualification, instant confirmations, intelligent reply detection with opportunity stage movement, multi-step nurture sequences, and post-rental review/referral/re-engagement.",
+      steps: "New Lead Intake → Quote & Booking → Booking Confirmation → Reply Detection → No Reply Follow-Up → Post-Rental Workflow (7 connected workflows)",
+    },
+    {
+      image: vrsNewLeadIntake,
+      fileName: "VRS – New Lead Intake Workflow",
+      description: "Triggered on form submission or contact creation tagged 'new-lead'. Adds the contact to the New Lead pipeline, tags them, assigns to staff, sends timed SMS and email touches, moves the pipeline to Contacted, then branches based on reply detection to either remove the awaiting-reply tag or push the lead into the Shortlist.",
+      steps: "Form Submitted / Contact Created → Add to Pipeline (New Lead) → Tag 'New Lead' → Assign to Staff → Wait 7 Min → Send SMS #1 → Send Email #1 → Move to Contacted → Tag 'Awaiting Reply' → Wait 1 Hour → Check If Replied → Branch (Remove Tag / Add to Shortlist)",
+    },
+    {
+      image: vrsQuoteBooking,
+      fileName: "VRS – Quote & Booking Workflow",
+      description: "Triggered when a contact requests a quote. Sends SMS + email with the quote, updates pipeline stage, waits, then branches based on whether the customer accepted. Accepted leads are moved through booking confirmation and tagged accordingly; non-responders fall into a follow-up branch.",
+      steps: "Quote Requested → Send SMS + Email Quote → Update Pipeline Stage → Wait → Branch (Accepted / No Response) → Send Follow-up → Update Stage → Add Tag 'Quote Accepted' / 'Booking' → End",
+    },
+    {
+      image: vrsBookingConfirmation,
+      fileName: "VRS – Booking Confirmation Workflow",
+      description: "Fires on a confirmed Customer Booked Appointment in the Van Rental calendar. Moves the opportunity to the Booked stage, tags as 'confirmed', removes stale tags, sends instant SMS + email confirmations, then waits to deliver SMS and email reminders ahead of the rental.",
+      steps: "Customer Booked Appointment Trigger → Move to Booked Stage → Add Tag 'confirmed' → Remove Old Tag → Send SMS Confirmation → Send Email Confirmation → Wait → Send SMS Reminder → Send Email Reminder → End",
+    },
+    {
+      image: vrsReplyDetection,
+      fileName: "VRS – Reply Detection Workflow",
+      description: "Triggered when a customer replies via SMS. Removes the 'awaiting-reply' tag, adds a 'replied' tag, moves the opportunity into the Interested stage, and fires an internal notification to the team so a human can take over instantly.",
+      steps: "Customer Replied (SMS) → Remove 'awaiting-reply' Tag → Add 'replied' Tag → Move Opportunity to Interested Stage → Internal Notification: Customer Replied → End",
+    },
+    {
+      image: vrsNoReplyFollowup,
+      fileName: "VRS – No Reply Follow-Up Sequence",
+      description: "Long-form multi-touch nurture for unresponsive leads. Cycles through staggered SMS and email follow-ups with wait periods between each touch, exiting automatically when a reply is detected or marking the contact as unresponsive after the final attempt.",
+      steps: "Contact Tagged 'awaiting-reply' → Wait → Send Follow-up #1 → Wait → Send Follow-up #2 → Wait → Send Follow-up #3 → Multi-round SMS + Email Touches → Check If Replied → Mark Unresponsive → End",
+    },
+    {
+      image: vrsPostRental,
+      fileName: "VRS – Post-Rental Workflow",
+      description: "Triggered when a Vehicle Rental Session opportunity is marked Completed. Moves the opportunity to Completed, tags as past-customer, waits 3 hours before sending a review request SMS, then 2 days later sends a Review + Referral email, and finally re-engages the customer 30 days after the rental.",
+      steps: "Opportunity Status Changed (Completed) → Move to Completed Stage → Add Tag 'past-customer' → Wait 3 Hours → Send Review Request SMS → Wait 2 Days → Send Review + Referral Email → Wait 30 Days → Send Re-engagement SMS → End",
+    },
     {
       image: appointmentConfirmationImg,
       fileName: "Appointment Confirmation Workflow",
