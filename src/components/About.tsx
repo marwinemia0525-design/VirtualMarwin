@@ -103,10 +103,13 @@ const About = () => {
                 I'm Marwin Emia, an AI Workflow Automation Specialist & Executive Virtual Assistant with hands-on expertise in building multi-step pipelines using n8n, Make.com, Zapier, GoHighLevel, and AI integrations (ChatGPT, Claude, Gemini, Grok).
               </p>
               <p>
-                I design end-to-end automation systems — from lead capture flows and CRM automations to smart workflows that remove the manual grind from business operations. With 7+ years in branch operations and collection management, I now help clients turn repetitive tasks into intelligent, scalable systems that save time and drive real growth.
+                I design end-to-end automation systems - from lead capture flows and CRM automations to smart workflows that remove the manual grind from business operations. With 7+ years in branch operations and collection management, I now help clients turn repetitive tasks into intelligent, scalable systems that save time and drive real growth.
               </p>
               <p>
-                Leveraging cutting-edge AI tools, I create powerful automations that don't just save time — they actively help businesses attract leads, nurture prospects, and scale efficiently. My work is rooted in practical, results-driven solutions that are built to last.
+                Leveraging cutting-edge AI tools, I create powerful automations that don't just save time - they actively help businesses attract leads, nurture prospects, and scale efficiently. My work is rooted in practical, results-driven solutions that are built to last.
+              </p>
+              <p>
+                For the past 12 months, I've been building projects and case studies designed around the exact problems businesses like yours face. I didn't come here with a resume - I came here with proof.
               </p>
             </div>
 
