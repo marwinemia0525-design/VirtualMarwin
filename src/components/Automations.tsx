@@ -23,6 +23,8 @@ import vrsBookingConfirmation from "@/assets/workflows/vrs_booking_confirmation.
 import vrsReplyDetection from "@/assets/workflows/vrs_reply_detection.png";
 import vrsNoReplyFollowup from "@/assets/workflows/vrs_no_reply_followup.png";
 import vrsPostRental from "@/assets/workflows/vrs_post_rental.png";
+import fitnessCoachCheckin from "@/assets/workflows/Fitness_Coach_Weekly_Client_Checkin.png";
+import ghlGutterLeadAi from "@/assets/workflows/GHL_Gutter_Lead_AI_Followup_CRM_Update.png";
 
 import approvedContent from "@/assets/ea-samples/Approved_Content_Scheduled.png";
 import carouselScheduling from "@/assets/ea-samples/Carousel_Post_Scheduling.png";
@@ -146,6 +148,18 @@ const portfolioItems: PortfolioProject[] = [
         fileName: "Basic RAG Demo",
         description: "A Retrieval-Augmented Generation (RAG) system built in n8n featuring an AI Agent with Google Gemini Chat Model, Supabase Vector Store for semantic search, and Google Vertex Embeddings. Includes automated document ingestion pipelines triggered by Google Drive file events (created, updated, deleted) that download, embed, and sync documents into the vector store via a Default Data Loader.",
         steps: "Chat Trigger → AI Agent (Google Gemini + Supabase Vector Store + Google Vertex Embeddings) → File Created/Updated/Deleted Triggers → Download File → Supabase Vector Store Upsert → Default Data Loader",
+      },
+      {
+        image: fitnessCoachCheckin,
+        fileName: "Fitness Coach – Weekly Client Check-in",
+        description: "A scheduled n8n workflow that runs every Monday at 9 AM to automatically pull the fitness coach's active client list, split contacts into individual records, and dispatch personalized weekly check-in SMS and email touches to each client — keeping engagement high without manual outreach.",
+        steps: "Schedule Trigger (Every Monday 9AM) → Get Fitness Clients (GET API) → Split Out Contacts → Send SMS Check-in (POST) → Send Email Check-in (POST)",
+      },
+      {
+        image: ghlGutterLeadAi,
+        fileName: "GHL Gutter Lead – AI Follow-up + CRM Update",
+        description: "Triggered by a GoHighLevel webhook when a new gutter contractor lead is created. Extracts the lead data, uses OpenAI (gpt-4o-mini) to generate a personalized follow-up email, parses the AI output, then fans out into three parallel actions: sends an instant Gmail reply to the homeowner, creates a 'Call within 1 hour' task in GHL, and tags the contact as AI Qualified, Gutter Lead, and Email Sent.",
+        steps: "GHL Webhook (New Lead) → Extract Lead Data → Generate AI Email (OpenAI gpt-4o-mini) → Parse AI Email → Split into 3 Paths → Send Follow-up Email (Gmail) + Create Follow-up Task (GHL) + Tag as AI Qualified (GHL)",
       },
     ],
   },
