@@ -108,9 +108,6 @@ const About = () => {
               <p>
                 Leveraging cutting-edge AI tools, I create powerful automations that don't just save time - they actively help businesses attract leads, nurture prospects, and scale efficiently. My work is rooted in practical, results-driven solutions that are built to last.
               </p>
-              <p>
-                For the past 12 months, I've been building projects and case studies designed around the exact problems businesses like yours face. I didn't come here with a resume - I came here with proof.
-              </p>
             </div>
 
             {/* What I Bring to the Table */}
