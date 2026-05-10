@@ -92,11 +92,11 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1, duration: 0.4 }}
-            className="flex justify-center lg:justify-end lg:-mt-8"
+            className="flex justify-center lg:justify-end lg:-mt-8 w-full"
           >
-            <div className="flex flex-col items-center">
-              <div className="relative mb-10">
-              <div className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-76 lg:h-76 rounded-2xl overflow-hidden border border-border shadow-lg relative z-10">
+            <div className="flex flex-col items-center max-w-full">
+              <div className="relative mb-10 max-w-full">
+              <div className="w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-[19rem] lg:h-[19rem] rounded-2xl overflow-hidden border border-border shadow-lg relative z-10">
                 <img
                   src={marwinImage}
                   alt="Marwin G. Emia - AI Automation Specialist"
@@ -106,7 +106,8 @@ const Hero = () => {
                 />
               </div>
               <div 
-                className="absolute -bottom-3 -right-3 w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-76 lg:h-76 rounded-2xl -z-0"
+                aria-hidden
+                className="absolute -bottom-3 -right-3 w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-[19rem] lg:h-[19rem] rounded-2xl -z-0 pointer-events-none"
                 style={{ background: 'var(--gradient-accent)', opacity: 0.15 }}
               />
               {/* Badge under photo */}
