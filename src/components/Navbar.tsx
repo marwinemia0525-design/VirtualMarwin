@@ -34,11 +34,13 @@ const Navbar = () => {
     >
       <nav className="container-narrow mx-auto px-6 md:px-12">
         <div className="flex items-center justify-between h-16 md:h-18">
-          <a href="#" className="flex items-center gap-2 group">
+          <a href="#" className="flex items-center gap-2.5 group" aria-label="Automate With Marwin home">
             <img
               src="/logo.png"
-              alt="Automate With Marwin logo"
-              className="w-9 h-9 rounded-xl shadow-[0_0_16px_hsl(46_65%_52%/0.3)] group-hover:shadow-[0_0_24px_hsl(46_65%_52%/0.5)] transition-shadow duration-300"
+              alt="Marwin Emia M monogram logo"
+              width={36}
+              height={36}
+              className="w-8 h-8 md:w-9 md:h-9 drop-shadow-[0_0_10px_rgba(0,229,255,0.35)] group-hover:drop-shadow-[0_0_16px_rgba(0,229,255,0.6)] transition-all duration-300 group-hover:scale-105"
             />
             <span className="text-base font-bold tracking-tight">
               <span className="text-foreground">Automate</span>
