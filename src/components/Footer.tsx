@@ -8,8 +8,10 @@ const Footer = () => {
           <a href="#" className="flex items-center gap-2 group" aria-label="Back to top">
             <img
               src="/logo.png"
-              alt="Automate With Marwin logo"
-              className="w-7 h-7 rounded-lg transition-transform duration-300 group-hover:scale-105"
+              alt="Marwin Emia M monogram logo"
+              width={28}
+              height={28}
+              className="w-7 h-7 drop-shadow-[0_0_8px_rgba(0,229,255,0.3)] transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_14px_rgba(0,229,255,0.55)]"
               loading="lazy"
             />
             <span className="text-sm font-bold tracking-tight">
