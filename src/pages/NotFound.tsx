@@ -6,6 +6,16 @@ const NotFound = () => {
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+    const prevTitle = document.title;
+    const prevDesc = document.querySelector('meta[name="description"]')?.getAttribute("content");
+    document.title = "Page Not Found | Automate With Marwin";
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute("content", "The page you're looking for doesn't exist. Return to Automate With Marwin's homepage.");
+    return () => {
+      document.title = prevTitle;
+      if (prevDesc) document.querySelector('meta[name="description"]')?.setAttribute("content", prevDesc);
+    };
   }, [location.pathname]);
 
   return (
