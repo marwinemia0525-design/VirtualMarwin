@@ -25,6 +25,9 @@ import vrsNoReplyFollowup from "@/assets/workflows/vrs_no_reply_followup.png";
 import vrsPostRental from "@/assets/workflows/vrs_post_rental.png";
 import fitnessCoachCheckin from "@/assets/workflows/Fitness_Coach_Weekly_Client_Checkin.png";
 import ghlGutterLeadAi from "@/assets/workflows/GHL_Gutter_Lead_AI_Followup_CRM_Update.png";
+import desmarkQrPayments from "@/assets/workflows/Desmark_QR_Payments.png";
+import dueDateTelegramAlert from "@/assets/workflows/Due_Date_Telegram_Alert.png";
+import collectionManagerWorkflows from "@/assets/workflows/Collection_Manager_Workflows.png";
 
 import approvedContent from "@/assets/ea-samples/Approved_Content_Scheduled.png";
 import carouselScheduling from "@/assets/ea-samples/Carousel_Post_Scheduling.png";
