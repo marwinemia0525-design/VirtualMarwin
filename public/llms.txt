@@ -1,0 +1,23 @@
+# Automate With Marwin
+
+> AI Automation Expert & Executive Virtual Assistant — Marwin G. Emia builds n8n, Make.com, Zapier, and GoHighLevel workflows with AI integrations (ChatGPT, Claude, Gemini, Grok) for businesses worldwide.
+
+## Pages
+
+- [Home](/): Portfolio, services, process, case studies, and contact for AI automation and virtual assistant work.
+
+## Sections
+
+- [Services](/#services): Workflow automation, app integrations, executive assistance, process optimization.
+- [My Work](/#automations): n8n, Make.com, GoHighLevel, and Zapier case studies.
+- [About](/#about): Background, expertise, and approach.
+- [Process](/#process): Engagement workflow from discovery to delivery.
+- [Certifications](/#certifications): Credentials and training.
+- [Tools](/#tools): Platforms and software stack.
+- [Contact](/#contact): Book a free call, email, or hire via Upwork.
+
+## Optional
+
+- [LinkedIn](https://www.linkedin.com/in/marwin-emia-74a8aa366)
+- [Upwork](https://www.upwork.com/freelancers/~0176000d5826043a12)
+- [Calendly](https://calendly.com/marwinemia0525/30min)
