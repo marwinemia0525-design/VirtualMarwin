@@ -164,6 +164,24 @@ const portfolioItems: PortfolioProject[] = [
         description: "Triggered by a GoHighLevel webhook when a new gutter contractor lead is created. Extracts the lead data, uses OpenAI (gpt-4o-mini) to generate a personalized follow-up email, parses the AI output, then fans out into three parallel actions: sends an instant Gmail reply to the homeowner, creates a 'Call within 1 hour' task in GHL, and tags the contact as AI Qualified, Gutter Lead, and Email Sent.",
         steps: "GHL Webhook (New Lead) → Extract Lead Data → Generate AI Email (OpenAI gpt-4o-mini) → Parse AI Email → Split into 3 Paths → Send Follow-up Email (Gmail) + Create Follow-up Task (GHL) + Tag as AI Qualified (GHL)",
       },
+      {
+        image: desmarkQrPayments,
+        fileName: "Desmark QR Payments – FB Payment Screenshot Handler",
+        description: "A production n8n workflow that handles Facebook Messenger payment screenshots end-to-end. Webhook receives the FB message, parses sender details, downloads the image, uploads to Google Drive, builds a public URL, classifies the screenshot with Groq's vision AI, parses the response, and branches: actionable payments route to Telegram notifications, instant customer replies, payment logging, and Google Sheets row creation; non-payments fall into a delayed pending state with awaiting-customer follow-up, Telegram manager alerts, and delayed logging.",
+        steps: "FB Messenger Webhook → Respond 200 OK → Parse FB Message → Get FB Sender Name → Attach Sender Name → Has Image? → Download FB Image → Upload to Google Drive → Make File Public → Build Drive URL → Classify with Groq → Call Groq API → Parse AI Response → Is Actionable Payment? → Has Name in Message? → Telegram Notify Instant → Instant Reply to Customer → Log Payment (Instant) → Find Customer Row → Write FB Name → Delayed Branch: Check Pending State → Awaiting Customer Name? → Telegram Notify Manager → Reply to Customer → Clear Pending State → Log Payment (Delayed) → Save Pending State → FB Messenger Reply",
+      },
+      {
+        image: dueDateTelegramAlert,
+        fileName: "Due Date – Telegram Alert (Auto-list Unpaid Customers)",
+        description: "A scheduled n8n workflow that automatically pulls overdue customer accounts from a Google Sheet, filters and groups unpaid records by assigned collector, builds a formatted Telegram message listing each collector's due accounts, and dispatches the alert via Telegram — eliminating manual end-of-day reporting for collection teams.",
+        steps: "Schedule Trigger → Read Google Sheet → Filter & Group by Collector → Build Telegram Message → Send Telegram Alert",
+      },
+      {
+        image: collectionManagerWorkflows,
+        fileName: "Collection Manager – Multi-Workflow System",
+        description: "A complete n8n automation suite built for a collections operations team. Five published workflows work together to keep customer data, payments, and follow-ups in sync: Due Date Telegram Alert (overdue notifications), Desmark QR Payments (FB Messenger payment screenshot handler), CSV Upload → Google Sheets Customer/Payments Sync, Keep Alive Render Ping (uptime), and FB Webhook Verification — covering ingestion, verification, processing, alerting, and reliability in one connected system.",
+        steps: "Due Date Telegram Alert → Desmark QR Payments → CSV Upload to Google Sheets Sync → Keep Alive Render Ping → FB Webhook Verification (5 interconnected published workflows)",
+      },
     ],
   },
   {
