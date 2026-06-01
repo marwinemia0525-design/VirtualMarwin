@@ -25,7 +25,7 @@ import vrsNoReplyFollowup from "@/assets/workflows/vrs_no_reply_followup.png";
 import vrsPostRental from "@/assets/workflows/vrs_post_rental.png";
 import fitnessCoachCheckin from "@/assets/workflows/Fitness_Coach_Weekly_Client_Checkin.png";
 import ghlGutterLeadAi from "@/assets/workflows/GHL_Gutter_Lead_AI_Followup_CRM_Update.png";
-import desmarkQrPayments from "@/assets/workflows/Desmark_QR_Payments.png";
+import desmarkFbPaymentMonitor from "@/assets/workflows/Desmark_FB_Payment_Monitor.png";
 import dueDateTelegramAlert from "@/assets/workflows/Due_Date_Telegram_Alert.png";
 import collectionManagerWorkflows from "@/assets/workflows/Collection_Manager_Workflows.png";
 
@@ -165,9 +165,9 @@ const portfolioItems: PortfolioProject[] = [
         steps: "GHL Webhook (New Lead) → Extract Lead Data → Generate AI Email (OpenAI gpt-4o-mini) → Parse AI Email → Split into 3 Paths → Send Follow-up Email (Gmail) + Create Follow-up Task (GHL) + Tag as AI Qualified (GHL)",
       },
       {
-        image: desmarkQrPayments,
-        fileName: "Desmark QR Payments – FB Payment Screenshot Handler",
-        description: "A production n8n workflow that handles Facebook Messenger payment screenshots end-to-end. Webhook receives the FB message, parses sender details, downloads the image, uploads to Google Drive, builds a public URL, classifies the screenshot with Groq's vision AI, parses the response, and branches: actionable payments route to Telegram notifications, instant customer replies, payment logging, and Google Sheets row creation; non-payments fall into a delayed pending state with awaiting-customer follow-up, Telegram manager alerts, and delayed logging.",
+        image: desmarkFbPaymentMonitor,
+        fileName: "Desmark FB Payment Monitor",
+        description: "Monitors the Desmark Digos QR Payments Facebook page for incoming payment screenshots. Classifies payments (BPI QR, Bank Transfer) using Groq AI, stores images to Google Drive, looks up customer account numbers from Google Sheets (AGING-DATA), sends Telegram photo notifications with customer details, and replies to senders on Messenger. Handles name collection when not included in the screenshot caption.",
         steps: "FB Messenger Webhook → Respond 200 OK → Parse FB Message → Get FB Sender Name → Attach Sender Name → Has Image? → Download FB Image → Upload to Google Drive → Make File Public → Build Drive URL → Classify with Groq → Call Groq API → Parse AI Response → Is Actionable Payment? → Has Name in Message? → Telegram Notify Instant → Instant Reply to Customer → Log Payment (Instant) → Find Customer Row → Write FB Name → Delayed Branch: Check Pending State → Awaiting Customer Name? → Telegram Notify Manager → Reply to Customer → Clear Pending State → Log Payment (Delayed) → Save Pending State → FB Messenger Reply",
       },
       {
