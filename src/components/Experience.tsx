@@ -6,7 +6,7 @@ const experiences = [
     title: "AI Workflow & Automation Specialist",
     company: "Technical Virtual Assistants PH",
     period: "2025 — Present",
-    description: "Building AI-powered automation workflows for businesses using no-code and low-code platforms.",
+    description: "Building AI-powered automation workflows for businesses using no-code and low-code platforms. Backed by a supportive community of TechVA experts across diverse fields — accessible 24/7 through our exclusive Zoom tambayan — and personally mentored by Kuya RJ, the n8n Ambassador in the Philippines.",
     highlights: ["Make.com", "n8n", "Zapier", "GoHighLevel", "OpenAI API", "Claude", "Gemini"],
   },
   {
