@@ -50,6 +50,12 @@ const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
                 top: "50%",
                 transform: "translate(-50%, -50%)",
               }}
+              style={{
+                background: `radial-gradient(circle, ${GOLD_HEX}14 0%, transparent 70%)`,
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
               animate={prefersReducedMotion ? {} : { scale: [1, 1.12, 1], opacity: [0.5, 0.8, 0.5] }}
               transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
             />
