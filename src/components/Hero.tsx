@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, ArrowDown, Eye } from "lucide-react";
+import { ArrowRight, Calendar, ArrowDown, Eye, Sparkles } from "lucide-react";
 import marwinImage from "@/assets/marwin-emia.png";
 import ghlLogo from "@/assets/ghl-logo.png";
 
@@ -20,16 +20,54 @@ const stats = [
 const Hero = () => {
   return (
     <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-background" />
-      <div className="absolute inset-0" style={{ background: 'var(--gradient-glow)' }} />
-      
-      <div 
-        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
-        style={{
-          backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px'
-        }}
-      />
+      {/* Soft hero glow on top of global animated background */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'var(--gradient-glow)' }} />
+
+      {/* Hero workflow visualization - SVG nodes & flowing connections behind headline */}
+      <svg
+        aria-hidden
+        className="absolute inset-0 w-full h-full pointer-events-none opacity-50"
+        preserveAspectRatio="none"
+        viewBox="0 0 1200 700"
+      >
+        <defs>
+          <linearGradient id="heroFlow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="hsl(244 90% 68%)" stopOpacity="0.0" />
+            <stop offset="50%" stopColor="hsl(189 94% 60%)" stopOpacity="1" />
+            <stop offset="100%" stopColor="hsl(270 85% 65%)" stopOpacity="0.0" />
+          </linearGradient>
+          <radialGradient id="heroNode">
+            <stop offset="0%" stopColor="hsl(189 94% 75%)" stopOpacity="1" />
+            <stop offset="60%" stopColor="hsl(244 90% 68%)" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="hsl(244 90% 68%)" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        {[
+          "M 60 380 C 240 280, 360 480, 540 380 S 840 280, 1140 380",
+          "M 100 540 C 280 460, 420 620, 600 540 S 900 460, 1160 540",
+          "M 40 220 C 220 140, 380 320, 580 220 S 880 140, 1180 220",
+        ].map((d, i) => (
+          <path
+            key={i}
+            d={d}
+            stroke="url(#heroFlow)"
+            strokeWidth="1.5"
+            fill="none"
+            strokeDasharray="4 8"
+            style={{ animation: `flow-dash ${7 + i * 2}s linear infinite`, animationDelay: `${i}s` }}
+          />
+        ))}
+        {[[60, 380], [540, 380], [1140, 380], [100, 540], [600, 540], [1160, 540], [40, 220], [580, 220], [1180, 220]].map(
+          ([cx, cy], i) => (
+            <g key={`hn-${i}`}>
+              <circle cx={cx} cy={cy} r="28" fill="url(#heroNode)">
+                <animate attributeName="r" values="22;34;22" dur="3.5s" begin={`${i * 0.25}s`} repeatCount="indefinite" />
+              </circle>
+              <circle cx={cx} cy={cy} r="4" fill="hsl(189 94% 80%)" />
+            </g>
+          )
+        )}
+      </svg>
 
       <div className="container-narrow relative z-10 px-4 sm:px-6 md:px-12 pt-20 pb-8 sm:pt-24 sm:pb-12 md:pt-28 md:pb-16">
         {/* Main hero content */}
@@ -40,10 +78,11 @@ const Hero = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent mb-4 sm:mb-6"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full glass-panel text-accent mb-4 sm:mb-6"
             >
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider">Available for Projects</span>
+              <Sparkles size={12} className="text-accent" />
+              <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider">AI Automation & Systems Architect</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
             </motion.div>
 
             <motion.h1
