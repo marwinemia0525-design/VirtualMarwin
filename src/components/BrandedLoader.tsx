@@ -43,7 +43,7 @@ const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
           {/* Ambient glow */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
-              className="absolute w-[260px] h-[260px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] rounded-full will-change-transform"
+              className="absolute w-[260px] h-[260px] sm:w-[400px] sm:h-[400px] md:w-[600px] md:h-[600px] lg:w-[760px] lg:h-[760px] rounded-full will-change-transform"
               style={{
                 background: `radial-gradient(circle, ${GOLD_HEX}14 0%, transparent 70%)`,
                 left: "50%",
@@ -57,7 +57,7 @@ const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
 
           {/* Logo / Name */}
           <motion.h1
-            className="font-display text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold tracking-wider mb-2 text-center"
+            className="font-display text-2xl xs:text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-wider mb-2 sm:mb-3 md:mb-4 text-center"
             style={{
               color: GOLD_HEX,
               textShadow: `0 0 30px ${GOLD_HEX}66, 0 0 60px ${GOLD_HEX}26`,
@@ -70,7 +70,7 @@ const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
           </motion.h1>
 
           <motion.p
-            className="text-[10px] sm:text-xs md:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-10 sm:mb-14 md:mb-16 text-center max-w-[90vw] leading-relaxed"
+            className="text-[10px] sm:text-xs md:text-base lg:text-lg tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-10 sm:mb-14 md:mb-20 lg:mb-24 text-center max-w-[90vw] leading-relaxed"
             style={{ color: "#A0A0A0" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -80,7 +80,7 @@ const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
           </motion.p>
 
           {/* Workflow nodes */}
-          <div className="relative flex items-center justify-center w-full max-w-[95vw] sm:max-w-2xl md:max-w-3xl">
+          <div className="relative flex items-center justify-center w-full max-w-[95vw] sm:max-w-2xl md:max-w-4xl lg:max-w-5xl">
             {LABELS.map((label, i) => {
               const isActive = i <= activeNode;
               const isCurrent = i === activeNode;
@@ -88,7 +88,7 @@ const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
                 <div key={i} className="flex items-center flex-shrink-0">
                   <div className="flex flex-col items-center gap-1.5 sm:gap-2">
                     <motion.div
-                      className="relative w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center will-change-transform"
+                      className="relative w-7 h-7 sm:w-9 sm:h-9 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full border-2 flex items-center justify-center will-change-transform"
                       style={{
                         borderColor: isActive ? GOLD_HEX : "#333",
                         background: isActive
@@ -103,14 +103,14 @@ const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
                       transition={{ duration: 1, repeat: Infinity }}
                     >
                       <motion.div
-                        className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-full"
+                        className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-4 md:h-4 lg:w-5 lg:h-5 rounded-full"
                         style={{ background: isActive ? GOLD_HEX : "#333" }}
                         animate={isCurrent && !prefersReducedMotion ? { scale: [1, 1.3, 1] } : {}}
                         transition={{ duration: 0.6, repeat: Infinity }}
                       />
                     </motion.div>
                     <motion.span
-                      className="text-[9px] sm:text-[11px] md:text-xs font-medium tracking-wide whitespace-nowrap"
+                      className="text-[9px] sm:text-[11px] md:text-sm lg:text-base font-medium tracking-wide whitespace-nowrap"
                       style={{ color: isActive ? GOLD_HEX : "#555" }}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: isActive ? 1 : 0.4 }}
@@ -120,7 +120,7 @@ const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
                     </motion.span>
                   </div>
                   {i < NODE_COUNT - 1 && (
-                    <div className="relative flex-1 min-w-[14px] max-w-[56px] h-0.5 mx-1.5 sm:mx-3 md:mx-4 -mt-4 sm:-mt-5">
+                    <div className="relative flex-1 min-w-[14px] max-w-[56px] md:max-w-[120px] lg:max-w-[160px] h-0.5 md:h-1 mx-1.5 sm:mx-3 md:mx-5 lg:mx-6 -mt-4 sm:-mt-5 md:-mt-7 lg:-mt-8">
                       <div className="absolute inset-0 rounded-full" style={{ background: "#333" }} />
                       <motion.div
                         className="absolute inset-y-0 left-0 rounded-full"
@@ -138,18 +138,18 @@ const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
 
           {/* Loading text */}
           <motion.div
-            className="mt-10 sm:mt-14 md:mt-16 flex items-center gap-1 text-center"
+            className="mt-10 sm:mt-14 md:mt-20 lg:mt-24 flex items-center gap-1 text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <span className="text-xs sm:text-sm md:text-base" style={{ color: "#A0A0A0" }}>
+            <span className="text-xs sm:text-sm md:text-lg lg:text-xl" style={{ color: "#A0A0A0" }}>
               Automating Your Workflow
             </span>
             {[0, 1, 2].map((i) => (
               <motion.span
                 key={i}
-                className="text-xs sm:text-sm md:text-base"
+                className="text-xs sm:text-sm md:text-lg lg:text-xl"
                 style={{ color: GOLD_HEX }}
                 animate={{ opacity: [0, 1, 0] }}
                 transition={{ duration: 1.2, delay: i * 0.2, repeat: Infinity }}
