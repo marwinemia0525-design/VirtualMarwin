@@ -13,6 +13,7 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import BrandedLoader from "@/components/BrandedLoader";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -21,13 +22,14 @@ const Index = () => {
     <>
       {loading && <BrandedLoader onComplete={() => setLoading(false)} />}
       <motion.div
-        className="min-h-screen bg-background"
+        className="min-h-screen bg-background relative"
         initial={{ opacity: 0, y: 20 }}
         animate={loading ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
+        <AnimatedBackground />
         <Navbar />
-        <main>
+        <main className="relative z-10">
           <Hero />
           <Services />
           <Automations />
