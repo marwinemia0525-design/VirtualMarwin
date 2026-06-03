@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 const FloatingOrb = ({
   size,
@@ -63,6 +63,10 @@ const FloatingShape = ({ delay, x, y }: { delay: number; x: string; y: string })
 );
 
 const AnimatedBackground = () => {
+  const reduce = useReducedMotion();
+  const { scrollY } = useScroll();
+  const yOrbs = useTransform(scrollY, [0, 2000], [0, reduce ? 0 : -180]);
+  const yGrid = useTransform(scrollY, [0, 2000], [0, reduce ? 0 : -90]);
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {/* Static gradient mesh base for depth */}
@@ -72,9 +76,9 @@ const AnimatedBackground = () => {
       />
 
       {/* Grid overlay for enterprise feel */}
-      <div
+      <motion.div
         className="absolute inset-0 opacity-[0.04]"
-        style={{
+        style={{ y: yGrid,
           backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
           backgroundSize: "80px 80px",
           maskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)",
@@ -82,11 +86,21 @@ const AnimatedBackground = () => {
         }}
       />
 
-      {/* Floating gradient orbs */}
-      <FloatingOrb size={500} color="hsl(244 90% 60% / 0.35)" delay={0} duration={24} initialX="-5%" initialY="10%" />
-      <FloatingOrb size={420} color="hsl(189 94% 55% / 0.28)" delay={6} duration={28} initialX="65%" initialY="55%" />
-      <FloatingOrb size={360} color="hsl(270 85% 65% / 0.25)" delay={3} duration={26} initialX="35%" initialY="80%" />
-      <FloatingOrb size={300} color="hsl(220 90% 60% / 0.22)" delay={9} duration={30} initialX="80%" initialY="5%" />
+      {/* Parallax wrapper for orbs */}
+      <motion.div className="absolute inset-0" style={{ y: yOrbs }}>
+        <FloatingOrb size={500} color="hsl(244 90% 60% / 0.35)" delay={0} duration={24} initialX="-5%" initialY="10%" />
+        <FloatingOrb size={420} color="hsl(189 94% 55% / 0.28)" delay={6} duration={28} initialX="65%" initialY="55%" />
+        <FloatingOrb size={360} color="hsl(270 85% 65% / 0.25)" delay={3} duration={26} initialX="35%" initialY="80%" />
+        <FloatingOrb size={300} color="hsl(220 90% 60% / 0.22)" delay={9} duration={30} initialX="80%" initialY="5%" />
+      </motion.div>
+
+      {/* (legacy single div removed) */}
+      <div
+        className="hidden"
+        style={{
+          display: "none",
+        }}
+      />
 
       {/* Workflow nodes + connection lines (SVG) */}
       <svg
