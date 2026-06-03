@@ -14,6 +14,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import BrandedLoader from "@/components/BrandedLoader";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import Reveal from "@/components/Reveal";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -31,15 +32,15 @@ const Index = () => {
         <Navbar />
         <main className="relative z-10">
           <Hero />
-          <Services />
-          <Automations />
-          <About />
-          <Experience />
-          <Certifications />
-          <ToolsPlatforms />
-          <Testimonials />
-          <Process />
-          <Contact />
+          <Reveal><Services /></Reveal>
+          <Reveal><Automations /></Reveal>
+          <Reveal><About /></Reveal>
+          <Reveal><Experience /></Reveal>
+          <Reveal><Certifications /></Reveal>
+          <Reveal><ToolsPlatforms /></Reveal>
+          <Reveal><Testimonials /></Reveal>
+          <Reveal><Process /></Reveal>
+          <Reveal><Contact /></Reveal>
         </main>
         <Footer />
       </motion.div>
