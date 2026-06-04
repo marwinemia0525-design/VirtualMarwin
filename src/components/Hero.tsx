@@ -12,8 +12,8 @@ const heroTools = [
 
 const stats = [
   { value: "7+", label: "Years Experience" },
-  { value: "10+", label: "Workflows Built" },
-  { value: "8+", label: "Tools Mastered" },
+  { value: "50+", label: "Workflows Built" },
+  { value: "35+", label: "Tools Mastered" },
   { value: "100%", label: "Client Satisfaction" },
 ];
 
