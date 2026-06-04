@@ -59,7 +59,7 @@ const Reveal = ({
       variants={variants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once, amount: 0.2, margin: "0px 0px -80px 0px" }}
+      viewport={{ once, amount: "some", margin: "0px 0px -10% 0px" }}
     >
       {children}
     </MotionTag>
