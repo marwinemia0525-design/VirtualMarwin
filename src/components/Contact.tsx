@@ -3,10 +3,15 @@ import { ArrowUpRight, Calendar, Linkedin, Mail, MapPin, Phone, Send, CheckCircl
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
+// TODO: Owner — replace YOUR_FORM_ID with your real Formspree form ID from https://formspree.io
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string>("");
   const { toast } = useToast();
 
   const validate = () => {
@@ -19,23 +24,39 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
-    const subject = encodeURIComponent("New Message From My Website");
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}\n\n---\nSource: Website Contact Form`
-    );
-    window.open(`mailto:marwinemia0525@gmail.com?subject=${subject}&body=${body}`, "_self");
-    
-    setIsSubmitted(true);
-    toast({
-      title: "Message prepared!",
-      description: "Your email client will open with the message. I will get back to you soon.",
-    });
-    setFormData({ name: "", email: "", message: "" });
-    setTimeout(() => setIsSubmitted(false), 5000);
+    setSubmitError("");
+    setIsSubmitting(true);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+      if (!res.ok) throw new Error("Request failed");
+
+      setIsSubmitted(true);
+      toast({
+        title: "Message sent!",
+        description: "I will get back to you within 24 hours.",
+      });
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch {
+      setSubmitError("Something went wrong. Please try again or email me directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -94,8 +115,8 @@ const Contact = () => {
                 className="card-glass p-6 sm:p-8 text-center"
               >
                 <CheckCircle2 className="w-10 h-10 sm:w-12 sm:h-12 text-accent mx-auto mb-3 sm:mb-4" />
-                <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">Message Prepared!</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground">Your email client should open with your message. I will get back to you soon.</p>
+                <h3 className="text-base sm:text-lg font-semibold text-green-500 mb-2">Message sent!</h3>
+                <p className="text-xs sm:text-sm text-green-500/90">I will get back to you within 24 hours.</p>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
@@ -135,10 +156,19 @@ const Contact = () => {
                   />
                   {errors.message && <p className="text-[11px] sm:text-xs text-destructive mt-1">{errors.message}</p>}
                 </div>
-                <button type="submit" className="btn-cta w-full justify-center">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-cta w-full justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   <Send size={16} />
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
+                {submitError && (
+                  <p className="text-xs sm:text-sm text-destructive text-center mt-2" role="alert">
+                    {submitError}
+                  </p>
+                )}
               </form>
             )}
 
