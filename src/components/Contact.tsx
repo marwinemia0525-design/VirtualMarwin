@@ -3,8 +3,8 @@ import { ArrowUpRight, Calendar, Linkedin, Mail, MapPin, Phone, Send, CheckCircl
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
-// TODO: Owner — replace YOUR_FORM_ID with your real Formspree form ID from https://formspree.io
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+
+const FORMSPREE_ENDPOINT = "httphs://formspree.io/f/xbdellzv";
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
