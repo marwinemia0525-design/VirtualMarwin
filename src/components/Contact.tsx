@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
 
-const FORMSPREE_ENDPOINT = "httphs://formspree.io/f/xbdellzv";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xbdellzv";
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
