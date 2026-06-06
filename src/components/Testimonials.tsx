@@ -73,7 +73,7 @@ const Testimonials = () => {
                                                       </div>
                                                       <div className="min-w-0 flex-1">
                                                                         <div className="flex items-center gap-2 flex-wrap">
-                                                                                            <p className="font-semibold text-foreground text-xs sm:text-sm truncate">{testimonial.name}</p>p>
+                                                                                            <p className="font-semibold text-foreground text-xs sm:text-sm truncate">{testimonial.name}</p>
                                                                           {"badge" in testimonial && testimonial.badge && (
                                                               <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-[9px] sm:text-[10px] font-medium whitespace-nowrap">
                                                                                       <Star className="w-2.5 h-2.5" />
