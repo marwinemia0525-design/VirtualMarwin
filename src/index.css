@@ -126,7 +126,6 @@
 
   .dark body {
     background-image: var(--gradient-hero);
-    background-attachment: fixed;
   }
 
   /* Prevent media from causing horizontal overflow */
