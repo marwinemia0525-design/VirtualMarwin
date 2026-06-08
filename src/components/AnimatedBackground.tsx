@@ -1,4 +1,5 @@
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const FloatingOrb = ({
   size,
@@ -64,11 +65,15 @@ const FloatingShape = ({ delay, x, y }: { delay: number; x: string; y: string })
 
 const AnimatedBackground = () => {
   const reduce = useReducedMotion();
+  const isMobile = useIsMobile();
   const { scrollY } = useScroll();
-  const yOrbs = useTransform(scrollY, [0, 2000], [0, reduce ? 0 : -180]);
-  const yGrid = useTransform(scrollY, [0, 2000], [0, reduce ? 0 : -90]);
+  const yOrbs = useTransform(scrollY, [0, 2000], [0, reduce || isMobile ? 0 : -180]);
+  const yGrid = useTransform(scrollY, [0, 2000], [0, reduce || isMobile ? 0 : -90]);
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div
+      className="fixed inset-0 pointer-events-none overflow-hidden z-0"
+      style={{ contain: "strict", willChange: "transform" }}
+    >
       {/* Static gradient mesh base for depth */}
       <div
         className="absolute inset-0"
@@ -89,9 +94,13 @@ const AnimatedBackground = () => {
       {/* Parallax wrapper for orbs */}
       <motion.div className="absolute inset-0" style={{ y: yOrbs }}>
         <FloatingOrb size={500} color="hsl(244 90% 60% / 0.35)" delay={0} duration={24} initialX="-5%" initialY="10%" />
-        <FloatingOrb size={420} color="hsl(189 94% 55% / 0.28)" delay={6} duration={28} initialX="65%" initialY="55%" />
-        <FloatingOrb size={360} color="hsl(270 85% 65% / 0.25)" delay={3} duration={26} initialX="35%" initialY="80%" />
-        <FloatingOrb size={300} color="hsl(220 90% 60% / 0.22)" delay={9} duration={30} initialX="80%" initialY="5%" />
+        {!isMobile && (
+          <>
+            <FloatingOrb size={420} color="hsl(189 94% 55% / 0.28)" delay={6} duration={28} initialX="65%" initialY="55%" />
+            <FloatingOrb size={360} color="hsl(270 85% 65% / 0.25)" delay={3} duration={26} initialX="35%" initialY="80%" />
+            <FloatingOrb size={300} color="hsl(220 90% 60% / 0.22)" delay={9} duration={30} initialX="80%" initialY="5%" />
+          </>
+        )}
       </motion.div>
 
       {/* (legacy single div removed) */}
@@ -156,7 +165,7 @@ const AnimatedBackground = () => {
       </svg>
 
       {/* Floating particles */}
-      {[...Array(24)].map((_, i) => (
+      {[...Array(isMobile ? 0 : 24)].map((_, i) => (
         <FloatingShape
           key={i}
           delay={i * 0.4}
@@ -166,7 +175,8 @@ const AnimatedBackground = () => {
       ))}
 
       {/* Animated horizontal scan lines */}
-      <motion.div
+      {!isMobile && (
+      <><motion.div
         className="absolute h-px w-full"
         style={{
           background: `linear-gradient(90deg, transparent, hsl(var(--accent) / 0.5), transparent)`,
@@ -183,7 +193,8 @@ const AnimatedBackground = () => {
         }}
         animate={{ x: ["100%", "-100%"], opacity: [0, 1, 0] }}
         transition={{ duration: 13, delay: 4, repeat: Infinity, ease: "linear" }}
-      />
+      /></>
+      )}
 
       {/* Vignette to keep content readable */}
       <div
