@@ -112,6 +112,7 @@ const AnimatedBackground = () => {
       />
 
       {/* Workflow nodes + connection lines (SVG) */}
+      {!isMobile && (
       <svg
         className="absolute inset-0 w-full h-full opacity-40"
         preserveAspectRatio="none"
@@ -163,6 +164,7 @@ const AnimatedBackground = () => {
           </g>
         ))}
       </svg>
+      )}
 
       {/* Floating particles */}
       {[...Array(isMobile ? 0 : 24)].map((_, i) => (
