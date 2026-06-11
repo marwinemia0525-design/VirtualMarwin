@@ -28,6 +28,11 @@ import ghlGutterLeadAi from "@/assets/workflows/GHL_Gutter_Lead_AI_Followup_CRM_
 import desmarkFbPaymentMonitor from "@/assets/workflows/Desmark_FB_Payment_Monitor.png";
 import dueDateTelegramAlert from "@/assets/workflows/Due_Date_Telegram_Alert.png";
 import collectionManagerWorkflows from "@/assets/workflows/Collection_Manager_Workflows.png";
+import collectionsAiAssistantTelegram from "@/assets/workflows/Collections_AI_Assistant_Telegram.png";
+import csvAgingGoogleSheetsSync from "@/assets/workflows/CSV_Aging_Data_Google_Sheets_Sync.png";
+import fbPagePendingPaymentReminder from "@/assets/workflows/FB_Page_Pending_Payment_Reminder.png";
+import intelligentLegalDocReview from "@/assets/workflows/Intelligent_Legal_Document_Review.png";
+import jobsScrapeLogDraft from "@/assets/workflows/Jobs_Scrape_Log_and_Draft.png";
 
 import approvedContent from "@/assets/ea-samples/Approved_Content_Scheduled.png";
 import carouselScheduling from "@/assets/ea-samples/Carousel_Post_Scheduling.png";
@@ -181,6 +186,36 @@ const portfolioItems: PortfolioProject[] = [
         fileName: "Collection Manager – Multi-Workflow System",
         description: "A complete n8n automation suite built for a collections operations team. Five published workflows work together to keep customer data, payments, and follow-ups in sync: Due Date Telegram Alert (overdue notifications), Desmark QR Payments (FB Messenger payment screenshot handler), CSV Upload → Google Sheets Customer/Payments Sync, Keep Alive Render Ping (uptime), and FB Webhook Verification — covering ingestion, verification, processing, alerting, and reliability in one connected system.",
         steps: "Due Date Telegram Alert → Desmark QR Payments → CSV Upload to Google Sheets Sync → Keep Alive Render Ping → FB Webhook Verification (5 interconnected published workflows)",
+      },
+      {
+        image: collectionsAiAssistantTelegram,
+        fileName: "AI Payment Promise Tracker & Live Account Status (Telegram)",
+        description: "A Telegram-driven AI assistant for collections teams that lets managers query any customer account in natural language. Pulls live customer data and payment promises from Google Sheets, builds a structured context, and calls Groq AI (with an automatic fallback model) to produce an instant account status reply — promise dates, balance, and recommended next action — sent right back to the chat.",
+        steps: "Telegram Trigger → Read Customer Data → Aggregate Customer Data → Read Customer Promises → Aggregate Customer Promises → Build Context → Call Groq API → Check API Success → (Fallback) Call Groq Fallback → Extract AI Response → Send Reply",
+      },
+      {
+        image: csvAgingGoogleSheetsSync,
+        fileName: "CSV Aging Data → Google Sheets Sync",
+        description: "Watches a Google Drive folder for new aging-report CSV uploads, parses the file, and incrementally syncs every row to a live Google Sheet using AccNo as the unique key. Updates only rows that changed, appends new accounts, and batch-deletes rows marked CLOSED — keeping the live customer sheet perfectly in sync with the latest upload without overwriting existing data.",
+        steps: "Watch Drive Folder → Download CSV File → Parse CSV → Remove Closed → Aggregate CSV Rows → Read Current Customers → Find New & Changed → Route CLOSED vs Active → (Active) Sync to Sheet (appendOrUpdate) / (CLOSED) Aggregate Deletes → Batch Delete CLOSED Rows",
+      },
+      {
+        image: fbPagePendingPaymentReminder,
+        fileName: "FB Page – Pending Payment Reminder",
+        description: "Polls a Facebook Page's Messenger conversations every 5 hours, scans for unresolved pending-payment threads, and fires a Telegram alert to the collections team whenever an outstanding case is detected. A second branch listens for the team's Telegram reply (Done / handled) and automatically sends back a confirmation, closing the loop between FB customer threads and the internal team chat.",
+        steps: "Every 5 Hours → Get FB Conversations → Check Pending Payments → Has Pending Payments? → Send Pending Payment Alert (Telegram)  ||  Telegram Done Trigger → Handle Done Reply → Reply Done Confirmation",
+      },
+      {
+        image: intelligentLegalDocReview,
+        fileName: "Intelligent Legal Document Review & Compliance Automation",
+        description: "End-to-end legal document review automation built around three Groq Llama 3.3 70B AI agents. Documents uploaded via webhook trigger PDF text extraction, clause analysis, compliance checking against firm-defined standards, and alternative wording suggestions. A summary agent compiles a unified HTML report, logs the record to Google Sheets, and sends a Telegram notification when the review is complete — turning hours of paralegal review into minutes.",
+        steps: "Document Upload Webhook → Workflow Configuration → Extract Document Text (PDF) → Clause Analysis Agent (Groq + Output Parser) → Compliance Check Agent (Groq + Output Parser) → Alternative Wording Agent (Groq + Output Parser) → Summary Report Agent (Groq) → Prepare Database Record → Log to Google Sheets → Send Telegram Notification",
+      },
+      {
+        image: jobsScrapeLogDraft,
+        fileName: "Client Hunter – Jobs Scrape, Log & AI Draft",
+        description: "A multi-source client-hunting workflow that pulls fresh automation/n8n/Zapier/CRM leads from three feeds (We Work Remotely RSS, OnlineJobs.ph Gmail alerts, and Indeed Gmail alerts), normalizes and merges them, deduplicates against already-logged jobs in Google Sheets, then uses a Groq Llama 3.3 70B AI Agent to draft a tailored proposal for each new lead — logging the job and notifying via Telegram. Up to 10 fresh leads per run.",
+        steps: "Run Client Hunter → Fetch WWR Jobs / Fetch OLJ Emails / Fetch Indeed Alerts / Get Logged Jobs → Normalize & Parse → Merge All Sources → Combine Sources → Filter New Only → AI Agent (Groq Chat Model + Memory + Tools) → Finalize Draft → Log New Job (Sheets) → Notify New Lead (Telegram)",
       },
     ],
   },
