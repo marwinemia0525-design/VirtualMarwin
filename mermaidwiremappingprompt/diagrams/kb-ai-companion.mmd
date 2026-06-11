@@ -1,0 +1,25 @@
+flowchart LR
+  TG("<b>Telegram Trigger</b><br/>incoming question"):::webhook
+  RC("<b>Read Customer Data</b><br/>Google Sheets"):::base
+  AC("<b>Aggregate Customer Data</b><br/>Aggregate"):::base
+  RPDATA("<b>Read Customer Promises</b><br/>Google Sheets"):::base
+  APR("<b>Aggregate Customer Promises</b><br/>Aggregate"):::base
+  BC("<b>Build Context</b><br/>Code"):::base
+  GQ("<b>Call Groq API</b><br/>HTTP Request"):::base
+  CHK("<b>Check API Success</b><br/>If"):::logic
+  FB("<b>Call Groq Fallback</b><br/>backup model"):::error
+  EX("<b>Extract AI Response</b><br/>Code"):::base
+  SR("<b>Send Reply</b><br/>Telegram"):::base
+
+  TG --> RC --> AC --> RPDATA --> APR --> BC --> GQ --> CHK
+  CHK -->|"Success"| EX
+  CHK -->|"Failed"| FB --> EX
+  EX --> SR
+
+  classDef webhook    fill:#f9d0c4,stroke:#e06666,stroke-width:2px
+  classDef logic      fill:#cfe2f3,stroke:#3d85c6,stroke-width:1px
+  classDef base       fill:#d9ead3,stroke:#6aa84f,stroke-width:1px
+  classDef explainer  fill:#fff2cc,stroke:#d6b656,stroke-dasharray:5 5
+  classDef error      fill:#f4cccc,stroke:#cc0000,stroke-width:2px,stroke-dasharray:3 3
+  classDef subflow    fill:#e8d5f5,stroke:#8e44ad,stroke-width:1px
+  classDef loop       fill:#fce5cd,stroke:#e69138,stroke-width:1px

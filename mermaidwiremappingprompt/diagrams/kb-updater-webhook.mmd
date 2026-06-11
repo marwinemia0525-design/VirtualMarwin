@@ -1,0 +1,31 @@
+flowchart LR
+  WH("<b>KB File Upload</b><br/>Webhook"):::webhook
+  PR("<b>Parse Request</b><br/>Code"):::base
+  DL("<b>Download File</b><br/>HTTP Request"):::base
+  IF("<b>Is PDF Pricelist</b><br/>If"):::logic
+
+  EX("<b>Extract PDF Text</b><br/>Extract From File"):::base
+  BG("<b>Build Groq Parse Request</b><br/>Code"):::base
+  PG("<b>Parse Pricelist with Groq</b><br/>AI parses unstructured PDF"):::subflow
+  FP("<b>Format Pricelist Rows</b><br/>Code"):::base
+  CP("<b>Clear Pricelist Sheet</b><br/>Sheets API"):::base
+  WP("<b>Write Pricelist Data</b><br/>Sheets API"):::base
+  RP("<b>Pricelist Updated</b><br/>Respond to Webhook"):::base
+
+  PI("<b>Parse Inventory Excel</b><br/>Spreadsheet File"):::base
+  FI("<b>Format Inventory Rows</b><br/>Code"):::base
+  CI("<b>Clear Inventory Sheet</b><br/>Sheets API"):::base
+  WI("<b>Write Inventory Data</b><br/>Sheets API"):::base
+  RESPI("<b>Inventory Updated</b><br/>Respond to Webhook"):::base
+
+  WH --> PR --> DL --> IF
+  IF -->|"PDF pricelist"| EX --> BG --> PG --> FP --> CP --> WP --> RP
+  IF -->|"Excel inventory"| PI --> FI --> CI --> WI --> RESPI
+
+  classDef webhook    fill:#f9d0c4,stroke:#e06666,stroke-width:2px
+  classDef logic      fill:#cfe2f3,stroke:#3d85c6,stroke-width:1px
+  classDef base       fill:#d9ead3,stroke:#6aa84f,stroke-width:1px
+  classDef explainer  fill:#fff2cc,stroke:#d6b656,stroke-dasharray:5 5
+  classDef error      fill:#f4cccc,stroke:#cc0000,stroke-width:2px,stroke-dasharray:3 3
+  classDef subflow    fill:#e8d5f5,stroke:#8e44ad,stroke-width:1px
+  classDef loop       fill:#fce5cd,stroke:#e69138,stroke-width:1px

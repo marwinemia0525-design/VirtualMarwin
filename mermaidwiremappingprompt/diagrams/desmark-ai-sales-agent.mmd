@@ -1,0 +1,29 @@
+flowchart LR
+  TRIG("<b>Customer Inquiry Received</b><br/>Execute Workflow Trigger"):::webhook
+  RP("<b>Read Pricelist</b><br/>Google Sheets"):::base
+  AP("<b>Aggregate Pricelist</b><br/>Aggregate"):::base
+  RI("<b>Read Inventory</b><br/>Google Sheets"):::base
+  AGI("<b>Aggregate Inventory</b><br/>Aggregate"):::base
+  PC("<b>Prepare Context</b><br/>Code · keyword-filters catalog<br/>vs customer message"):::base
+  AGENT("<b>Desmark Sales Assistant</b><br/>AI Agent · 3x retry"):::subflow
+  LLM("<b>Groq LLM</b><br/>Llama 3.3 70B"):::subflow
+  MEM("<b>Conversation Memory</b><br/>per-customer window buffer"):::subflow
+  REPLY("<b>Reply on FB Messenger</b><br/>HTTP Request · Graph API"):::base
+  FALL("<b>Send Fallback Reply</b><br/>friendly retry message"):::error
+
+  TRIG --> RP --> AP --> RI --> AGI
+  AP --> PC
+  AGI -.->|"inventory data"| PC
+  PC --> AGENT
+  LLM -.- AGENT
+  MEM -.- AGENT
+  AGENT --> REPLY
+  AGENT -->|"On Error"| FALL
+
+  classDef webhook    fill:#f9d0c4,stroke:#e06666,stroke-width:2px
+  classDef logic      fill:#cfe2f3,stroke:#3d85c6,stroke-width:1px
+  classDef base       fill:#d9ead3,stroke:#6aa84f,stroke-width:1px
+  classDef explainer  fill:#fff2cc,stroke:#d6b656,stroke-dasharray:5 5
+  classDef error      fill:#f4cccc,stroke:#cc0000,stroke-width:2px,stroke-dasharray:3 3
+  classDef subflow    fill:#e8d5f5,stroke:#8e44ad,stroke-width:1px
+  classDef loop       fill:#fce5cd,stroke:#e69138,stroke-width:1px

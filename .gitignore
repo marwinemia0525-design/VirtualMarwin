@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# n8n workflow exports and client data — contain live credentials/PII, never commit
+/workflows/
+/AGING-DATA.csv
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

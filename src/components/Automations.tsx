@@ -15,6 +15,12 @@ import appointmentConfirmationImg from "@/assets/workflows/Appointment_Confirmat
 import leadIntakeImg from "@/assets/workflows/Lead_Intake_Immediate_Response.png";
 import postRentalReviewImg from "@/assets/workflows/Post_Rental_Review_Requests.png";
 import followUpSequenceImg from "@/assets/workflows/Van_Rental_Follow_Up_Sequence.png";
+import desmarkSalesAgentImg from "@/assets/workflows/Desmark_AI_Sales_Agent.png";
+import legalReviewImg from "@/assets/workflows/Legal_Document_Review.png";
+import kbCompanionImg from "@/assets/workflows/KB_AI_Companion_Telegram.png";
+import kbUpdaterWebhookImg from "@/assets/workflows/Desmark_KB_Updater_Webhook.png";
+import kbUpdaterDriveImg from "@/assets/workflows/Desmark_KB_Updater_Drive_Watch.png";
+import clientHunterImg from "@/assets/workflows/Client_Hunter.png";
 
 import vrsWorkflowList from "@/assets/workflows/vrs_workflow_list.png";
 import vrsNewLeadIntake from "@/assets/workflows/vrs_new_lead_intake.png";
@@ -41,7 +47,7 @@ import emailVacation from "@/assets/ea-samples/Email_Vacation_Responder.jpg";
 import adCampaign from "@/assets/ea-samples/Ad_Campaign_Management.jpg";
 
 interface WorkflowItem {
-  image: string;
+  image?: string;
   fileName: string;
   description: string;
   steps: string;
@@ -123,34 +129,83 @@ const portfolioItems: PortfolioProject[] = [
     platform: "n8n",
     icon: Workflow,
     color: "cta",
-    summary: "Advanced self-hosted workflows for complex business logic and data processing.",
+    summary: "Self-hosted automations for real businesses — payment processing, collections alerts, and data sync.",
     projects: [
       {
-        name: "CRM Pipeline Automation",
-        description: "Built a multi-stage pipeline that automatically moves deals and triggers follow-up sequences.",
-        tools: ["n8n", "HubSpot", "Slack", "Google Sheets"],
-        workflow: "Deal Stage Change → Slack Alert → Follow-up Email → Log to Sheet",
-        result: "Sales team response time improved by 60%.",
+        name: "FB Messenger Payment Processing System",
+        description: "A local distribution business was manually monitoring Facebook Messenger for customer payment screenshots — causing delayed acknowledgments, missed payments, and constant manager attention.",
+        tools: ["n8n", "Facebook Messenger API", "Groq AI (Llama 4)", "Google Drive", "Google Sheets", "Telegram"],
+        workflow: "Problem: Manager had to manually check FB Messenger for payment screenshots, look up the customer's account number, and reply — often missing payments during busy hours.\n\nSolution: Built a 60+ node pipeline that intercepts incoming Messenger messages, downloads payment screenshots, classifies payment type via AI (QR, Bank Transfer, Bills), detects duplicate submissions, looks up the customer in the aging data sheet (handling multiple accounts under one name), and sends an instant Telegram notification with full details — all within seconds.\n\nOutcome: Zero missed payments. Manager gets instant Telegram alerts with photo, customer name, account number, and payment type — without ever opening Facebook.",
+        result: "Eliminated manual payment monitoring — 100% of payments captured and notified within seconds.",
+      },
+      {
+        name: "AI Sales Agent on FB Messenger (Bisaya / Tagalog / English)",
+        description: "The same business wanted product inquiries answered instantly — pricing, stock, and installment questions arrive in three languages, at all hours, while staff are busy on the floor.",
+        tools: ["n8n", "Groq AI (Llama 3.3 70B)", "Google Sheets", "Facebook Messenger API"],
+        workflow: "Problem: Customers asking 'magkano?' or 'naa pa moy stock?' on Messenger waited hours for a human reply — and walk-in-level questions went unanswered overnight.\n\nSolution: Built an AI sales agent that reads the live pricelist and inventory from Google Sheets, keyword-filters the catalog so only relevant products reach the model, remembers each customer's conversation, mirrors the customer's language (Bisaya, Tagalog, or English), and shows both cash and installment pricing. Strict guardrails prevent it from inventing prices or confirming payments, and a friendly fallback reply fires if the model is ever unavailable.\n\nOutcome: Customers get accurate, in-language product answers in seconds, 24/7 — payment screenshots still route to the payment pipeline automatically.",
+        result: "24/7 instant product answers in the customer's own language — with zero invented prices.",
       },
     ],
     workflows: [
       {
-        image: aiJobsScraperImg,
-        fileName: "AI Jobs Scraper + Resume Optimizer",
-        description: "An end-to-end n8n workflow triggered from Slack that validates a job-search query, scrapes matching job listings, loops through each result, generates a tailored resume using an AI structured output model, saves and updates the resume document in Google Drive, and sends the finalized details (with resume link) back to the job channel via an automated email draft.",
-        steps: "Slack Trigger → Check if Query is Valid → Send Searching for Jobs → Get All Jobs → Check Results → Split Out → Loop Over Items → Get Resume Context → OpenRouter Structured Output Parser → Create Resume Content → Search Files & Folders → Resume Exists? → Copy Resume → Update Document → Create Email Draft → Send Details to Job Channel",
+        image: fbPageAiAgentImg,
+        fileName: "Desmark QR Payments",
+        description: "A 60+ node FB Messenger payment workflow for a real distribution business. Receives payment screenshots from customers via Messenger, downloads and stores them in Google Drive, classifies payment type (BPI QR / Bank Transfer / Bills Payment) using Groq AI with Llama 4, detects duplicate submissions, looks up the customer account in the aging data Google Sheet — handling multiple accounts under one name with a numbered selection menu — and sends an instant Telegram photo notification to the manager. Non-payment text messages are routed automatically to the AI Sales Agent sub-workflow.",
+        steps: "FB Messenger Webhook → Respond 200 OK + Parse Message → Get FB Sender Name → Attach Sender Name → Has Image? → Download Image → Upload to Google Drive → Make File Public → Build Drive URL → Classify with Groq AI (Llama 4) → Parse AI Response → Is Actionable Payment? → Has Name in Message? → [Instant path: Log Payment → Find Customer Row → Customer Found? → Telegram Notify + Write FB Name → Reply to Customer] [No-name path: Wait For Concurrent Name → Re-check preName → Save Pending State → Ask for Name via Messenger] [Text reply path: Check Pending State → Awaiting Customer Name? → Log Payment → Find Customer Row → Telegram Notify Manager → Reply to Customer → Clear Pending State]",
       },
       {
-        image: fbPageAiAgentImg,
-        fileName: "Marwin Emia – FB Page AI Agent",
-        description: "A Facebook Page AI Agent built in n8n that handles incoming Messenger webhooks, filters valid messages, retrieves a knowledge document, and routes the conversation through an AI Agent powered by an OpenAI Chat Model with persistent Simple Memory — then sends the AI-generated reply back to the user via the Messenger HTTP API.",
-        steps: "Webhook (GET/POST) → If (Verification) → Respond to Webhook → Filter → Get a Document → AI Agent (OpenAI Chat Model + Simple Memory) → HTTP Request (Send Reply)",
+        image: aiJobsScraperImg,
+        fileName: "FB Page — Pending Payment Reminder",
+        description: "A scheduled watchdog workflow that polls all FB Messenger conversations every 30 minutes and alerts the manager via Telegram if any conversation is missing a 'noted payment' reply within the past 72 hours. Features a two-way Telegram interface — the manager replies 'done [number]' or 'done all' to acknowledge and dismiss specific alerts, with stale entries auto-cleaned after 72 hours.",
+        steps: "Every 30 Minutes → Get FB Conversations → Check Pending Payments (Code) → Has Pending Payments? → Send Numbered Alert to Telegram | Telegram Done Trigger → Handle Done Reply (Code) → Reply Done Confirmation",
       },
       {
         image: basicRagDemoImg,
-        fileName: "Basic RAG Demo",
-        description: "A Retrieval-Augmented Generation (RAG) system built in n8n featuring an AI Agent with Google Gemini Chat Model, Supabase Vector Store for semantic search, and Google Vertex Embeddings. Includes automated document ingestion pipelines triggered by Google Drive file events (created, updated, deleted) that download, embed, and sync documents into the vector store via a Default Data Loader.",
-        steps: "Chat Trigger → AI Agent (Google Gemini + Supabase Vector Store + Google Vertex Embeddings) → File Created/Updated/Deleted Triggers → Download File → Supabase Vector Store Upsert → Default Data Loader",
+        fileName: "Due Date's — Telegram Alert",
+        description: "A scheduled collection alert system that fires on the 1st, 7th, 16th, 21st, and 26th of each month. Reads the aging data Google Sheet, filters accounts whose due date matches today with non-zero collectibles and Active status, groups them by collector, and sends each collector a personalized Telegram message listing their due accounts and customer phone numbers.",
+        steps: "Schedule Trigger (1,7,16,21,26 of month at 10:00 AM) → Read Aging Sheet → Filter & Group by Collector (Code) → Build Telegram Message (Code) → Send Telegram Alert (per collector)",
+      },
+      {
+        image: aiJobsScraperImg,
+        fileName: "CSV Aging Data → Google Sheets Sync",
+        description: "Monitors a Google Drive folder for new CSV uploads from the aging data system. When a file is detected, it parses 1,700+ rows, compares each account to the live Google Sheet using AccNo as the unique key, then syncs only what changed — updating modified rows, appending new accounts, deleting rows marked CLOSED, and skipping unchanged records entirely.",
+        steps: "Watch Drive Folder → Download CSV File → Parse CSV → Remove Closed Column → Aggregate CSV Rows → Read Current Customers (Sheet) → Find New & Changed (Code) → Is CLOSED? → Delete CLOSED Row | Sync to Sheet (appendOrUpdate, matched by AccNo)",
+      },
+      {
+        image: desmarkSalesAgentImg,
+        fileName: "Desmark AI Sales Agent",
+        description: "A multilingual AI sales assistant for a motorcycle & appliance retailer that answers FB Messenger product inquiries in Bisaya, Tagalog, or English — mirroring whichever language the customer uses. Reads the live pricelist and inventory from Google Sheets, keyword-filters the catalog so only relevant products reach the LLM (keeping every request inside the API's token budget), keeps per-customer conversation memory, always quotes both cash and installment pricing, and never invents prices or stock. If the model fails after retries, a friendly fallback reply is sent so customers are never left on read.",
+        steps: "Sub-workflow Trigger (from Payment Monitor) → Read Pricelist (Sheets) → Aggregate → Read Inventory (Sheets) → Aggregate → Prepare Context (Code: keyword-filter catalog vs customer message) → AI Agent (Groq Llama 3.3 70B + per-customer Conversation Memory, 3x retry) → Reply on FB Messenger | on final failure → Send Fallback Reply",
+      },
+      {
+        image: legalReviewImg,
+        fileName: "Intelligent Legal Document Review & Compliance",
+        description: "A four-stage AI document review pipeline. Uploaded contracts are text-extracted, then passed through a chain of specialized AI agents — clause analysis, compliance checking, alternative wording suggestions, and an executive summary generator — each backed by its own Groq model and structured output parser so results stay machine-readable. The final review record is logged to Google Sheets and the summary is delivered to the reviewer via Telegram.",
+        steps: "Document Upload Webhook → Workflow Configuration → Extract Document Text → Clause Analysis Agent → Compliance Check Agent → Alternative Wording Agent → Summary Report Generator (each agent: Groq LLM + Structured Output Parser) → Prepare Database Record → Log to Google Sheets → Send Telegram Notification",
+      },
+      {
+        image: kbCompanionImg,
+        fileName: "Knowledge Base AI Companion (Telegram)",
+        description: "A Telegram bot that lets a collections team ask natural-language questions about customer accounts and payment promises — 'who promised to pay this week?' — instead of digging through spreadsheets. Pulls live data from two Google Sheets tabs, builds a compact context, and answers via Groq Llama, with an automatic fallback model call if the primary API request fails.",
+        steps: "Telegram Trigger → Read Customer Data (Sheets) → Aggregate → Read Customer Promises (Sheets) → Aggregate → Build Context (Code) → Call Groq API → Check API Success → [on failure: Call Groq Fallback] → Extract AI Response → Send Reply (Telegram)",
+      },
+      {
+        image: kbUpdaterWebhookImg,
+        fileName: "Desmark Knowledge Base Updater (Webhook)",
+        description: "Keeps the AI sales agent's product knowledge fresh: the business uploads a pricelist PDF or inventory Excel file to a webhook, and the workflow extracts the content — using AI to parse unstructured PDF pricelists into clean structured rows — then clears and rewrites the target Google Sheets tab the agent reads from.",
+        steps: "Webhook (PDF/Excel upload) → Parse Request → Download File → Pricelist or Inventory? → [PDF: Extract Text → Groq AI Parse → Format Rows] / [Excel: Parse Spreadsheet → Format Rows] → Clear Sheet → Write to Google Sheets",
+      },
+      {
+        image: kbUpdaterDriveImg,
+        fileName: "Desmark KB Updater (Drive Watch)",
+        description: "The zero-touch version of the knowledge base updater — staff simply drop a pricelist PDF or inventory Excel into a Google Drive folder. A scheduled check picks up new files, routes by file type, AI-parses PDF pricelists into structured rows, and rewrites the Google Sheets tabs powering the AI sales agent. No webhook, no manual upload step, nothing for staff to learn.",
+        steps: "Schedule Trigger → List Drive Files → Filter New Files (Code) → Is PDF? → [PDF: Download → Extract PDF Text → Build Groq Parse Request → Parse Pricelist with Groq → Format Rows → Write Pricelist Data] / [Excel: Download → Parse Inventory Excel → Format Rows → Clear Inventory Sheet → Write Inventory Data]",
+      },
+      {
+        image: clientHunterImg,
+        fileName: "Client Hunter — Scrape, Log & Draft",
+        description: "A personal lead-generation machine that aggregates freelance job posts from three sources — We Work Remotely RSS, OnlineJobs.ph email alerts, and Indeed alerts — normalizes and merges them, deduplicates against previously logged jobs in Google Sheets, then has an AI agent draft a tailored cover letter for each genuinely new lead. Every new opportunity is logged and pushed to Telegram with the draft ready to send.",
+        steps: "Manual Trigger → [Fetch WWR Jobs (RSS) + Fetch OLJ Emails (Gmail) + Fetch Indeed Alerts (Gmail) → Parse & Normalize each] → Merge All Sources → Get Logged Jobs (Sheets) → Filter New Only (Code) → AI Agent (Groq): Draft Cover Letter → Finalize Draft → Log New Job (Sheets) → Notify New Lead (Telegram)",
       },
       {
         image: fitnessCoachCheckin,
@@ -404,7 +459,7 @@ const Automations = () => {
               onClick={() => setSelected(item)}
               className="card-glass p-4 sm:p-6 text-left group hover:-translate-y-1 transition-all duration-500 ease-out cursor-pointer"
             >
-              {item.workflows && item.workflows.length > 0 && (
+              {item.workflows && item.workflows.length > 0 && item.workflows[0].image && (
                 <div className="mb-3 sm:mb-4 rounded-lg overflow-hidden aspect-[16/9] border border-border/50">
                   <img
                     src={item.workflows[0].image}
@@ -486,7 +541,13 @@ const Automations = () => {
                         className="rounded-xl border border-border bg-secondary/30 overflow-hidden text-left group hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         <div className="aspect-[16/10] overflow-hidden">
-                          <img src={wf.image} alt={wf.fileName} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                          {wf.image ? (
+                            <img src={wf.image} alt={wf.fileName} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center bg-accent/5">
+                              <Workflow className="w-8 h-8 text-accent/30" />
+                            </div>
+                          )}
                         </div>
                         <div className="p-2.5 sm:p-3">
                           <h5 className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-accent transition-colors line-clamp-1">{wf.fileName}</h5>
@@ -569,12 +630,18 @@ const Automations = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative w-full">
-                <img
-                  src={selectedWorkflow.image}
-                  alt={selectedWorkflow.fileName}
-                  className="w-full rounded-t-2xl cursor-zoom-in"
-                  onClick={() => setZoomedImage(selectedWorkflow.image)}
-                />
+                {selectedWorkflow.image ? (
+                  <img
+                    src={selectedWorkflow.image}
+                    alt={selectedWorkflow.fileName}
+                    className="w-full rounded-t-2xl cursor-zoom-in"
+                    onClick={() => selectedWorkflow.image && setZoomedImage(selectedWorkflow.image)}
+                  />
+                ) : (
+                  <div className="w-full h-32 sm:h-40 rounded-t-2xl bg-accent/5 flex items-center justify-center border-b border-border">
+                    <Workflow className="w-10 h-10 text-accent/30" />
+                  </div>
+                )}
                 <span className="absolute top-3 left-3 sm:top-4 sm:left-4 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-accent/90 text-white backdrop-blur-sm">{selected?.platform}</span>
                 <button
                   onClick={() => setSelectedWorkflow(null)}
@@ -582,12 +649,14 @@ const Automations = () => {
                 >
                   <X size={16} />
                 </button>
-                <button
-                  onClick={() => setZoomedImage(selectedWorkflow.image)}
-                  className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 p-1.5 sm:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors"
-                >
-                  <ZoomIn size={16} />
-                </button>
+                {selectedWorkflow.image && (
+                  <button
+                    onClick={() => selectedWorkflow.image && setZoomedImage(selectedWorkflow.image)}
+                    className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 p-1.5 sm:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors"
+                  >
+                    <ZoomIn size={16} />
+                  </button>
+                )}
               </div>
               <div className="p-4 sm:p-6 space-y-4 sm:space-y-5">
                 <div>

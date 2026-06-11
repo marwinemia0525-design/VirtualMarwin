@@ -1,0 +1,35 @@
+flowchart LR
+  WH("<b>Document Upload Webhook</b><br/>Webhook"):::webhook
+  CFG("<b>Workflow Configuration</b><br/>Set"):::base
+  EXT("<b>Extract Document Text</b><br/>Extract From File"):::base
+  A1("<b>Clause Analysis Agent</b><br/>AI Agent"):::subflow
+  M1("<b>Groq Model</b><br/>Clause Analysis"):::subflow
+  P1("<b>Structured Output Parser</b>"):::explainer
+  A2("<b>Compliance Check Agent</b><br/>AI Agent"):::subflow
+  M2("<b>Groq Model</b><br/>Compliance"):::subflow
+  P2("<b>Structured Output Parser</b>"):::explainer
+  A3("<b>Alternative Wording Agent</b><br/>AI Agent"):::subflow
+  M3("<b>Groq Model</b><br/>Alternative Wording"):::subflow
+  P3("<b>Structured Output Parser</b>"):::explainer
+  A4("<b>Summary Report Generator</b><br/>AI Agent"):::subflow
+  M4("<b>Groq Model</b><br/>Summary"):::subflow
+  REC("<b>Prepare Database Record</b><br/>Set"):::base
+  LOG("<b>Log to Google Sheets</b><br/>Google Sheets"):::base
+  TG("<b>Send Telegram Notification</b><br/>Telegram"):::base
+
+  WH --> CFG --> EXT --> A1 --> A2 --> A3 --> A4 --> REC --> LOG --> TG
+  M1 -.- A1
+  P1 -.- A1
+  M2 -.- A2
+  P2 -.- A2
+  M3 -.- A3
+  P3 -.- A3
+  M4 -.- A4
+
+  classDef webhook    fill:#f9d0c4,stroke:#e06666,stroke-width:2px
+  classDef logic      fill:#cfe2f3,stroke:#3d85c6,stroke-width:1px
+  classDef base       fill:#d9ead3,stroke:#6aa84f,stroke-width:1px
+  classDef explainer  fill:#fff2cc,stroke:#d6b656,stroke-dasharray:5 5
+  classDef error      fill:#f4cccc,stroke:#cc0000,stroke-width:2px,stroke-dasharray:3 3
+  classDef subflow    fill:#e8d5f5,stroke:#8e44ad,stroke-width:1px
+  classDef loop       fill:#fce5cd,stroke:#e69138,stroke-width:1px
