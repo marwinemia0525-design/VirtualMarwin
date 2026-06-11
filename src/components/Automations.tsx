@@ -28,6 +28,11 @@ import ghlGutterLeadAi from "@/assets/workflows/GHL_Gutter_Lead_AI_Followup_CRM_
 import desmarkFbPaymentMonitor from "@/assets/workflows/Desmark_FB_Payment_Monitor.png";
 import dueDateTelegramAlert from "@/assets/workflows/Due_Date_Telegram_Alert.png";
 import collectionManagerWorkflows from "@/assets/workflows/Collection_Manager_Workflows.png";
+import collectionsAiAssistantTelegram from "@/assets/workflows/Collections_AI_Assistant_Telegram.png";
+import csvAgingGoogleSheetsSync from "@/assets/workflows/CSV_Aging_Data_Google_Sheets_Sync.png";
+import fbPagePendingPaymentReminder from "@/assets/workflows/FB_Page_Pending_Payment_Reminder.png";
+import intelligentLegalDocReview from "@/assets/workflows/Intelligent_Legal_Document_Review.png";
+import jobsScrapeLogDraft from "@/assets/workflows/Jobs_Scrape_Log_and_Draft.png";
 
 import approvedContent from "@/assets/ea-samples/Approved_Content_Scheduled.png";
 import carouselScheduling from "@/assets/ea-samples/Carousel_Post_Scheduling.png";
