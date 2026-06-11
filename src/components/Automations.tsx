@@ -8,9 +8,6 @@ import asanaCrmImg from "@/assets/workflows/Asana_CRM_LEAD_Engagement_Workflow.p
 import leadEnrichmentImg from "@/assets/workflows/Automated_Lead_Enrichment.png";
 import gmailAttachmentImg from "@/assets/workflows/AI_Powered_Gmail_Attachment_Auto_Renamer_Organizer_Make.png";
 import xeroAsanaImg from "@/assets/workflows/Automated_Xero_Asana_CSV_Attachment_Make.png";
-import aiJobsScraperImg from "@/assets/workflows/AI_Jobs_Scraper_Resume_Optimizer.png";
-import fbPageAiAgentImg from "@/assets/workflows/Marwin_Emia_FB_PAGE_AI_Agent.png";
-import basicRagDemoImg from "@/assets/workflows/Basic_RAG_Demo.png";
 import appointmentConfirmationImg from "@/assets/workflows/Appointment_Confirmation_Workflow.png";
 import leadIntakeImg from "@/assets/workflows/Lead_Intake_Immediate_Response.png";
 import postRentalReviewImg from "@/assets/workflows/Post_Rental_Review_Requests.png";
@@ -21,6 +18,8 @@ import kbCompanionImg from "@/assets/workflows/KB_AI_Companion_Telegram.png";
 import kbUpdaterWebhookImg from "@/assets/workflows/Desmark_KB_Updater_Webhook.png";
 import kbUpdaterDriveImg from "@/assets/workflows/Desmark_KB_Updater_Drive_Watch.png";
 import clientHunterImg from "@/assets/workflows/Client_Hunter.png";
+import fbPendingReminderImg from "@/assets/workflows/FB_Pending_Payment_Reminder.png";
+import csvSheetsSyncImg from "@/assets/workflows/CSV_Sheets_Sync.png";
 
 import vrsWorkflowList from "@/assets/workflows/vrs_workflow_list.png";
 import vrsNewLeadIntake from "@/assets/workflows/vrs_new_lead_intake.png";
@@ -148,25 +147,25 @@ const portfolioItems: PortfolioProject[] = [
     ],
     workflows: [
       {
-        image: fbPageAiAgentImg,
-        fileName: "Desmark QR Payments",
+        image: desmarkFbPaymentMonitor,
+        fileName: "Desmark FB Payment Monitor",
         description: "A 60+ node FB Messenger payment workflow for a real distribution business. Receives payment screenshots from customers via Messenger, downloads and stores them in Google Drive, classifies payment type (BPI QR / Bank Transfer / Bills Payment) using Groq AI with Llama 4, detects duplicate submissions, looks up the customer account in the aging data Google Sheet — handling multiple accounts under one name with a numbered selection menu — and sends an instant Telegram photo notification to the manager. Non-payment text messages are routed automatically to the AI Sales Agent sub-workflow.",
         steps: "FB Messenger Webhook → Respond 200 OK + Parse Message → Get FB Sender Name → Attach Sender Name → Has Image? → Download Image → Upload to Google Drive → Make File Public → Build Drive URL → Classify with Groq AI (Llama 4) → Parse AI Response → Is Actionable Payment? → Has Name in Message? → [Instant path: Log Payment → Find Customer Row → Customer Found? → Telegram Notify + Write FB Name → Reply to Customer] [No-name path: Wait For Concurrent Name → Re-check preName → Save Pending State → Ask for Name via Messenger] [Text reply path: Check Pending State → Awaiting Customer Name? → Log Payment → Find Customer Row → Telegram Notify Manager → Reply to Customer → Clear Pending State]",
       },
       {
-        image: aiJobsScraperImg,
+        image: fbPendingReminderImg,
         fileName: "FB Page — Pending Payment Reminder",
         description: "A scheduled watchdog workflow that polls all FB Messenger conversations every 30 minutes and alerts the manager via Telegram if any conversation is missing a 'noted payment' reply within the past 72 hours. Features a two-way Telegram interface — the manager replies 'done [number]' or 'done all' to acknowledge and dismiss specific alerts, with stale entries auto-cleaned after 72 hours.",
         steps: "Every 30 Minutes → Get FB Conversations → Check Pending Payments (Code) → Has Pending Payments? → Send Numbered Alert to Telegram | Telegram Done Trigger → Handle Done Reply (Code) → Reply Done Confirmation",
       },
       {
-        image: basicRagDemoImg,
+        image: dueDateTelegramAlert,
         fileName: "Due Date's — Telegram Alert",
         description: "A scheduled collection alert system that fires on the 1st, 7th, 16th, 21st, and 26th of each month. Reads the aging data Google Sheet, filters accounts whose due date matches today with non-zero collectibles and Active status, groups them by collector, and sends each collector a personalized Telegram message listing their due accounts and customer phone numbers.",
         steps: "Schedule Trigger (1,7,16,21,26 of month at 10:00 AM) → Read Aging Sheet → Filter & Group by Collector (Code) → Build Telegram Message (Code) → Send Telegram Alert (per collector)",
       },
       {
-        image: aiJobsScraperImg,
+        image: csvSheetsSyncImg,
         fileName: "CSV Aging Data → Google Sheets Sync",
         description: "Monitors a Google Drive folder for new CSV uploads from the aging data system. When a file is detected, it parses 1,700+ rows, compares each account to the live Google Sheet using AccNo as the unique key, then syncs only what changed — updating modified rows, appending new accounts, deleting rows marked CLOSED, and skipping unchanged records entirely.",
         steps: "Watch Drive Folder → Download CSV File → Parse CSV → Remove Closed Column → Aggregate CSV Rows → Read Current Customers (Sheet) → Find New & Changed (Code) → Is CLOSED? → Delete CLOSED Row | Sync to Sheet (appendOrUpdate, matched by AccNo)",
@@ -218,18 +217,6 @@ const portfolioItems: PortfolioProject[] = [
         fileName: "GHL Gutter Lead – AI Follow-up + CRM Update",
         description: "Triggered by a GoHighLevel webhook when a new gutter contractor lead is created. Extracts the lead data, uses OpenAI (gpt-4o-mini) to generate a personalized follow-up email, parses the AI output, then fans out into three parallel actions: sends an instant Gmail reply to the homeowner, creates a 'Call within 1 hour' task in GHL, and tags the contact as AI Qualified, Gutter Lead, and Email Sent.",
         steps: "GHL Webhook (New Lead) → Extract Lead Data → Generate AI Email (OpenAI gpt-4o-mini) → Parse AI Email → Split into 3 Paths → Send Follow-up Email (Gmail) + Create Follow-up Task (GHL) + Tag as AI Qualified (GHL)",
-      },
-      {
-        image: desmarkFbPaymentMonitor,
-        fileName: "Desmark FB Payment Monitor",
-        description: "Monitors the Desmark Digos QR Payments Facebook page for incoming payment screenshots. Classifies payments (BPI QR, Bank Transfer) using Groq AI, stores images to Google Drive, looks up customer account numbers from Google Sheets (AGING-DATA), sends Telegram photo notifications with customer details, and replies to senders on Messenger. Handles name collection when not included in the screenshot caption.",
-        steps: "FB Messenger Webhook → Respond 200 OK → Parse FB Message → Get FB Sender Name → Attach Sender Name → Has Image? → Download FB Image → Upload to Google Drive → Make File Public → Build Drive URL → Classify with Groq → Call Groq API → Parse AI Response → Is Actionable Payment? → Has Name in Message? → Telegram Notify Instant → Instant Reply to Customer → Log Payment (Instant) → Find Customer Row → Write FB Name → Delayed Branch: Check Pending State → Awaiting Customer Name? → Telegram Notify Manager → Reply to Customer → Clear Pending State → Log Payment (Delayed) → Save Pending State → FB Messenger Reply",
-      },
-      {
-        image: dueDateTelegramAlert,
-        fileName: "Due Date – Telegram Alert (Auto-list Unpaid Customers)",
-        description: "A scheduled n8n workflow that automatically pulls overdue customer accounts from a Google Sheet, filters and groups unpaid records by assigned collector, builds a formatted Telegram message listing each collector's due accounts, and dispatches the alert via Telegram — eliminating manual end-of-day reporting for collection teams.",
-        steps: "Schedule Trigger → Read Google Sheet → Filter & Group by Collector → Build Telegram Message → Send Telegram Alert",
       },
       {
         image: collectionManagerWorkflows,

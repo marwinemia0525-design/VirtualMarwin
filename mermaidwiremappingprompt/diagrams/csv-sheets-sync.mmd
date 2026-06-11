@@ -1,0 +1,22 @@
+flowchart LR
+  WD("<b>Watch Drive Folder</b><br/>Drive Trigger · new CSV upload"):::webhook
+  DL("<b>Download CSV File</b><br/>Google Drive"):::base
+  PC("<b>Parse CSV</b><br/>Extract From File"):::base
+  RC("<b>Remove Closed Column</b><br/>Code"):::base
+  AG("<b>Aggregate CSV Rows</b><br/>Aggregate · 1700+ rows"):::base
+  RD("<b>Read Current Customers</b><br/>Google Sheets"):::base
+  FC("<b>Find New and Changed</b><br/>Code · diff by AccNo key"):::base
+  IC("<b>Is CLOSED</b><br/>If"):::logic
+  DR("<b>Delete CLOSED Row</b><br/>Google Sheets"):::error
+  SY("<b>Sync to Sheet</b><br/>appendOrUpdate · matched by AccNo"):::base
+
+  WD --> DL --> PC --> RC --> AG --> FC
+  RD --> FC
+  FC --> IC
+  IC -->|"CLOSED"| DR
+  IC -->|"New or changed"| SY
+
+  classDef webhook    fill:#f9d0c4,stroke:#e06666,stroke-width:2px
+  classDef logic      fill:#cfe2f3,stroke:#3d85c6,stroke-width:1px
+  classDef base       fill:#d9ead3,stroke:#6aa84f,stroke-width:1px
+  classDef error      fill:#f4cccc,stroke:#cc0000,stroke-width:2px,stroke-dasharray:3 3
