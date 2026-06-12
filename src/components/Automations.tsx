@@ -486,7 +486,7 @@ const Automations = () => {
 
       {/* Category Detail Modal */}
       <Dialog open={!!selected && !selectedWorkflow && !selectedEA} onOpenChange={() => setSelected(null)}>
-        <DialogContent className="max-w-[95vw] sm:max-w-3xl max-h-[85vh] overflow-y-auto bg-card border-border [overscroll-behavior:contain]">
+        <DialogContent data-lenis-prevent className="max-w-[95vw] sm:max-w-3xl max-h-[85vh] overflow-y-auto bg-card border-border [overscroll-behavior:contain]">
           {selected && (
             <>
               <DialogHeader>
@@ -600,6 +600,7 @@ const Automations = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3 }}
+              data-lenis-prevent
               className="bg-card border border-border rounded-2xl max-w-[95vw] sm:max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl [overscroll-behavior:contain]"
               onClick={(e) => e.stopPropagation()}
             >
@@ -674,6 +675,7 @@ const Automations = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3 }}
+              data-lenis-prevent
               className="bg-card border border-border rounded-2xl max-w-[95vw] sm:max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl [overscroll-behavior:contain]"
               onClick={(e) => e.stopPropagation()}
             >
