@@ -93,14 +93,14 @@ const About = () => {
                 <span className="text-gradient">AI Workflow & Automation Specialist</span>
               </h3>
               <p className="text-base sm:text-lg font-semibold text-muted-foreground">
-                Executive Virtual Assistant
+                Automation Consultant for Agencies & Service Businesses
               </p>
             </div>
 
             {/* Bio */}
             <div className="space-y-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
               <p>
-                I'm Marwin Emia, an AI Workflow Automation Specialist & Executive Virtual Assistant with hands-on expertise in building multi-step pipelines using n8n, Make.com, Zapier, GoHighLevel, and AI integrations (ChatGPT, Claude, Gemini, Grok).
+                I'm Marwin Emia, an AI & Workflow Automation Specialist with hands-on expertise in building multi-step pipelines using n8n, Make.com, Zapier, GoHighLevel, and AI integrations (ChatGPT, Claude, Gemini, Grok).
               </p>
               <p>
                 I design end-to-end automation systems - from lead capture flows and CRM automations to smart workflows that remove the manual grind from business operations. With 7+ years in branch operations and collection management, I now help clients turn repetitive tasks into intelligent, scalable systems that save time and drive real growth.
