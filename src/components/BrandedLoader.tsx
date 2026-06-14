@@ -148,7 +148,7 @@ const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            AI Workflow & Automation Specialist | Executive Virtual Assistant
+            AI & Workflow Automation Specialist
           </motion.p>
 
           {/* Workflow nodes */}

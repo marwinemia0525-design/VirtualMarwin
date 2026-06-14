@@ -40,7 +40,7 @@ const Experience = () => {
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             <span className="text-gradient glow-text">AI Workflow & Automation Specialist</span>
             <br />
-            <span className="text-lg sm:text-xl md:text-2xl font-semibold text-muted-foreground mt-2 block">Executive Virtual Assistant</span>
+                            <span className="text-lg sm:text-xl md:text-2xl font-semibold text-muted-foreground mt-2 block">Automation Systems Consultant</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             From 7+ years in operations management to AI-powered automation specialist.
