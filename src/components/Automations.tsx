@@ -33,6 +33,7 @@ import csvAgingGoogleSheetsSync from "@/assets/workflows/CSV_Aging_Data_Google_S
 import fbPagePendingPaymentReminder from "@/assets/workflows/FB_Page_Pending_Payment_Reminder.png";
 import intelligentLegalDocReview from "@/assets/workflows/Intelligent_Legal_Document_Review.png";
 import jobsScrapeLogDraft from "@/assets/workflows/Jobs_Scrape_Log_and_Draft.png";
+import aiReceptionistBeverly from "@/assets/workflows/AI_Receptionist_Beverly.png";
 
 import approvedContent from "@/assets/ea-samples/Approved_Content_Scheduled.png";
 import carouselScheduling from "@/assets/ea-samples/Carousel_Post_Scheduling.png";
@@ -216,6 +217,12 @@ const portfolioItems: PortfolioProject[] = [
         fileName: "Client Hunter – Jobs Scrape, Log & AI Draft",
         description: "A multi-source client-hunting workflow that pulls fresh automation/n8n/Zapier/CRM leads from three feeds (We Work Remotely RSS, OnlineJobs.ph Gmail alerts, and Indeed Gmail alerts), normalizes and merges them, deduplicates against already-logged jobs in Google Sheets, then uses a Groq Llama 3.3 70B AI Agent to draft a tailored proposal for each new lead — logging the job and notifying via Telegram. Up to 10 fresh leads per run.",
         steps: "Run Client Hunter → Fetch WWR Jobs / Fetch OLJ Emails / Fetch Indeed Alerts / Get Logged Jobs → Normalize & Parse → Merge All Sources → Combine Sources → Filter New Only → AI Agent (Groq Chat Model + Memory + Tools) → Finalize Draft → Log New Job (Sheets) → Notify New Lead (Telegram)",
+      },
+      {
+        image: aiReceptionistBeverly,
+        fileName: "AI Receptionist – Beverly (Vapi Voice Agent)",
+        description: "A full voice-AI receptionist named Beverly (Vapi + GPT-4 with ElevenLabs voice) that books, reschedules, and cancels appointments over the phone — backed by Google Calendar and an Airtable database. Five coordinated webhook tools handle the entire call lifecycle: checking real-time availability, booking only confirmed-free slots, rescheduling, cancelling, and capturing a structured end-of-call report (transcript, summary, cost, model) into Airtable for every call.",
+        steps: "GetSlots (Check Availability → Get Calendar Events → Format Available Ranges → Respond to Vapi) → BookSlots (Convert to CST → Create Event → Save to Airtable) → UpdateSlots (Find Original → Update Calendar Event → Update Airtable) → CancelSlots (Delete Event → Mark Cancelled in Airtable) → CallResults Webhook (Extract Call Data → Create/Update Airtable Record)",
       },
     ],
   },
