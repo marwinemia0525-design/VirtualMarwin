@@ -5,9 +5,9 @@ import ghlLogo from "@/assets/ghl-logo.webp";
 
 const heroTools = [
   { name: "GoHighLevel", imgSrc: ghlLogo },
-  { name: "n8n", iconUrl: "https://cdn.simpleicons.org/n8n/EA4B71" },
-  { name: "Make.com", iconUrl: "https://cdn.simpleicons.org/make/6D00CC" },
-  { name: "Zapier", iconUrl: "https://cdn.simpleicons.org/zapier/FF4F00" },
+  { name: "n8n", iconUrl: "/icons/n8n.svg" },
+  { name: "Make.com", iconUrl: "/icons/make.svg" },
+  { name: "Zapier", iconUrl: "/icons/zapier.svg" },
 ];
 
 const stats = [
@@ -142,6 +142,9 @@ const Hero = () => {
                   className="w-full h-full object-cover object-center"
                   width={304}
                   height={304}
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
                 />
               </div>
               <div 
