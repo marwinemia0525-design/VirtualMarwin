@@ -62,10 +62,11 @@ const ToolCard = memo(({ tool }: { tool: Tool }) => {
     if (tool.icon && !imgError) {
       return (
         <img
-          src={`https://cdn.simpleicons.org/${tool.icon}/${tool.color.replace("#", "")}`}
+          src={`/icons/${tool.icon}.svg`}
           alt={tool.name}
           className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0"
           loading="lazy"
+          decoding="async"
           onError={handleError}
         />
       );
