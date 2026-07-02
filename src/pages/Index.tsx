@@ -17,11 +17,19 @@ import AnimatedBackground from "@/components/AnimatedBackground";
 import Reveal from "@/components/Reveal";
 
 const Index = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return sessionStorage.getItem("me_loader_shown") !== "1";
+  });
+
+  const finishLoading = () => {
+    try { sessionStorage.setItem("me_loader_shown", "1"); } catch {}
+    setLoading(false);
+  };
 
   return (
     <>
-      {loading && <BrandedLoader onComplete={() => setLoading(false)} />}
+      {loading && <BrandedLoader onComplete={finishLoading} />}
       <motion.div
         className="min-h-screen bg-background relative"
         initial={{ opacity: 0, y: 20 }}
