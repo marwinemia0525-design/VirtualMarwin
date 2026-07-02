@@ -9,6 +9,7 @@ import ToolsPlatforms from "@/components/ToolsPlatforms";
 import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Certifications from "@/components/Certifications";
+import AdditionalCertifications from "@/components/AdditionalCertifications";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -45,6 +46,7 @@ const Index = () => {
           <Reveal><About /></Reveal>
           <Reveal><Experience /></Reveal>
           <Reveal><Certifications /></Reveal>
+          <Reveal><AdditionalCertifications /></Reveal>
           <Reveal><ToolsPlatforms /></Reveal>
           <Reveal><Testimonials /></Reveal>
           <Reveal><Process /></Reveal>
@@ -55,5 +57,6 @@ const Index = () => {
     </>
   );
 };
+
 
 export default Index;
