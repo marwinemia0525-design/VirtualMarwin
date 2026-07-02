@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, ArrowDown, Eye, Sparkles } from "lucide-react";
-import marwinImage from "@/assets/marwin-emia.png";
-import ghlLogo from "@/assets/ghl-logo.png";
+import marwinImage from "@/assets/marwin-emia.webp";
+import ghlLogo from "@/assets/ghl-logo.webp";
 
 const heroTools = [
   { name: "GoHighLevel", imgSrc: ghlLogo },
