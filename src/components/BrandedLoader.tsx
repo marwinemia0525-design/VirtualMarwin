@@ -24,13 +24,13 @@ const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
           clearInterval(interval);
           setTimeout(() => {
             setExiting(true);
-            setTimeout(onComplete, 600);
-          }, 400);
+            setTimeout(onComplete, 250);
+          }, 80);
           return prev;
         }
         return prev + 1;
       });
-    }, 400);
+    }, 90);
     return () => clearInterval(interval);
   }, [onComplete]);
 
@@ -42,8 +42,8 @@ const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
           style={{
             background: `radial-gradient(ellipse at 20% 0%, ${INDIGO}33 0%, transparent 55%), radial-gradient(ellipse at 80% 100%, ${CYAN}26 0%, transparent 55%), linear-gradient(180deg, ${BG_FROM} 0%, ${BG_VIA} 50%, ${BG_TO} 100%)`,
           }}
-          exit={{ opacity: 0, y: -30, filter: "blur(8px)" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          exit={{ opacity: 0, y: -20, filter: "blur(6px)" }}
+          transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           {/* Subtle grid overlay */}
           <div
