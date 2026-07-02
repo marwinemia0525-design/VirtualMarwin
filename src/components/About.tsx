@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Zap, Workflow, UserCheck, TrendingUp, Settings, Mail, Linkedin, Calendar } from "lucide-react";
-import portraitImage from "@/assets/marwin-portrait.jpg";
+import portraitImage from "@/assets/marwin-portrait.webp";
 
 const expertise = [
   {
