@@ -67,6 +67,30 @@ const additionalCertifications: AdditionalCert[] = [
   },
 ];
 
+interface FlagshipVerifyLink {
+  title: string;
+  verifyUrl: string;
+}
+
+const flagshipVerifyLinks: FlagshipVerifyLink[] = [
+  {
+    title: "HighLevel CRM — Full Training",
+    verifyUrl: "https://my-certificates.com/certificates/69fa98ebe5f6646f56d478cf",
+  },
+  {
+    title: "AI Automation with n8n — Full Training",
+    verifyUrl: "https://my-certificates.com/certificates/69f4ab00cc6437df9d9f7d26",
+  },
+  {
+    title: "No Code Automation with Zapier — Full Training",
+    verifyUrl: "https://my-certificates.com/certificates/69b01e1d1a2231f63bf7eeb7",
+  },
+  {
+    title: "No Code Automation with Make.com — Full Training",
+    verifyUrl: "https://my-certificates.com/certificates/69cf9091395a8c8f35c7806c",
+  },
+];
+
 const AdditionalCertifications = () => {
   return (
     <section className="py-20 md:py-28 relative">
@@ -119,6 +143,26 @@ const AdditionalCertifications = () => {
               </a>
             </div>
           ))}
+        </div>
+
+        <div className="max-w-6xl mx-auto mt-10 pt-8 border-t border-border">
+          <p className="text-xs font-medium text-muted-foreground mb-3 text-center">
+            Verify flagship credentials shown above
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            {flagshipVerifyLinks.map((link) => (
+              <a
+                key={link.title}
+                href={link.verifyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+              >
+                {link.title}
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>
