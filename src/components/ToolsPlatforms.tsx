@@ -55,6 +55,9 @@ const row2: Tool[] = [
   { name: "Vapi", lucideIcon: Phone, color: "#7C3AED" },
   { name: "Retell AI", lucideIcon: Mic, color: "#00B4D8" },
   { name: "ElevenLabs", lucideIcon: Sparkles, color: "#000000" },
+  { name: "GitHub Actions", lucideIcon: GitBranch, color: "#2088FF" },
+  { name: "Python", lucideIcon: Terminal, color: "#3776AB" },
+  { name: "MCP (Model Context Protocol)", lucideIcon: Network, color: "#22D3EE" },
 ];
 
 const ToolCard = memo(({ tool }: { tool: Tool }) => {
