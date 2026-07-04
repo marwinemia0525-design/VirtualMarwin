@@ -102,7 +102,7 @@ const education = {
   degree: "Bachelor of Arts",
   major: "Major in English",
   school: "Southeastern College of Padada",
-  period: "November 2015 – May 2017",
+  period: "2017",
 };
 
 const Certifications = () => {
