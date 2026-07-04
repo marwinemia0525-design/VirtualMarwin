@@ -32,6 +32,8 @@ const row1: Tool[] = [
   { name: "HubSpot", icon: "hubspot", color: "#FF7A59" },
   { name: "Pipedrive", icon: "pipedrive", color: "#1A1A1A" },
   { name: "Shopify", icon: "shopify", color: "#7AB55C" },
+  { name: "Trigger.dev", lucideIcon: Zap, color: "#A855F7" },
+  { name: "TypeScript", lucideIcon: FileCode, color: "#3178C6" },
 ];
 
 const row2: Tool[] = [
@@ -53,14 +55,6 @@ const row2: Tool[] = [
   { name: "Vapi", lucideIcon: Phone, color: "#7C3AED" },
   { name: "Retell AI", lucideIcon: Mic, color: "#00B4D8" },
   { name: "ElevenLabs", lucideIcon: Sparkles, color: "#000000" },
-];
-
-const row3: Tool[] = [
-  { name: "Trigger.dev", lucideIcon: Zap, color: "#A855F7" },
-  { name: "GitHub Actions", lucideIcon: GitBranch, color: "#2088FF" },
-  { name: "TypeScript", lucideIcon: FileCode, color: "#3178C6" },
-  { name: "Python", lucideIcon: Terminal, color: "#3776AB" },
-  { name: "MCP (Model Context Protocol)", lucideIcon: Network, color: "#22D3EE" },
 ];
 
 const ToolCard = memo(({ tool }: { tool: Tool }) => {
