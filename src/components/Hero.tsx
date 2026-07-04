@@ -15,6 +15,7 @@ const stats = [
   { value: "50+", label: "Workflows Built" },
   { value: "35+", label: "Tools Mastered" },
   { value: "2,000+", label: "Automation Executions" },
+  { value: "1.3%", label: "Failure Rate", sub: "across 2,000+ production executions" },
 ];
 
 const Hero = () => {
