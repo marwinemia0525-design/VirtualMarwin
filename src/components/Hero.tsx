@@ -193,7 +193,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25, duration: 0.4 }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4"
         >
           {stats.map((stat, i) => (
             <div
@@ -202,6 +202,9 @@ const Hero = () => {
             >
               <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-accent mb-1">{stat.value}</div>
               <div className="text-[10px] sm:text-xs text-muted-foreground font-medium">{stat.label}</div>
+              {stat.sub && (
+                <div className="text-[9px] sm:text-[10px] text-muted-foreground/70 mt-1 leading-tight">{stat.sub}</div>
+              )}
             </div>
           ))}
         </motion.div>
