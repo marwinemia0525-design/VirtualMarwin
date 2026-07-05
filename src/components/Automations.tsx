@@ -621,6 +621,24 @@ const Automations = () => {
                       <p><span className="font-medium text-foreground">Workflow: </span><span className="text-muted-foreground">{project.workflow}</span></p>
                       <p><span className="font-medium text-foreground">Result: </span><span className="text-muted-foreground">{project.result}</span></p>
                     </div>
+                    {project.proofPoint && (
+                      <div className="rounded-lg border border-accent/25 bg-accent/5 p-2.5 sm:p-3 flex gap-2">
+                        <Target size={14} className="text-accent shrink-0 mt-0.5" />
+                        <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed">
+                          <span className="font-semibold text-accent uppercase tracking-wider text-[10px] sm:text-[11px] block mb-0.5">Proof point</span>
+                          {project.proofPoint}
+                        </p>
+                      </div>
+                    )}
+                    {project.businessImpact && (
+                      <div className="rounded-lg border border-cta/25 bg-cta/5 p-2.5 sm:p-3 flex gap-2">
+                        <TrendingUp size={14} className="text-cta shrink-0 mt-0.5" />
+                        <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed">
+                          <span className="font-semibold text-cta uppercase tracking-wider text-[10px] sm:text-[11px] block mb-0.5">Projected business impact</span>
+                          {project.businessImpact}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
