@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Zap, Workflow, Settings, UserCheck, ArrowRight, ArrowLeft, CheckCircle2, X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
+import { Zap, Workflow, Settings, UserCheck, ArrowRight, ArrowLeft, CheckCircle2, X, ZoomIn, ChevronLeft, ChevronRight, Stethoscope, ShieldCheck, TrendingUp, Target } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 import aiContentImg from "@/assets/workflows/AI_Content_Repurposing.webp";
@@ -34,6 +34,7 @@ import fbPagePendingPaymentReminder from "@/assets/workflows/FB_Page_Pending_Pay
 import intelligentLegalDocReview from "@/assets/workflows/Intelligent_Legal_Document_Review.webp";
 import jobsScrapeLogDraft from "@/assets/workflows/Jobs_Scrape_Log_and_Draft.webp";
 import aiReceptionistBeverly from "@/assets/workflows/AI_Receptionist_Beverly.webp";
+import patientSpeedToLead from "@/assets/workflows/Patient_Speed_to_Lead_Pipeline.webp";
 
 import approvedContent from "@/assets/ea-samples/Approved_Content_Scheduled.webp";
 import carouselScheduling from "@/assets/ea-samples/Carousel_Post_Scheduling.webp";
@@ -67,12 +68,15 @@ interface PortfolioProject {
   icon: React.ElementType;
   color: "accent" | "cta";
   summary: string;
+  tag?: string;
   projects: {
     name: string;
     description: string;
     tools: string[];
     workflow: string;
     result: string;
+    proofPoint?: string;
+    businessImpact?: string;
   }[];
   workflows?: WorkflowItem[];
   eaSamples?: EASample[];
@@ -343,6 +347,34 @@ const portfolioItems: PortfolioProject[] = [
   ],
   },
   {
+    id: "patient-speed-to-lead",
+    title: "Patient Speed-to-Lead System",
+    platform: "Healthcare Automation",
+    icon: Stethoscope,
+    color: "cta",
+    summary: "AI-powered patient intake & booking automation with consent-gated, urgency-routed follow-up — HIPAA-aware by design.",
+    tag: "Healthcare / HIPAA-aware",
+    projects: [
+      {
+        name: "Patient Speed-to-Lead Pipeline",
+        description: "An end-to-end patient intake and booking pipeline that ingests submissions from the practice's intake form, runs an AI qualification step (Claude) to score urgency and route by service line, gates on SMS/email consent, and triggers tiered follow-up — instant SMS + email plus a front-desk Slack alert for high-urgency leads, a nurture email for lower-intent leads, and a full stop with zero data written for no-consent leads. Every lead and event is logged to Supabase for reporting, with no PHI ever stored in logs.",
+        tools: ["n8n", "GoHighLevel", "Claude AI", "Supabase", "Twilio", "Slack"],
+        workflow: "Intake Webhook → Normalize Fields → Consent Gate → Dedupe (GHL Lookup) → AI Qualify (Claude) → Parse & Validate AI Response → Confidence Check → Route by Urgency → SMS Consent Gate → Email Consent Gate → Send SMS (Twilio) / Send Email (High, Medium, Low) → Update GHL → Insert to Supabase (leads + events) → Front Desk Slack Alert (High Only)",
+        result: "Consent-gated, urgency-routed patient follow-up in seconds — with zero PHI in logs and full auditability.",
+        proofPoint: "Tested live with 3 patient leads across all three paths (high-urgency, low-intent, no-consent). Each was correctly routed and logged in seconds, with the high-urgency lead firing an instant SMS, email, and front-desk Slack alert; the low-intent lead receiving a nurture email; and the no-consent lead exiting cleanly with zero data written.",
+        businessImpact: "Projected 20–35% reduction in no-shows and $2,500–$3,600 per month in recovered revenue for a 50-lead-per-month practice — from faster response times and consent-compliant, urgency-aware routing.",
+      },
+    ],
+    workflows: [
+      {
+        image: patientSpeedToLead,
+        fileName: "Patient Speed-to-Lead Pipeline (n8n)",
+        description: "The full n8n workflow: intake webhook → normalize → consent gate → GHL dedupe → Claude AI qualification → confidence check → urgency router → per-channel consent gates → tiered Twilio SMS + Gmail sends → GHL update → Supabase logging (leads + events) → front-desk Slack alert for high-urgency only. Designed HIPAA-aware: no PHI stored in logs.",
+        steps: "Intake Webhook → Normalize Fields → Consent Gate → Dedupe (GHL Lookup) → AI Qualify (Claude) → Parse & Validate AI Response → Confidence Check → Route by Urgency → [High] SMS Consent Gate → SMS Dry Run Check → Send SMS (Twilio) + Send Email (High) + Front Desk Slack Alert → [Medium] Email Consent Gate → Send Email (Medium) → [Low] Email Consent Gate → Send Email (Low) → Update GHL → Insert to Supabase (leads) → Insert to Supabase (events)",
+      },
+    ],
+  },
+  {
     id: "ea",
     title: "Executive Assistant Work",
     platform: "Executive Support",
@@ -480,6 +512,11 @@ const Automations = () => {
               <h3 className="font-semibold text-foreground mb-1 text-sm sm:text-base group-hover:text-accent transition-colors duration-300">
                 {item.title}
               </h3>
+              {item.tag && (
+                <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-cta/10 text-cta border border-cta/25 mb-2">
+                  <ShieldCheck size={10} /> {item.tag}
+                </span>
+              )}
               <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed mb-3 sm:mb-4">
                 {item.summary}
               </p>
@@ -584,6 +621,24 @@ const Automations = () => {
                       <p><span className="font-medium text-foreground">Workflow: </span><span className="text-muted-foreground">{project.workflow}</span></p>
                       <p><span className="font-medium text-foreground">Result: </span><span className="text-muted-foreground">{project.result}</span></p>
                     </div>
+                    {project.proofPoint && (
+                      <div className="rounded-lg border border-accent/25 bg-accent/5 p-2.5 sm:p-3 flex gap-2">
+                        <Target size={14} className="text-accent shrink-0 mt-0.5" />
+                        <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed">
+                          <span className="font-semibold text-accent uppercase tracking-wider text-[10px] sm:text-[11px] block mb-0.5">Proof point</span>
+                          {project.proofPoint}
+                        </p>
+                      </div>
+                    )}
+                    {project.businessImpact && (
+                      <div className="rounded-lg border border-cta/25 bg-cta/5 p-2.5 sm:p-3 flex gap-2">
+                        <TrendingUp size={14} className="text-cta shrink-0 mt-0.5" />
+                        <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed">
+                          <span className="font-semibold text-cta uppercase tracking-wider text-[10px] sm:text-[11px] block mb-0.5">Projected business impact</span>
+                          {project.businessImpact}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
