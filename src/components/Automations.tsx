@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Zap, Workflow, Settings, UserCheck, ArrowRight, ArrowLeft, CheckCircle2, X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
+import { Zap, Workflow, Settings, UserCheck, ArrowRight, ArrowLeft, CheckCircle2, X, ZoomIn, ChevronLeft, ChevronRight, Stethoscope, ShieldCheck, TrendingUp, Target } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 import aiContentImg from "@/assets/workflows/AI_Content_Repurposing.webp";
@@ -34,6 +34,7 @@ import fbPagePendingPaymentReminder from "@/assets/workflows/FB_Page_Pending_Pay
 import intelligentLegalDocReview from "@/assets/workflows/Intelligent_Legal_Document_Review.webp";
 import jobsScrapeLogDraft from "@/assets/workflows/Jobs_Scrape_Log_and_Draft.webp";
 import aiReceptionistBeverly from "@/assets/workflows/AI_Receptionist_Beverly.webp";
+import patientSpeedToLead from "@/assets/workflows/Patient_Speed_to_Lead_Pipeline.webp";
 
 import approvedContent from "@/assets/ea-samples/Approved_Content_Scheduled.webp";
 import carouselScheduling from "@/assets/ea-samples/Carousel_Post_Scheduling.webp";
@@ -67,12 +68,15 @@ interface PortfolioProject {
   icon: React.ElementType;
   color: "accent" | "cta";
   summary: string;
+  tag?: string;
   projects: {
     name: string;
     description: string;
     tools: string[];
     workflow: string;
     result: string;
+    proofPoint?: string;
+    businessImpact?: string;
   }[];
   workflows?: WorkflowItem[];
   eaSamples?: EASample[];
