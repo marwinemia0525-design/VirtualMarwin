@@ -347,6 +347,34 @@ const portfolioItems: PortfolioProject[] = [
   ],
   },
   {
+    id: "patient-speed-to-lead",
+    title: "Patient Speed-to-Lead System",
+    platform: "Healthcare Automation",
+    icon: Stethoscope,
+    color: "cta",
+    summary: "AI-powered patient intake & booking automation with consent-gated, urgency-routed follow-up — HIPAA-aware by design.",
+    tag: "Healthcare / HIPAA-aware",
+    projects: [
+      {
+        name: "Patient Speed-to-Lead Pipeline",
+        description: "An end-to-end patient intake and booking pipeline that ingests submissions from the practice's intake form, runs an AI qualification step (Claude) to score urgency and route by service line, gates on SMS/email consent, and triggers tiered follow-up — instant SMS + email plus a front-desk Slack alert for high-urgency leads, a nurture email for lower-intent leads, and a full stop with zero data written for no-consent leads. Every lead and event is logged to Supabase for reporting, with no PHI ever stored in logs.",
+        tools: ["n8n", "GoHighLevel", "Claude AI", "Supabase", "Twilio", "Slack"],
+        workflow: "Intake Webhook → Normalize Fields → Consent Gate → Dedupe (GHL Lookup) → AI Qualify (Claude) → Parse & Validate AI Response → Confidence Check → Route by Urgency → SMS Consent Gate → Email Consent Gate → Send SMS (Twilio) / Send Email (High, Medium, Low) → Update GHL → Insert to Supabase (leads + events) → Front Desk Slack Alert (High Only)",
+        result: "Consent-gated, urgency-routed patient follow-up in seconds — with zero PHI in logs and full auditability.",
+        proofPoint: "Tested live with 3 patient leads across all three paths (high-urgency, low-intent, no-consent). Each was correctly routed and logged in seconds, with the high-urgency lead firing an instant SMS, email, and front-desk Slack alert; the low-intent lead receiving a nurture email; and the no-consent lead exiting cleanly with zero data written.",
+        businessImpact: "Projected 20–35% reduction in no-shows and $2,500–$3,600 per month in recovered revenue for a 50-lead-per-month practice — from faster response times and consent-compliant, urgency-aware routing.",
+      },
+    ],
+    workflows: [
+      {
+        image: patientSpeedToLead,
+        fileName: "Patient Speed-to-Lead Pipeline (n8n)",
+        description: "The full n8n workflow: intake webhook → normalize → consent gate → GHL dedupe → Claude AI qualification → confidence check → urgency router → per-channel consent gates → tiered Twilio SMS + Gmail sends → GHL update → Supabase logging (leads + events) → front-desk Slack alert for high-urgency only. Designed HIPAA-aware: no PHI stored in logs.",
+        steps: "Intake Webhook → Normalize Fields → Consent Gate → Dedupe (GHL Lookup) → AI Qualify (Claude) → Parse & Validate AI Response → Confidence Check → Route by Urgency → [High] SMS Consent Gate → SMS Dry Run Check → Send SMS (Twilio) + Send Email (High) + Front Desk Slack Alert → [Medium] Email Consent Gate → Send Email (Medium) → [Low] Email Consent Gate → Send Email (Low) → Update GHL → Insert to Supabase (leads) → Insert to Supabase (events)",
+      },
+    ],
+  },
+  {
     id: "ea",
     title: "Executive Assistant Work",
     platform: "Executive Support",
