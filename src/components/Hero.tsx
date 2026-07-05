@@ -198,7 +198,9 @@ const Hero = () => {
           {stats.map((stat, i) => (
             <div
               key={stat.label}
-              className="card-glass p-4 sm:p-5 text-center hover:-translate-y-1 transition-transform duration-300"
+              className={`card-glass p-4 sm:p-5 text-center hover:-translate-y-1 transition-transform duration-300 ${
+                i === stats.length - 1 ? "col-span-2 sm:col-span-1" : ""
+              }`}
             >
               <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-accent mb-1">{stat.value}</div>
               <div className="text-[10px] sm:text-xs text-muted-foreground font-medium">{stat.label}</div>
