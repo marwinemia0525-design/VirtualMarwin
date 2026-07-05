@@ -512,6 +512,11 @@ const Automations = () => {
               <h3 className="font-semibold text-foreground mb-1 text-sm sm:text-base group-hover:text-accent transition-colors duration-300">
                 {item.title}
               </h3>
+              {item.tag && (
+                <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-cta/10 text-cta border border-cta/25 mb-2">
+                  <ShieldCheck size={10} /> {item.tag}
+                </span>
+              )}
               <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed mb-3 sm:mb-4">
                 {item.summary}
               </p>
