@@ -140,6 +140,9 @@ const Hero = () => {
                 <img
                   src={marwinImage}
                   alt="Marwin G. Emia - AI Automation Specialist"
+                  loading="eager"
+                  decoding="async"
+                  {...({ fetchpriority: "high" } as Record<string, string>)}
                   className="w-full h-full object-cover object-center"
                   width={304}
                   height={304}

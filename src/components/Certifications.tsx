@@ -2,15 +2,15 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Award, GraduationCap, X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 
-import zapierCert from "@/assets/certifications/zapier_certificate.png";
-import makeCert from "@/assets/certifications/make_certificate.png";
-import mvaCompletion from "@/assets/certifications/mva_completion.png";
-import mvaAttendance from "@/assets/certifications/mva_attendance.png";
-import bestContentPlan from "@/assets/certifications/best_content_plan.png";
-import davsurWorkshop from "@/assets/certifications/davsur_va_workshop.png";
-import civilService from "@/assets/certifications/civil_service_eligibility.png";
-import n8nCert from "@/assets/certs/n8n_certificate.png";
-import ghlCert from "@/assets/certs/ghl_certificate.png";
+import zapierCert from "@/assets/certifications/zapier_certificate.webp";
+import makeCert from "@/assets/certifications/make_certificate.webp";
+import mvaCompletion from "@/assets/certifications/mva_completion.webp";
+import mvaAttendance from "@/assets/certifications/mva_attendance.webp";
+import bestContentPlan from "@/assets/certifications/best_content_plan.webp";
+import davsurWorkshop from "@/assets/certifications/davsur_va_workshop.webp";
+import civilService from "@/assets/certifications/civil_service_eligibility.webp";
+import n8nCert from "@/assets/certs/n8n_certificate.webp";
+import ghlCert from "@/assets/certs/ghl_certificate.webp";
 
 interface Certification {
   title: string;
