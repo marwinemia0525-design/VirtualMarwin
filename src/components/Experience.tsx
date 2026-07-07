@@ -18,7 +18,7 @@ const experiences = [
   },
 ];
 
-const CV_LINK = "https://docs.google.com/document/d/19fT504NTgKKL-bf5hc0fnMuaMVPrEPIf/edit?usp=sharing&ouid=115721388269152851468&rtpof=true&sd=true";
+const CV_LINK = "https://docs.google.com/document/d/1urRIRgiOHh9MLHae10zRgfH6CP7-umhC/edit?usp=drive_link&ouid=115721388269152851468&rtpof=true&sd=true";
 
 const Experience = () => {
   return (
