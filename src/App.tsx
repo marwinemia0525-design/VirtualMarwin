@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import CustomCursor from "@/components/CustomCursor";
 import FloatingCV from "@/components/FloatingCV";
+import FloatingROI from "@/components/FloatingROI";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollProgress from "@/components/ScrollProgress";
 import { lazy, Suspense } from "react";
@@ -23,6 +24,7 @@ const App = () => (
         <ScrollProgress />
         <CustomCursor />
         <FloatingCV />
+        <FloatingROI />
         <Toaster />
         <Sonner />
         <BrowserRouter>
