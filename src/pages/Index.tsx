@@ -9,6 +9,7 @@ const Services = lazy(() => import("@/components/Services"));
 const AIAssistedDev = lazy(() => import("@/components/AIAssistedDev"));
 const Process = lazy(() => import("@/components/Process"));
 const Automations = lazy(() => import("@/components/Automations"));
+const FeaturedCaseStudy = lazy(() => import("@/components/FeaturedCaseStudy"));
 const ToolsPlatforms = lazy(() => import("@/components/ToolsPlatforms"));
 const About = lazy(() => import("@/components/About"));
 const Experience = lazy(() => import("@/components/Experience"));
@@ -28,6 +29,7 @@ const Index = () => {
         <Suspense fallback={null}>
           <Reveal><Services /></Reveal>
           <Reveal><AIAssistedDev /></Reveal>
+          <Reveal><FeaturedCaseStudy /></Reveal>
           <Reveal><Automations /></Reveal>
           <Reveal><About /></Reveal>
           <Reveal><Experience /></Reveal>
