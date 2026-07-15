@@ -13,6 +13,7 @@ import { lazy, Suspense } from "react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 const RoiCalculator = lazy(() => import("./pages/RoiCalculator"));
+const CaseStudyDwinVideo = lazy(() => import("./pages/CaseStudyDwinVideo"));
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/roi" element={<Suspense fallback={null}><RoiCalculator /></Suspense>} />
+            <Route path="/case-studies/dwinvideo" element={<Suspense fallback={null}><CaseStudyDwinVideo /></Suspense>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
