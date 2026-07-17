@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Clapperboard, PhoneCall } from "lucide-react";
+import { ArrowRight, Clapperboard, PhoneCall, Stethoscope } from "lucide-react";
 
 const easing = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -10,6 +10,12 @@ const caseStudies = [
     icon: PhoneCall,
     title: "An AI receptionist, live on a real call in 24 hours",
     text: "Built and shipped a Vapi voice agent plus n8n speed-to-lead pipeline for a mortgage brokerage, verified with a live inbound call the same day: qualified, warm-transferred, and logged to the CRM as a hot lead in 65 seconds.",
+  },
+  {
+    to: "/case-studies/healthcare-front-desk",
+    icon: Stethoscope,
+    title: "An AI front desk that books patients in 30 seconds",
+    text: "A healthcare speed-to-lead system for a demo clinic: web form and conversational AI intake, LLM triage with human-review fallback, real calendar booking, verified against execution logs — 16 real bugs found and fixed along the way.",
   },
   {
     to: "/case-studies/dwinvideo",
@@ -33,7 +39,7 @@ const FeaturedCaseStudy = () => {
             Featured Case Studies
           </span>
         </motion.div>
-        <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {caseStudies.map((cs, i) => (
             <motion.div
               key={cs.to}
@@ -41,6 +47,7 @@ const FeaturedCaseStudy = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: easing, delay: i * 0.1 }}
+              className="h-full"
             >
               <Link
                 to={cs.to}
