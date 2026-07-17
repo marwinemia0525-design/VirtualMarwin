@@ -59,7 +59,6 @@ var list_services_default = defineTool2({
 import { defineTool as defineTool3 } from "npm:@lovable.dev/mcp-js@0.22.0";
 var caseStudies = [
   { title: "Vehicle Rental Service \u2014 Complete GHL Automation System", platform: "GoHighLevel", summary: "7 interconnected workflows covering lead intake, quotes/booking, confirmations, reply detection, no-reply follow-up, and post-rental review." },
-  { title: "Patient Speed-to-Lead System", platform: "n8n + GoHighLevel + Claude + Supabase + Twilio + Slack", tag: "Healthcare / HIPAA-aware", summary: "AI-powered patient intake and booking. Claude qualifies urgency, routes by service line, gates on consent, then triggers tiered SMS/email follow-up plus Slack alerts. Projected impact: 20\u201335% fewer no-shows and $2,500\u2013$3,600/mo recovered revenue for a 50-lead/mo practice." },
   { title: "AI Job Scraper + Resume Optimizer", platform: "n8n", summary: "Scrapes job listings and generates AI-optimized resumes matching each posting." },
   { title: "Facebook Page AI Agent", platform: "n8n", summary: "AI agent that responds to Facebook page messages and comments in-brand." },
   { title: "Fitness Coach \u2014 Weekly Client Check-in", platform: "n8n", summary: "Automated weekly progress check-ins with AI-personalized coaching feedback." },
