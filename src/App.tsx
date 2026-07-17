@@ -15,6 +15,7 @@ import NotFound from "./pages/NotFound";
 const RoiCalculator = lazy(() => import("./pages/RoiCalculator"));
 const CaseStudyDwinVideo = lazy(() => import("./pages/CaseStudyDwinVideo"));
 const CaseStudyReceptionist = lazy(() => import("./pages/CaseStudyReceptionist"));
+const CaseStudyHealthcareFrontDesk = lazy(() => import("./pages/CaseStudyHealthcareFrontDesk"));
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/roi" element={<Suspense fallback={null}><RoiCalculator /></Suspense>} />
             <Route path="/case-studies/dwinvideo" element={<Suspense fallback={null}><CaseStudyDwinVideo /></Suspense>} />
             <Route path="/case-studies/ai-receptionist" element={<Suspense fallback={null}><CaseStudyReceptionist /></Suspense>} />
+            <Route path="/case-studies/healthcare-front-desk" element={<Suspense fallback={null}><CaseStudyHealthcareFrontDesk /></Suspense>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
