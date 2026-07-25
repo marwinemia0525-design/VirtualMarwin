@@ -6,7 +6,26 @@ import {
   MessageSquare,
   Users,
   ShieldCheck,
+  PlayCircle,
 } from "lucide-react";
+
+import shot01 from "@/assets/case-studies/healthcare-front-desk/01-website-chat-widget.webp";
+import shot02 from "@/assets/case-studies/healthcare-front-desk/02-ai-receptionist-agent-workflow.webp";
+import shot03 from "@/assets/case-studies/healthcare-front-desk/03-ghl-intake-form.webp";
+import shot04 from "@/assets/case-studies/healthcare-front-desk/04-speed-to-lead-pipeline.webp";
+import shot05 from "@/assets/case-studies/healthcare-front-desk/05-appointment-booked-handler.webp";
+import shot06 from "@/assets/case-studies/healthcare-front-desk/06-manual-lead-sync-ghl-workflow.webp";
+import shot07 from "@/assets/case-studies/healthcare-front-desk/07-manual-lead-sync-n8n-workflow.webp";
+import shot08 from "@/assets/case-studies/healthcare-front-desk/08-ghl-calendar-setup.webp";
+import shot09 from "@/assets/case-studies/healthcare-front-desk/09-ghl-contacts-captured.webp";
+import shot10 from "@/assets/case-studies/healthcare-front-desk/10-ghl-custom-fields-schema.webp";
+import shot11 from "@/assets/case-studies/healthcare-front-desk/11-ghl-opportunities-pipeline.webp";
+import shot12 from "@/assets/case-studies/healthcare-front-desk/12-ghl-workflows-overview.webp";
+import shot13 from "@/assets/case-studies/healthcare-front-desk/13-customer-booked-appointment-trigger.webp";
+import shot14 from "@/assets/case-studies/healthcare-front-desk/14-form-webhook-trigger.webp";
+import shot15 from "@/assets/case-studies/healthcare-front-desk/15-n8n-project-workflows-list.webp";
+import shot16 from "@/assets/case-studies/healthcare-front-desk/16-supabase-leads-table.webp";
+import shot17 from "@/assets/case-studies/healthcare-front-desk/17-slack-high-urgency-alerts.webp";
 
 const stats = [
   { value: "~30", unit: "s", label: "form to fully-handled lead" },
@@ -49,6 +68,32 @@ const hipaa = [
   { title: "AI disclosure up front", text: "The receptionist's first message discloses AI processing before asking for any personal or health information." },
   { title: "Tenant isolation at the database layer", text: "Row-level security policies scope every read and write to the clinic." },
   { title: "Secrets hygiene", text: "Credentials out of docs folders, dead keys confirmed rotated, service-role keys only in the host's environment." },
+];
+
+const walkthroughs = [
+  { label: "Part 1", url: "https://www.loom.com/share/915c8a670b1e40f69c25e7295be70124" },
+  { label: "Part 2", url: "https://www.loom.com/share/0af2cc355ad74fe48f76f824438983b1" },
+  { label: "Part 3", url: "https://www.loom.com/share/f032efd5c03e43fd91ff4fc5d8d25237" },
+];
+
+const screenshots = [
+  { image: shot01, title: "Website Chat Widget", text: "The branded live chat widget — the always-on entry point for the AI front desk." },
+  { image: shot02, title: "AI Receptionist Agent", text: "The n8n AI Agent behind the widget, running a Claude model wired with four tools so it can act, not just answer: submit_lead, check_availability, book_appointment, escalate_to_human." },
+  { image: shot03, title: "Intake Form", text: "The GoHighLevel patient intake form — the second front door feeding the same speed-to-lead pipeline." },
+  { image: shot04, title: "Speed-to-Lead Pipeline", text: "The full multi-branch n8n orchestration: dedupe, consent gate, AI urgency/confidence scoring, and routing by tier with tailored outreach." },
+  { image: shot05, title: "Appointment Booked Handler", text: "Fires the moment a slot is booked, from any of three trigger paths: syncs the CRM stage, logs the event, and sends a confirmation email." },
+  { image: shot06, title: "Manual Lead Sync — CRM Side", text: "The CRM-side trigger staff use to re-tag a miscategorized lead after a clarification call." },
+  { image: shot07, title: "Manual Lead Sync — n8n Side", text: "The n8n side of the same workflow: the correction flows back into the CRM and database as the system of record." },
+  { image: shot08, title: "Calendar Setup", text: "The booking calendar the AI receptionist and staff both check and book against." },
+  { image: shot09, title: "Contacts Captured", text: "Every captured lead lands as a tagged contact — chat, form, or call, all in one place." },
+  { image: shot10, title: "Custom Fields Schema", text: "The custom field schema tracking AI confidence, urgency rating, consent, and pipeline stage for every record." },
+  { image: shot11, title: "Opportunities Pipeline", text: "The speed-to-lead opportunity pipeline board: Lead Intake → Ready to Book → Booked → Confirmed." },
+  { image: shot12, title: "Workflows Overview", text: "The CRM-side workflows list — the automation layer sitting alongside the n8n orchestration." },
+  { image: shot13, title: "Booking Calendar Trigger", text: "The CRM workflow watching the booking calendar, one of three trigger paths converging on the booked-appointment handler." },
+  { image: shot14, title: "Form Webhook Trigger", text: "The CRM workflow firing on intake form submission — the second of the three trigger paths." },
+  { image: shot15, title: "n8n Project Overview", text: "The full workflow map for the project, all living in one n8n project." },
+  { image: shot16, title: "Leads Table (Database)", text: "Every lead logged to a persistent database table, independent of the CRM UI and n8n execution logs, so reporting survives regardless of what happens inside any one tool." },
+  { image: shot17, title: "Slack Alerts", text: "High-urgency and low-confidence cases post directly to a dedicated Slack channel — staff see AI-booked confirmations and cases needing follow-up the moment they happen." },
 ];
 
 const performance = [
@@ -118,6 +163,32 @@ const CaseStudyHealthcareFrontDesk = () => {
             </div>
           ))}
         </div>
+
+        {/* Walkthrough videos */}
+        <section className="mb-16 sm:mb-24">
+          <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em] mb-3 block">
+            Watch It Work
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-bold mb-4">Three-part video walkthrough</h2>
+          <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mb-6">
+            The execution trace above is real, but a Loom of the system running is worth more than
+            a table. Three short recordings cover the build end to end.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {walkthroughs.map((w) => (
+              <a
+                key={w.label}
+                href={w.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card-glass inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-semibold text-foreground hover:text-accent hover:-translate-y-0.5 transition-all duration-300"
+              >
+                <PlayCircle className="w-4 h-4 text-accent" />
+                {w.label}
+              </a>
+            ))}
+          </div>
+        </section>
 
         {/* Problem */}
         <section className="mb-16 sm:mb-24">
@@ -192,6 +263,43 @@ const CaseStudyHealthcareFrontDesk = () => {
                 seconds. The human corrects once; every system follows.
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* Screenshots */}
+        <section className="mb-16 sm:mb-24">
+          <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em] mb-3 block">
+            Proof, Not Promises
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-bold mb-4">The system, screenshot by screenshot</h2>
+          <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mb-8">
+            Every claim above traces back to a real screen. Click any image to open it full size.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            {screenshots.map((s) => (
+              <a
+                key={s.title}
+                href={s.image}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card-glass overflow-hidden text-left group hover:-translate-y-0.5 transition-all duration-300"
+              >
+                <div className="aspect-[16/10] overflow-hidden border-b border-border">
+                  <img
+                    src={s.image}
+                    alt={s.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-3 sm:p-4">
+                  <h3 className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors mb-1">
+                    {s.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{s.text}</p>
+                </div>
+              </a>
+            ))}
           </div>
         </section>
 
