@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="flex flex-col items-center gap-4 sm:gap-5 md:flex-row md:justify-between text-center md:text-left">
           <a href="#" className="flex items-center gap-2 group" aria-label="Back to top">
             <img
-              src="/logo.png"
+              src="/logo.svg"
               alt="Marwin Emia M monogram logo"
               width={28}
               height={28}

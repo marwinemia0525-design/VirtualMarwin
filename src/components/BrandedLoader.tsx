@@ -110,9 +110,16 @@ const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
                 boxShadow: `0 10px 40px ${INDIGO}66, 0 0 60px ${CYAN}40, inset 0 1px 0 rgba(255,255,255,0.2)`,
               }}
             >
-              <span className="font-display font-bold text-white text-xl sm:text-2xl md:text-3xl tracking-tight">
-                ME
-              </span>
+              <svg
+                viewBox="0 0 100 100"
+                aria-hidden="true"
+                className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 relative z-10"
+              >
+                <path
+                  fill="#fff"
+                  d="M12,84 L12,16 L30,16 L50,50 L70,16 L88,16 L88,84 L73,84 L73,37 L50,76 L27,37 L27,84 Z"
+                />
+              </svg>
               {!prefersReducedMotion && (
                 <motion.div
                   className="absolute inset-0"

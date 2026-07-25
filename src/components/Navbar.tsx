@@ -53,7 +53,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 md:h-18">
           <a href="#" className="flex items-center gap-2.5 group" aria-label="Automate With Marwin home">
             <img
-              src="/logo.png"
+              src="/logo.svg"
               alt="Marwin Emia M monogram logo"
               width={36}
               height={36}
