@@ -9,6 +9,7 @@ const FloatingOrb = ({
   duration,
   initialX,
   initialY,
+  reduce,
 }: {
   size: number;
   color: string;
@@ -16,6 +17,7 @@ const FloatingOrb = ({
   duration: number;
   initialX: string;
   initialY: string;
+  reduce: boolean;
 }) => (
   <motion.div
     className="absolute rounded-full blur-3xl"
@@ -25,19 +27,33 @@ const FloatingOrb = ({
       background: color,
       left: initialX,
       top: initialY,
+      // Under reduced motion the orb still contributes its colour wash, it
+      // just holds still. Removing it outright would flatten the palette.
+      opacity: reduce ? 0.35 : undefined,
     }}
-    animate={{
-      x: [0, 80, -40, 60, 0],
-      y: [0, -60, 50, -30, 0],
-      scale: [1, 1.15, 0.92, 1.08, 1],
-      opacity: [0.3, 0.5, 0.25, 0.4, 0.3],
-    }}
-    transition={{
-      duration,
-      delay,
-      repeat: Infinity,
-      ease: [0.45, 0.05, 0.55, 0.95],
-    }}
+    // framer-motion drives transforms from JS, so the global
+    // prefers-reduced-motion rule in index.css cannot reach these. The loop
+    // has to be withheld at the source rather than merely sped up.
+    animate={
+      reduce
+        ? undefined
+        : {
+            x: [0, 80, -40, 60, 0],
+            y: [0, -60, 50, -30, 0],
+            scale: [1, 1.15, 0.92, 1.08, 1],
+            opacity: [0.3, 0.5, 0.25, 0.4, 0.3],
+          }
+    }
+    transition={
+      reduce
+        ? undefined
+        : {
+            duration,
+            delay,
+            repeat: Infinity,
+            ease: [0.45, 0.05, 0.55, 0.95],
+          }
+    }
   />
 );
 
@@ -115,12 +131,12 @@ const AnimatedBackground = () => {
 
       {/* Parallax wrapper for orbs */}
       <motion.div className="absolute inset-0" style={{ y: yOrbs }}>
-        <FloatingOrb size={500} color="hsl(244 90% 60% / 0.35)" delay={0} duration={24} initialX="-5%" initialY="10%" />
+        <FloatingOrb size={500} color="hsl(244 90% 60% / 0.35)" delay={0} duration={24} initialX="-5%" initialY="10%" reduce={!!reduce} />
         {!isMobile && (
           <>
-            <FloatingOrb size={420} color="hsl(189 94% 55% / 0.28)" delay={6} duration={28} initialX="65%" initialY="55%" />
-            <FloatingOrb size={360} color="hsl(270 85% 65% / 0.25)" delay={3} duration={26} initialX="35%" initialY="80%" />
-            <FloatingOrb size={300} color="hsl(220 90% 60% / 0.22)" delay={9} duration={30} initialX="80%" initialY="5%" />
+            <FloatingOrb size={420} color="hsl(189 94% 55% / 0.28)" delay={6} duration={28} initialX="65%" initialY="55%" reduce={!!reduce} />
+            <FloatingOrb size={360} color="hsl(270 85% 65% / 0.25)" delay={3} duration={26} initialX="35%" initialY="80%" reduce={!!reduce} />
+            <FloatingOrb size={300} color="hsl(220 90% 60% / 0.22)" delay={9} duration={30} initialX="80%" initialY="5%" reduce={!!reduce} />
           </>
         )}
       </motion.div>
