@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import CustomCursor from "@/components/CustomCursor";
+import PointerFX from "@/components/PointerFX";
+import RouteProgress from "@/components/RouteProgress";
 import FloatingCV from "@/components/FloatingCV";
 import FloatingROI from "@/components/FloatingROI";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -26,6 +28,7 @@ const App = () => (
         <SmoothScroll />
         <ScrollProgress />
         <CustomCursor />
+        <PointerFX />
         <FloatingCV />
         <FloatingROI />
         <Toaster />
@@ -33,10 +36,10 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/roi" element={<Suspense fallback={null}><RoiCalculator /></Suspense>} />
-            <Route path="/case-studies/dwinvideo" element={<Suspense fallback={null}><CaseStudyDwinVideo /></Suspense>} />
-            <Route path="/case-studies/ai-receptionist" element={<Suspense fallback={null}><CaseStudyReceptionist /></Suspense>} />
-            <Route path="/case-studies/healthcare-front-desk" element={<Suspense fallback={null}><CaseStudyHealthcareFrontDesk /></Suspense>} />
+            <Route path="/roi" element={<Suspense fallback={<RouteProgress />}><RoiCalculator /></Suspense>} />
+            <Route path="/case-studies/dwinvideo" element={<Suspense fallback={<RouteProgress />}><CaseStudyDwinVideo /></Suspense>} />
+            <Route path="/case-studies/ai-receptionist" element={<Suspense fallback={<RouteProgress />}><CaseStudyReceptionist /></Suspense>} />
+            <Route path="/case-studies/healthcare-front-desk" element={<Suspense fallback={<RouteProgress />}><CaseStudyHealthcareFrontDesk /></Suspense>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

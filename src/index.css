@@ -374,6 +374,107 @@
   .dark .glow-text {
     text-shadow: 0 0 40px hsl(var(--accent) / 0.4), 0 0 80px hsl(var(--primary) / 0.25);
   }
+
+  /* ---------------------------------------------------------------
+     Pointer-driven spotlight on glass cards.
+     --spot-x / --spot-y are written by PointerFX on pointermove.
+     Fine pointers only: touch has no hover, so it would sit stuck on.
+     --------------------------------------------------------------- */
+  @media (hover: hover) and (pointer: fine) {
+    .card-glass::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      background: radial-gradient(
+        circle 180px at var(--spot-x, 50%) var(--spot-y, 50%),
+        hsl(var(--accent) / 0.10),
+        transparent 70%
+      );
+    }
+
+    .card-glass:hover::after {
+      opacity: 1;
+    }
+  }
+
+  /* ---------------------------------------------------------------
+     Magnetic CTAs. --mag-x / --mag-y are written by PointerFX.
+     Composed via calc() so each button keeps its own hover lift
+     instead of the two transforms overwriting one another.
+     --------------------------------------------------------------- */
+  .btn-cta[data-magnetic],
+  .btn-primary[data-magnetic] {
+    transform: translate3d(var(--mag-x, 0px), var(--mag-y, 0px), 0);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.3s ease;
+  }
+
+  .btn-cta[data-magnetic]:hover,
+  .btn-primary[data-magnetic]:hover {
+    transform: translate3d(var(--mag-x, 0px), calc(var(--mag-y, 0px) - 2px), 0);
+  }
+
+  /* Snappier while the pointer is actually in range; the slower
+     transition above then eases it home on exit. */
+  .btn-cta[data-magnetic].is-magnetic,
+  .btn-primary[data-magnetic].is-magnetic {
+    transition: transform 0.12s ease-out, box-shadow 0.3s ease;
+  }
+
+  /* ---------------------------------------------------------------
+     Route transition bar. Sits above ScrollProgress (z-60) and is
+     3px to its 2px so the two never read as one duplicated bar.
+     Pure CSS: no rAF, no state, nothing to schedule.
+     --------------------------------------------------------------- */
+  .route-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 70;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    opacity: 0;
+    background: var(--gradient-cta);
+    box-shadow: 0 0 14px hsl(var(--accent) / 0.65);
+    animation:
+      route-progress-grow 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+      route-progress-in 0.2s 0.18s ease forwards;
+  }
+
+  /* Hide the native cursor only where the custom one actually runs.
+     The `*` is deliberate: Tailwind's cursor-zoom-in / cursor-pointer
+     on plain divs would otherwise beat the inherited none and paint a
+     second, native cursor alongside ours. */
+  @media (hover: hover) and (pointer: fine) {
+    html.has-custom-cursor,
+    html.has-custom-cursor * {
+      cursor: none !important;
+    }
+
+    html.has-custom-cursor [data-no-cursor],
+    html.has-custom-cursor [data-no-cursor] * {
+      cursor: auto !important;
+    }
+  }
+}
+
+/* Creeps toward 94% and waits: it can never complete on its own,
+   because completion is the chunk arriving and unmounting it. */
+@keyframes route-progress-grow {
+  0%   { transform: scaleX(0); }
+  35%  { transform: scaleX(0.52); }
+  70%  { transform: scaleX(0.80); }
+  100% { transform: scaleX(0.94); }
+}
+
+/* Held transparent for 180ms so fast chunk loads never flash a bar. */
+@keyframes route-progress-in {
+  to { opacity: 1; }
 }
 
 @keyframes scroll-left {

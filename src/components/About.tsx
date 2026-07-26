@@ -159,6 +159,7 @@ const About = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-cta text-sm px-4 py-2.5"
+                data-magnetic
               >
                 <Calendar size={15} />
                 Book a Free Call

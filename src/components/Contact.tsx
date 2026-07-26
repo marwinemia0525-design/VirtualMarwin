@@ -160,6 +160,7 @@ const Contact = () => {
                   type="submit"
                   disabled={isSubmitting}
                   className="btn-cta w-full justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+                  data-magnetic
                 >
                   <Send size={16} />
                   {isSubmitting ? "Sending..." : "Send Message"}

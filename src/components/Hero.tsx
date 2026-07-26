@@ -50,6 +50,7 @@ const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-cta w-full sm:w-auto"
+                data-magnetic
               >
                 <Calendar size={16} />
                 Book a Free Call
