@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Clapperboard, PhoneCall, Stethoscope } from "lucide-react";
+import { ArrowRight, Clapperboard, PhoneCall, ShieldCheck, Stethoscope } from "lucide-react";
 
 const easing = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -23,6 +23,12 @@ const caseStudies = [
     title: "DwinVideo: an AI-operated video editing pipeline",
     text: "Raw talking-head in, branded short out. Transcription-driven cuts, karaoke captions, motion graphics as code, -14 LUFS audio mastering, and a premium bespoke edit tier — run end-to-end by an AI agent watching a Drive folder.",
   },
+  {
+    to: "/case-studies/content-pipeline",
+    icon: ShieldCheck,
+    title: "A content pipeline that cannot publish without you",
+    text: "Drop a file in a Drive folder, get an AI-written draft, review it, approve it on Telegram, and only then does it go live. Four n8n workflows on one shared queue, with four real bugs documented and an honest account of what is proven and what is not.",
+  },
 ];
 
 const FeaturedCaseStudy = () => {
@@ -39,7 +45,7 @@ const FeaturedCaseStudy = () => {
             Featured Case Studies
           </span>
         </motion.div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
           {caseStudies.map((cs, i) => (
             <motion.div
               key={cs.to}

@@ -5,6 +5,11 @@
 ## Pages
 
 - [Home](/): Portfolio, services, process, case studies, and contact for AI and workflow automation work.
+- [AI Receptionist case study](/case-studies/ai-receptionist): Vapi voice agent plus n8n speed-to-lead pipeline for a mortgage brokerage, live on a real inbound call within 24 hours.
+- [Healthcare Front Desk case study](/case-studies/healthcare-front-desk): AI patient intake, LLM triage with human-review fallback, and real calendar booking, verified against execution logs.
+- [DwinVideo case study](/case-studies/dwinvideo): AI-operated video editing pipeline. Transcription-driven cuts, karaoke captions, motion graphics as code, audio mastering.
+- [AI Content Pipeline case study](/case-studies/content-pipeline): Four n8n workflows on one shared queue that take a dropped file to an AI-written draft, human review, Telegram approval, and a published post.
+- [ROI Calculator](/roi): Estimate the time and cost an automation would save.
 
 ## Sections
 
