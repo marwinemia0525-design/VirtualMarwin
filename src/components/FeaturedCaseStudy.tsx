@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Clapperboard, PhoneCall, ShieldCheck, Stethoscope } from "lucide-react";
+import { ArrowRight, Clapperboard, PhoneCall, Scale, ShieldCheck, Stethoscope } from "lucide-react";
 
 const easing = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -28,6 +28,12 @@ const caseStudies = [
     icon: ShieldCheck,
     title: "A content pipeline that cannot publish without you",
     text: "Drop a file in a Drive folder, get an AI-written draft, review it, approve it on Telegram, and only then does it go live. Four n8n workflows on one shared queue, with four real bugs documented and an honest account of what is proven and what is not.",
+  },
+  {
+    to: "/case-studies/ecommerce-reconciliation",
+    icon: Scale,
+    title: "A monthly close that closes itself, until it can't",
+    text: "Built an n8n reconciliation engine that pulls Shopify orders, Stripe payouts, and QuickBooks Online ledger entries into one pass, matches them against exact fee and deposit rules, and flags only the transactions a bookkeeper actually needs to look at, each one with the specific reason attached.",
   },
 ];
 
