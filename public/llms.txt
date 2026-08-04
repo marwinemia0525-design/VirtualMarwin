@@ -9,6 +9,7 @@
 - [Healthcare Front Desk case study](/case-studies/healthcare-front-desk): AI patient intake, LLM triage with human-review fallback, and real calendar booking, verified against execution logs.
 - [DwinVideo case study](/case-studies/dwinvideo): AI-operated video editing pipeline. Transcription-driven cuts, karaoke captions, motion graphics as code, audio mastering.
 - [AI Content Pipeline case study](/case-studies/content-pipeline): Four n8n workflows on one shared queue that take a dropped file to an AI-written draft, human review, Telegram approval, and a published post.
+- [eCommerce Reconciliation case study](/case-studies/ecommerce-reconciliation): An n8n engine reconciling Shopify orders, Stripe payouts, and QuickBooks Online ledger entries against deterministic fee, refund, and deposit rules, flagging only the transactions that need a human decision.
 - [ROI Calculator](/roi): Estimate the time and cost an automation would save.
 
 ## Sections
