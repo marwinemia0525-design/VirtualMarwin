@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { Calendar, ArrowDown, Eye, Sparkles } from "lucide-react";
+import { Calendar, Eye, Sparkles } from "lucide-react";
 import marwinImage from "@/assets/marwin-emia.webp";
 import ghlLogo from "@/assets/ghl-logo.webp";
 
@@ -10,14 +9,6 @@ const heroTools = [
   { name: "Zapier", iconUrl: "/icons/zapier.svg" },
 ];
 
-const stats = [
-  { value: "7+", label: "Yrs Professional Experience" },
-  { value: "50+", label: "Workflows Built" },
-  { value: "35+", label: "Tools Mastered" },
-  { value: "2,000+", label: "Automation Executions" },
-  { value: "1.3%", label: "Failure Rate", sub: "across 2,000+ production executions" },
-];
-
 const Hero = () => {
   return (
     <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
@@ -26,7 +17,7 @@ const Hero = () => {
 
       <div className="container-narrow relative z-10 px-4 sm:px-6 md:px-12 pt-20 pb-8 sm:pt-24 sm:pb-12 md:pt-28 md:pb-16">
         {/* Main hero content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-10 sm:mb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left side - Text */}
           <div>
             <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full glass-panel text-accent mb-4 sm:mb-6">
@@ -112,33 +103,6 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Stats row */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
-          {stats.map((stat, i) => (
-            <div
-              key={stat.label}
-              className={`card-glass p-4 sm:p-5 text-center hover:-translate-y-1 transition-transform duration-300 ${
-                i === stats.length - 1 ? "col-span-2 sm:col-span-1" : ""
-              }`}
-            >
-              <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-accent mb-1">{stat.value}</div>
-              <div className="text-[10px] sm:text-xs text-muted-foreground font-medium">{stat.label}</div>
-              {stat.sub && (
-                <div className="text-[9px] sm:text-[10px] text-muted-foreground/70 mt-1 leading-tight">{stat.sub}</div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="hidden sm:block absolute bottom-6 left-1/2 -translate-x-1/2">
-          <a href="#services" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-accent transition-colors">
-            <span className="text-xs uppercase tracking-widest">Scroll</span>
-            <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
-              <ArrowDown size={18} />
-            </motion.div>
-          </a>
-        </div>
       </div>
     </section>
   );
