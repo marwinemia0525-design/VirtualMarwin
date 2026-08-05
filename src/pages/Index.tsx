@@ -6,7 +6,6 @@ import Reveal from "@/components/Reveal";
 
 // Below-the-fold sections are lazy loaded to keep the initial bundle small.
 const Services = lazy(() => import("@/components/Services"));
-const AIAssistedDev = lazy(() => import("@/components/AIAssistedDev"));
 const Automations = lazy(() => import("@/components/Automations"));
 const FeaturedCaseStudy = lazy(() => import("@/components/FeaturedCaseStudy"));
 const ToolsPlatforms = lazy(() => import("@/components/ToolsPlatforms"));
@@ -27,7 +26,6 @@ const Index = () => {
         <Hero />
         <Suspense fallback={null}>
           <Reveal><Services /></Reveal>
-          <Reveal><AIAssistedDev /></Reveal>
           <Reveal><FeaturedCaseStudy /></Reveal>
           <Reveal><Automations /></Reveal>
           <Reveal><About /></Reveal>
