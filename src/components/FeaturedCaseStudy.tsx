@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Clapperboard, PhoneCall, Scale, ShieldCheck, Stethoscope } from "lucide-react";
+import { ArrowRight, Clapperboard, PhoneCall, Receipt, Scale, ShieldCheck, Stethoscope } from "lucide-react";
 
 const easing = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -34,6 +34,12 @@ const caseStudies = [
     icon: Scale,
     title: "A monthly close that closes itself, until it can't",
     text: "Built an n8n reconciliation engine that pulls Shopify orders, Stripe payouts, and QuickBooks Online ledger entries into one pass, matches them against exact fee and deposit rules, and flags only the transactions a bookkeeper actually needs to look at, each one with the specific reason attached.",
+  },
+  {
+    to: "/case-studies/invoice-reconciliation",
+    icon: Receipt,
+    title: "Invoice reconciliation that names the problem",
+    text: "Every Stripe and PayPal payment matched against the open invoice ledger, sorted into one of six named exceptions ranked by severity, and written to a live audit log. Catches the partial payment, the currency mismatch, and the duplicate that would otherwise reach the customer as a double charge.",
   },
 ];
 
