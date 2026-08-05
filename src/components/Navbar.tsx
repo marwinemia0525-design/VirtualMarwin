@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, FileText, Calculator } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
@@ -120,6 +120,26 @@ const Navbar = () => {
               <a href="https://calendly.com/marwinemia0525/30min" target="_blank" rel="noopener noreferrer" className="btn-primary text-center text-sm">
                 Book a Call
               </a>
+              <div className="mt-1 pt-3 border-t border-border/60 flex flex-col gap-3">
+                <a
+                  href="/roi"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="inline-flex items-center gap-2 text-foreground py-2 text-sm hover:text-accent transition-colors"
+                >
+                  <Calculator size={16} className="text-accent" />
+                  ROI Calculator
+                </a>
+                <a
+                  href="https://docs.google.com/document/d/1FXLhVDD_bRN5gKGxVIapWPIDLRU9pKjP/edit?usp=drive_link&ouid=115721388269152851468&rtpof=true&sd=true"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="inline-flex items-center gap-2 text-foreground py-2 text-sm hover:text-accent transition-colors"
+                >
+                  <FileText size={16} className="text-accent" />
+                  Download CV
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
