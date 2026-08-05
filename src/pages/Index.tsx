@@ -27,7 +27,6 @@ const Index = () => {
         <Hero />
         <Suspense fallback={null}>
           <Reveal><Services /></Reveal>
-          <Reveal><AIAssistedDev /></Reveal>
           <Reveal><FeaturedCaseStudy /></Reveal>
           <Reveal><Automations /></Reveal>
           <Reveal><About /></Reveal>
