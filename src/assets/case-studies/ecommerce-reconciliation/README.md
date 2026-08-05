@@ -21,13 +21,11 @@ To replace one, drop the new PNG in `_screenshot-drop/` (gitignored) and run:
 Arguments are positional and must be in that order. The script converts to
 `.webp` at quality 82 and never upscales.
 
-Pending: `01-reconciliation-detail-sheet.webp` is one run out of date. Its flags
-column still reads `REFUND_UNRECORDED (Shopify shows refund, no QBO credit
-found)`, which overclaims, since the Reconcile Transactions Code node only
-checks `shopify.refund_amount > 0` and never inspects QBO.
+All three are current as of the 2026-08-05 run. The detail sheet shows the
+corrected refund flag, `REFUND_UNRECORDED (Shopify shows a refund, needs a QBO
+credit check)`, which matches the page copy. The earlier wording claimed "no QBO
+credit found", which overclaimed, since the Reconcile Transactions Code node
+only checks `shopify.refund_amount > 0` and never inspects QBO.
 
-The Code node has since been corrected to
-`REFUND_UNRECORDED (Shopify shows a refund, needs a QBO credit check)`, matching
-the page copy. To bring the screenshot in line: clear the Detail tab first (the
-Sheets node appends, it does not replace), run the workflow once, re-shoot that
-tab, and re-run the convert script above.
+When re-shooting, clear the target tab first. Both Google Sheets nodes are set
+to append, not replace, so a second run without clearing doubles the rows.
