@@ -25,8 +25,8 @@ const Index = () => {
       <main className="relative z-10">
         <Hero />
         <Suspense fallback={null}>
-          <Reveal><Services /></Reveal>
-          <Reveal><FeaturedCaseStudy /></Reveal>
+          <Reveal eager><Services /></Reveal>
+          <Reveal eager><FeaturedCaseStudy /></Reveal>
           <Reveal><Automations /></Reveal>
           <Reveal><About /></Reveal>
           <Reveal><Experience /></Reveal>
