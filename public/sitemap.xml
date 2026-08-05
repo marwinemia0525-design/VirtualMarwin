@@ -36,6 +36,11 @@
           <priority>0.8</priority>
     </url>
     <url>
+          <loc>https://marwinai.com/case-studies/vapi-ghl-sync</loc>
+          <changefreq>monthly</changefreq>
+          <priority>0.8</priority>
+    </url>
+    <url>
           <loc>https://marwinai.com/roi</loc>
           <changefreq>monthly</changefreq>
           <priority>0.6</priority>

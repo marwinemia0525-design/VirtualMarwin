@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Clapperboard, PhoneCall, Receipt, Scale, ShieldCheck, Stethoscope } from "lucide-react";
+import { ArrowRight, Clapperboard, PhoneCall, Receipt, Scale, ShieldCheck, Stethoscope, UserCheck } from "lucide-react";
 
 const easing = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -40,6 +40,12 @@ const caseStudies = [
     icon: Receipt,
     title: "Invoice reconciliation that names the problem",
     text: "Every Stripe and PayPal payment matched against the open invoice ledger, sorted into one of six named exceptions ranked by severity, and written to a live audit log. Catches the partial payment, the currency mismatch, and the duplicate that would otherwise reach the customer as a double charge.",
+  },
+  {
+    to: "/case-studies/vapi-ghl-sync",
+    icon: UserCheck,
+    title: "Voice AI call data into the CRM, without duplicates",
+    text: "A Vapi to GoHighLevel sync in n8n that searches by phone before it writes, so a repeat caller updates their existing record instead of becoming a second one. Handles transfers, blocked caller ID, and payloads too incomplete to safely store.",
   },
 ];
 

@@ -21,6 +21,7 @@ const CaseStudyHealthcareFrontDesk = lazy(() => import("./pages/CaseStudyHealthc
 const CaseStudyContentPipeline = lazy(() => import("./pages/CaseStudyContentPipeline"));
 const CaseStudyEcommerceReconciliation = lazy(() => import("./pages/CaseStudyEcommerceReconciliation"));
 const CaseStudyInvoiceReconciliation = lazy(() => import("./pages/CaseStudyInvoiceReconciliation"));
+const CaseStudyVapiGhlSync = lazy(() => import("./pages/CaseStudyVapiGhlSync"));
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,7 @@ const App = () => (
             <Route path="/case-studies/content-pipeline" element={<Suspense fallback={<RouteProgress />}><CaseStudyContentPipeline /></Suspense>} />
             <Route path="/case-studies/ecommerce-reconciliation" element={<Suspense fallback={<RouteProgress />}><CaseStudyEcommerceReconciliation /></Suspense>} />
             <Route path="/case-studies/invoice-reconciliation" element={<Suspense fallback={<RouteProgress />}><CaseStudyInvoiceReconciliation /></Suspense>} />
+            <Route path="/case-studies/vapi-ghl-sync" element={<Suspense fallback={<RouteProgress />}><CaseStudyVapiGhlSync /></Suspense>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -11,6 +11,7 @@
 - [AI Content Pipeline case study](/case-studies/content-pipeline): Four n8n workflows on one shared queue that take a dropped file to an AI-written draft, human review, Telegram approval, and a published post.
 - [eCommerce Reconciliation case study](/case-studies/ecommerce-reconciliation): An n8n engine reconciling Shopify orders, Stripe payouts, and QuickBooks Online ledger entries against deterministic fee, refund, and deposit rules, flagging only the transactions that need a human decision.
 - [Invoice Payment Reconciliation case study](/case-studies/invoice-reconciliation): An n8n engine matching Stripe and PayPal payments against open QuickBooks or Xero invoices, classifying each into one of seven outcomes including partial payments, overpayments, currency mismatches, and duplicate charges, and writing every result to a live Google Sheets audit log.
+- [Vapi to GoHighLevel Call Sync case study](/case-studies/vapi-ghl-sync): An n8n integration pushing Vapi voice agent call data into GoHighLevel contact records, matching by phone before writing so repeat callers update their existing contact instead of creating duplicates, with an exception path for calls that arrive without a usable caller identity.
 - [ROI Calculator](/roi): Estimate the time and cost an automation would save.
 
 ## Sections
