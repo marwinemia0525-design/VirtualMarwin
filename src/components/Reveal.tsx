@@ -12,6 +12,8 @@ interface RevealProps {
   className?: string;
   once?: boolean;
   as?: "div" | "section" | "li" | "article";
+  /** Above-the-fold: animate immediately on mount instead of on scroll. */
+  eager?: boolean;
 }
 
 const offset = (dir: Direction, d: number) => {
@@ -37,29 +39,48 @@ const Reveal = ({
   className,
   once = true,
   as = "div",
+  eager = false,
 }: RevealProps) => {
   const reduce = useReducedMotion();
   const { x, y } = offset(direction, distance);
 
   const variants: Variants = {
-    hidden: reduce ? { opacity: 0 } : { opacity: 0, x, y },
+    hidden: reduce
+      ? { opacity: 0, transform: "translate3d(0px, 0px, 0)" }
+      : { opacity: 0, transform: `translate3d(${x}px, ${y}px, 0)` },
     show: {
       opacity: 1,
-      x: 0,
-      y: 0,
-      transition: { duration, delay, ease: [0.22, 1, 0.36, 1] },
+      transform: "translate3d(0px, 0px, 0)",
+      transition: { duration, delay: eager ? 0 : delay, ease: [0.22, 1, 0.36, 1] },
     },
   };
 
   const MotionTag = motion[as] as typeof motion.div;
 
+  // Eager (above-the-fold) sections animate on mount so any paint change
+  // happens during initial paint, not ~1s later after hydration.
+  if (eager) {
+    return (
+      <MotionTag
+        className={className}
+        style={{ willChange: "opacity, transform" }}
+        variants={variants}
+        initial="hidden"
+        animate="show"
+      >
+        {children}
+      </MotionTag>
+    );
+  }
+
   return (
     <MotionTag
       className={className}
+      style={{ willChange: "opacity, transform" }}
       variants={variants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once, amount: "some", margin: "0px 0px -10% 0px" }}
+      viewport={{ once, amount: 0.05, margin: "0px 0px -5% 0px" }}
     >
       {children}
     </MotionTag>
