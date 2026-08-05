@@ -1,14 +1,9 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Receipt, FileSpreadsheet, GitMerge } from "lucide-react";
 
-// Screenshot gallery: drop the exported .webp files into
-// src/assets/case-studies/ecommerce-reconciliation/ and uncomment the imports below.
-//   01-reconciliation-detail-sheet.webp
-//   02-summary-kpi-sheet.webp
-//   03-n8n-canvas.webp
-// import shot01 from "@/assets/case-studies/ecommerce-reconciliation/01-reconciliation-detail-sheet.webp";
-// import shot02 from "@/assets/case-studies/ecommerce-reconciliation/02-summary-kpi-sheet.webp";
-// import shot03 from "@/assets/case-studies/ecommerce-reconciliation/03-n8n-canvas.webp";
+import shot01 from "@/assets/case-studies/ecommerce-reconciliation/01-reconciliation-detail-sheet.webp";
+import shot02 from "@/assets/case-studies/ecommerce-reconciliation/02-summary-kpi-sheet.webp";
+import shot03 from "@/assets/case-studies/ecommerce-reconciliation/03-n8n-canvas.webp";
 
 const stats = [
   { value: "10", unit: "", label: "orders reconciled in one pass" },
@@ -53,9 +48,9 @@ const summary = [
 ];
 
 const screenshots: { image: string; title: string; text: string }[] = [
-  // { image: shot01, title: "Reconciliation Detail sheet", text: "All 10 orders, one row each, status and flag reason spelled out in plain language, not an error code." },
-  // { image: shot02, title: "Summary KPI sheet", text: "The roll up row a bookkeeper or owner actually opens first: match rate, total variance, unbooked deposits." },
-  // { image: shot03, title: "n8n canvas", text: "The full five stage pipeline: three parallel source pulls, merge, reconcile, and a split output to both the detail log and the summary layer." },
+  { image: shot01, title: "Reconciliation Detail sheet", text: "All 10 orders, one row each, status and flag reason spelled out in plain language, not an error code." },
+  { image: shot02, title: "Summary KPI sheet", text: "The roll up row a bookkeeper or owner actually opens first: match rate, total variance, unbooked deposits." },
+  { image: shot03, title: "n8n canvas", text: "The full five stage pipeline: three parallel source pulls, merge, reconcile, and a split output to both the detail log and the summary layer." },
 ];
 
 const stack = [
