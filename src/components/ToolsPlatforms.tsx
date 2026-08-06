@@ -102,7 +102,7 @@ const ToolCard = memo(({ tool }: { tool: Tool }) => {
 
 ToolCard.displayName = "ToolCard";
 
-const InfiniteRow = ({ tools, direction }: { tools: Tool[]; direction: "left" | "right" }) => {
+const InfiniteRow = ({ tools, direction, reducedMotion }: { tools: Tool[]; direction: "left" | "right"; reducedMotion: boolean | undefined }) => {
   const animationClass = direction === "left" ? "animate-[scroll-left_60s_linear_infinite]" : "animate-[scroll-right_60s_linear_infinite]";
 
   return (
@@ -111,8 +111,8 @@ const InfiniteRow = ({ tools, direction }: { tools: Tool[]; direction: "left" | 
       <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-24 z-10 bg-gradient-to-r from-background to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-24 z-10 bg-gradient-to-l from-background to-transparent" />
 
-      <div className={`flex gap-3 sm:gap-4 w-max ${animationClass} group-hover/row:[animation-play-state:paused]`}>
-        {[...tools, ...tools, ...tools].map((tool, i) => (
+      <div className={`flex gap-3 sm:gap-4 w-max ${reducedMotion ? "" : animationClass} ${reducedMotion ? "" : "group-hover/row:[animation-play-state:paused]"}`}>
+        {(reducedMotion ? tools : [...tools, ...tools, ...tools]).map((tool, i) => (
           <ToolCard key={`${tool.name}-${i}`} tool={tool} />
         ))}
       </div>
