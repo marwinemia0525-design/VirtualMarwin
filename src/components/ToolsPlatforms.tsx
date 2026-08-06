@@ -1,5 +1,5 @@
 import { memo, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Brain, Bot, Phone, Database, Globe, Mail, MessageSquare,
   CreditCard, Flame, Heart, Webhook, HardDrive, CalendarDays,
