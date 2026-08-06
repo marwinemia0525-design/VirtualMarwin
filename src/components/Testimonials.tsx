@@ -16,18 +16,6 @@ const testimonials = [
         rating: 5,
   },
   {
-        name: "Maria",
-        role: "New York Music Center",
-        content: "Marwin seamlessly connected our Facebook Lead Ads to GoHighLevel using Zapier with proper lead syncing into our CRM. The entire setup was clean, reliable, and exactly what we needed. He was professional and easy to work with throughout the whole process.",
-        rating: 5,
-  },
-  {
-        name: "Jesus Francis Garcia",
-        role: "Best Gutters NC",
-        content: "Marwin automated our entire GoHighLevel setup across multiple websites — funnels, calendar bookings, text messages, and voice blast follow-ups. His knowledge of GHL and Zapier is top-notch. Our operations are running so much smoother now.",
-        rating: 5,
-  },
-  {
         name: "Rhea Caumpay",
         role: "Owner of FJ Alde Car Trading",
         content: "Marwin built our website and an AI agent for our Facebook page, giving us a professional online presence and a way to respond to customers automatically, any time of day.",
