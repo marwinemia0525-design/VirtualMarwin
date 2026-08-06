@@ -121,6 +121,8 @@ const InfiniteRow = ({ tools, direction, reducedMotion }: { tools: Tool[]; direc
 };
 
 const ToolsPlatforms = () => {
+  const reducedMotion = useReducedMotion();
+
   return (
     <section id="tools" className="py-14 sm:py-20 px-0 relative overflow-hidden">
       <div className="relative z-10">
@@ -146,8 +148,8 @@ const ToolsPlatforms = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="space-y-4"
         >
-          <InfiniteRow tools={row1} direction="left" />
-          <InfiniteRow tools={row2} direction="right" />
+          <InfiniteRow tools={row1} direction="left" reducedMotion={reducedMotion} />
+          <InfiniteRow tools={row2} direction="right" reducedMotion={reducedMotion} />
         </motion.div>
       </div>
     </section>
