@@ -10,9 +10,9 @@ const testimonials = [
         rating: 5,
   },
   {
-        name: "Aubrey Hubbell",
-        role: "Founder — Floodgate Growth Partners",
-        content: "Marwin stood out immediately for his deep expertise in GoHighLevel architecture and automation. He took full ownership of our backend builds and delivered robust, scalable automation systems for our law firm intake and conversion workflows. Exactly the kind of specialist we needed.",
+        name: "Aireen Lucero",
+        role: "Area Manager",
+        content: "Marwin applies automation directly to his role as branch manager, from streamlining QR payment processing to identifying smarter ways to run daily operations.",
         rating: 5,
   },
   {
@@ -25,6 +25,12 @@ const testimonials = [
         name: "Jesus Francis Garcia",
         role: "Best Gutters NC",
         content: "Marwin automated our entire GoHighLevel setup across multiple websites — funnels, calendar bookings, text messages, and voice blast follow-ups. His knowledge of GHL and Zapier is top-notch. Our operations are running so much smoother now.",
+        rating: 5,
+  },
+  {
+        name: "Rhea Caumpay",
+        role: "Owner of FJ Alde Car Trading",
+        content: "Marwin built our website and an AI agent for our Facebook page, giving us a professional online presence and a way to respond to customers automatically, any time of day.",
         rating: 5,
   },
   ];
