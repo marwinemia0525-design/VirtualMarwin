@@ -1,6 +1,7 @@
 import { Calendar, Eye, Sparkles } from "lucide-react";
 import marwinImage from "@/assets/marwin-emia.webp";
 import ghlLogo from "@/assets/ghl-logo.webp";
+import KineticGrid from "@/components/KineticGrid";
 
 const heroTools = [
   { name: "GoHighLevel", imgSrc: ghlLogo },
@@ -11,10 +12,8 @@ const heroTools = [
 
 const Hero = () => {
   return (
-    <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
-      {/* Soft hero glow on top of global animated background */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'var(--gradient-glow)' }} />
-
+    <section className="relative overflow-hidden">
+      <KineticGrid globalColor="default" className="min-h-[100svh] flex items-center justify-center">
       <div className="container-narrow relative z-10 px-4 sm:px-6 md:px-12 pt-20 pb-8 sm:pt-24 sm:pb-12 md:pt-28 md:pb-16">
         {/* Main hero content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -104,6 +103,7 @@ const Hero = () => {
         </div>
 
       </div>
+      </KineticGrid>
     </section>
   );
 };
