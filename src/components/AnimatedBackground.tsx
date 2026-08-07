@@ -115,7 +115,7 @@ const AnimatedBackground = () => {
       {/* Static gradient mesh base for depth */}
       <div
         className="absolute inset-0"
-        style={{ background: "var(--gradient-mesh)", opacity: 0.7 }}
+        style={{ background: "var(--gradient-mesh)", opacity: 0.35 }}
       />
 
       {/* Subtle static grid overlay */}

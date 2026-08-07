@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import CustomCursor from "@/components/CustomCursor";
+import KineticGrid from "@/components/KineticGrid";
 import PointerFX from "@/components/PointerFX";
 import RouteProgress from "@/components/RouteProgress";
 import FloatingCV from "@/components/FloatingCV";
@@ -29,6 +30,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">
       <TooltipProvider>
+        <KineticGrid globalColor="default" />
         <SmoothScroll />
         <ScrollProgress />
         <CustomCursor />

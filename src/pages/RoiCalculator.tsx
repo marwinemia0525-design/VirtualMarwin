@@ -57,7 +57,7 @@ const RoiCalculator = () => {
   const positive = r.netMonthly > 0;
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="relative z-10 min-h-screen bg-transparent text-foreground">
       <main className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
         <Link
           to="/"
