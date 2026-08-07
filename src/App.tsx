@@ -30,7 +30,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">
       <TooltipProvider>
-        {/*KG*/}
+        <KineticGrid globalColor="default" />
         <SmoothScroll />
         <ScrollProgress />
         <CustomCursor />
