@@ -1,39 +1,27 @@
+# Rebrand to Gold / Black
 
-## 1. Fix hero load flash (navbar snap-in)
+Shift the site from the electric indigo/cyan palette to a luxury gold-on-black identity, keeping the same layout, sections, and animations.
 
-Root cause: `Navbar` and Hero elements each use their own `motion` initial/animate with staggered delays (0.05–0.6s), while lazy-loaded sections below share the same viewport. The navbar's `y: -100 → 0` and Hero's per-element `opacity: 0 → 1` fires separately, producing a two-stage pop.
+## New palette
 
-Fix:
-- `src/components/Navbar.tsx`: remove the `initial={{ y: -100 }} animate={{ y: 0 }}` on `motion.header` — render at final position from the first frame (keep the AnimatePresence on the mobile menu).
-- `src/components/Hero.tsx`: remove the per-element `initial/animate/transition` on the badge, headline, paragraph, CTA row, photo, tool-logo strip, stats grid, and scroll indicator. Render everything at full opacity from mount. (Keep the internal hover/transition polish; only strip the entrance animations.)
-- Net effect: navbar + hero render together at full opacity on first paint — no fade, no stagger.
+- Background: near-black charcoal (near #0A0A0B) instead of deep navy
+- Primary / CTA: rich gold (near #D4AF37)
+- Accent: warm champagne gold (near #F2D479) for highlights and glows
+- Text: warm off-white on black; muted text in warm grey
+- Light mode: warm ivory background, deep charcoal text, gold primary (kept readable)
 
-## 2. Fix light mode
+## What changes
 
-Root cause: `AnimatedBackground` is rendered unconditionally with dark-mode HSL values (indigo/cyan orbs, SVG node/line gradients tuned for dark bg). `.btn-primary`/`.btn-cta` use `--cta-foreground` which is white in both themes, fine on the gradient, but hover shadows/translucency wash out on light bg.
+1. **Design tokens (`src/index.css`)** - replace background, card, primary, accent, cta, border, ring, and all gradient/shadow tokens in both `:root` and `.dark` with the gold/black values. Gradients become gold-to-champagne sweeps; glows become gold.
+2. **Animated background (`src/components/AnimatedBackground.tsx`)** - recolor the floating orbs from indigo/cyan/purple to gold/amber/bronze tones at lower opacity so they read as warm light, not colored haze.
+3. **Kinetic grid (`src/components/KineticGrid.tsx`)** - swap the hardcoded palettes: dark bg to near-black, grid lines/nodes to faint gold; light mode to ivory with warm grey lines; cursor/ripple accent to gold.
+4. **Branded loader (`src/components/BrandedLoader.tsx`)** - update its accent color to gold.
+5. **Sweep for stragglers** - check components for any remaining hardcoded blue/cyan classes and move them onto the semantic tokens.
 
-Fix:
-- `src/components/AnimatedBackground.tsx`: read theme via `useTheme()` from `ThemeProvider`. When theme is `light`, return a lightweight replacement — just the static grid overlay at lower opacity (~0.05) and the vignette, with no orbs, no SVG workflow nodes/lines, no floating particles, no scan lines. Dark mode keeps current behavior (but reduced — see #3).
-- `src/index.css`: in the light `:root` block, set `--cta-foreground: 0 0% 100%` explicitly (already effectively white) and ensure `.btn-primary` / `.btn-cta` in light mode have a solid opaque gradient background with readable white text on both default and hover. Add a `:root` (light) override that removes the reduced-opacity glow on hover and keeps `background: var(--gradient-cta)` fully opaque (it already is; the issue is only the extra glow shadow — cap hover box-shadow to a darker solid shadow in light mode so text stays legible).
+## Not changing
 
-## 3. Reduce background animation density
+Logo image, portrait, tool icons, screenshots, and layout stay as they are. (The current "M" logo is a blue/cyan gradient asset - it can be regenerated in gold as a follow-up if you want.)
 
-Keep ONE ambient effect. Remove the rest.
+## Technical notes
 
-- `src/components/AnimatedBackground.tsx` (dark mode):
-  - Keep: static gradient mesh base + the floating orbs (they're the signature look) + vignette.
-  - Remove: the SVG workflow paths + node circles, the floating particle dots (`FloatingShape` × 24), and both animated horizontal scan lines.
-  - Keep the subtle grid overlay but drop its parallax transform to reduce motion.
-- `src/components/Hero.tsx`: remove the inline hero SVG workflow visualization (the `<svg>` with `heroFlow`/`heroNode` paths and animated node circles). Keep the soft `--gradient-glow` layer.
-- Do not touch `text-gradient` / `glow-text` (they're static, not animated).
-- Do not add anything new.
-
-## Files touched
-- `src/components/Navbar.tsx` — strip entrance motion on header.
-- `src/components/Hero.tsx` — strip per-element entrance motion; remove inline animated workflow SVG.
-- `src/components/AnimatedBackground.tsx` — theme-aware render; remove SVG workflow, particles, scan lines in dark mode; near-empty in light mode.
-- `src/index.css` — light-mode button hover polish (opaque background + solid shadow).
-
-## Out of scope (untouched)
-- `src/components/Certifications.tsx` (per constraint).
-- Section order, copy, component structure, `Reveal` scroll animations for below-fold sections.
+All values stay HSL in `index.css` and flow through the existing Tailwind semantic classes, so no component class renaming is needed beyond the hardcoded canvas colors.
