@@ -1,17 +1,19 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
- * KineticGrid — full-bleed animated canvas grid that warps toward the cursor
- * and ripples on click.
+ * KineticGrid — site-wide fixed canvas backdrop.
  *
- * Follows the same capability gating as PointerFX/CustomCursor: on coarse
- * pointers or under prefers-reduced-motion no listeners are attached and no
- * rAF loop runs — the grid is painted once, statically.
+ * A full-viewport grid that warps toward the pointer (mouse *and* touch) and
+ * ripples outward on click/tap. Rendered once at the app root, fixed behind
+ * every route, pointer-events: none so it never intercepts scroll or taps.
+ *
+ * Under prefers-reduced-motion the grid is painted once, statically: no rAF
+ * loop, no listeners of any kind.
  */
 
-const FINE_POINTER = "(hover: hover) and (pointer: fine)";
-
-const CELL = 55;
+const BASE_CELL = 55;
+const MOBILE_CELL = 82; // coarser grid below 768px: less paint, less noise
+const MOBILE_BP = 768;
 const WARP_RADIUS = 260;
 const MAX_WARP = 24;
 const EDGE_PIN = 40;
@@ -21,11 +23,37 @@ const RIPPLE_SPEED = 0.55; // px per ms
 const RIPPLE_WIDTH = 70;
 const RIPPLE_PUSH = 26;
 
-type Palette = { bg: string; accent: [number, number, number] };
+type Palette = { bg: string; accent: [number, number, number]; line: string; node: string };
 
-const PALETTES: Record<"default" | "monochrome", Palette> = {
-  default: { bg: "#0d0f14", accent: [96, 165, 250] },
-  monochrome: { bg: "#000000", accent: [255, 255, 255] },
+const PALETTES: Record<"default" | "monochrome", { dark: Palette; light: Palette }> = {
+  default: {
+    dark: {
+      bg: "#0d0f14",
+      accent: [96, 165, 250],
+      line: "rgba(255,255,255,0.06)",
+      node: "rgba(255,255,255,0.12)",
+    },
+    light: {
+      bg: "#f4f6fb",
+      accent: [59, 90, 200],
+      line: "rgba(20,25,45,0.07)",
+      node: "rgba(20,25,45,0.14)",
+    },
+  },
+  monochrome: {
+    dark: {
+      bg: "#000000",
+      accent: [255, 255, 255],
+      line: "rgba(255,255,255,0.06)",
+      node: "rgba(255,255,255,0.12)",
+    },
+    light: {
+      bg: "#ffffff",
+      accent: [0, 0, 0],
+      line: "rgba(0,0,0,0.07)",
+      node: "rgba(0,0,0,0.14)",
+    },
+  },
 };
 
 interface Point {
@@ -43,35 +71,39 @@ interface Ripple {
 }
 
 interface KineticGridProps {
-  className?: string;
   globalColor?: "default" | "monochrome";
-  children?: ReactNode;
+  className?: string;
 }
 
-const KineticGrid = ({
-  className = "",
-  globalColor = "default",
-  children,
-}: KineticGridProps) => {
+const KineticGrid = ({ globalColor = "default", className = "" }: KineticGridProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const wrapRef = useRef<HTMLDivElement>(null);
+  const [isDark, setIsDark] = useState(
+    () => typeof document !== "undefined" && document.documentElement.classList.contains("dark"),
+  );
+
+  // Track theme so the backdrop never fights the foreground text colour.
+  useEffect(() => {
+    const root = document.documentElement;
+    const obs = new MutationObserver(() => setIsDark(root.classList.contains("dark")));
+    obs.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => obs.disconnect();
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const wrap = wrapRef.current;
-    if (!canvas || !wrap) return;
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const palette = PALETTES[globalColor] ?? PALETTES.default;
+    const palette = (PALETTES[globalColor] ?? PALETTES.default)[isDark ? "dark" : "light"];
     const [ar, ag, ab] = palette.accent;
 
-    const mq = window.matchMedia?.(FINE_POINTER);
     const rmq = window.matchMedia?.("(prefers-reduced-motion: reduce)");
-    const interactive = !!mq?.matches && !rmq?.matches;
+    const interactive = !rmq?.matches;
 
     let width = 0;
     let height = 0;
+    let cell = BASE_CELL;
     let cols = 0;
     let rows = 0;
     let points: Point[] = [];
@@ -79,16 +111,24 @@ const KineticGrid = ({
     let frame = 0;
     const ripples: Ripple[] = [];
 
-    // Pointer target, lerped toward by `cur`.
     let tx = -9999;
     let ty = -9999;
     let cx = -9999;
     let cy = -9999;
 
+    const viewport = () => {
+      const vv = window.visualViewport;
+      return {
+        w: Math.max(1, Math.round(vv?.width ?? window.innerWidth)),
+        h: Math.max(1, Math.round(vv?.height ?? window.innerHeight)),
+      };
+    };
+
     const build = () => {
-      const rect = wrap.getBoundingClientRect();
-      width = Math.max(1, Math.round(rect.width));
-      height = Math.max(1, Math.round(rect.height));
+      const { w, h } = viewport();
+      width = w;
+      height = h;
+      cell = width < MOBILE_BP ? MOBILE_CELL : BASE_CELL;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = width * dpr;
       canvas.height = height * dpr;
@@ -96,31 +136,23 @@ const KineticGrid = ({
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      cols = Math.ceil(width / CELL) + 1;
-      rows = Math.ceil(height / CELL) + 1;
+      cols = Math.ceil(width / cell) + 1;
+      rows = Math.ceil(height / cell) + 1;
       points = [];
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          const ox = c * CELL;
-          const oy = r * CELL;
+          const ox = c * cell;
+          const oy = r * cell;
           const pinned =
-            ox <= EDGE_PIN ||
-            oy <= EDGE_PIN ||
-            ox >= width - EDGE_PIN ||
-            oy >= height - EDGE_PIN;
+            ox <= EDGE_PIN || oy <= EDGE_PIN || ox >= width - EDGE_PIN || oy >= height - EDGE_PIN;
           points.push({ ox, oy, x: ox, y: oy, pinned });
         }
       }
 
-      // Static dot texture for depth — generated once per size.
-      const count = Math.round((width * height) / 9000);
+      const count = Math.round((width * height) / (width < MOBILE_BP ? 14000 : 9000));
       dots = [];
       for (let i = 0; i < count; i++) {
-        dots.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          a: 0.02 + Math.random() * 0.05,
-        });
+        dots.push({ x: Math.random() * width, y: Math.random() * height, a: 0.02 + Math.random() * 0.05 });
       }
     };
 
@@ -131,8 +163,9 @@ const KineticGrid = ({
       ctx.fillStyle = palette.bg;
       ctx.fillRect(0, 0, width, height);
 
+      const dotColor = isDark ? "255,255,255" : "20,25,45";
       for (const d of dots) {
-        ctx.fillStyle = `rgba(255,255,255,${d.a})`;
+        ctx.fillStyle = `rgba(${dotColor},${d.a})`;
         ctx.fillRect(d.x, d.y, 1, 1);
       }
 
@@ -145,16 +178,13 @@ const KineticGrid = ({
 
       ctx.lineWidth = 1;
 
-      // Lines
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           const p = at(r, c);
           if (c < cols - 1) {
             const q = at(r, c + 1);
             const g = Math.max(glowAt(p.x, p.y), glowAt(q.x, q.y));
-            ctx.strokeStyle = g
-              ? `rgba(${ar},${ag},${ab},${0.06 + g * 0.5})`
-              : "rgba(255,255,255,0.06)";
+            ctx.strokeStyle = g ? `rgba(${ar},${ag},${ab},${0.06 + g * 0.5})` : palette.line;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(q.x, q.y);
@@ -163,9 +193,7 @@ const KineticGrid = ({
           if (r < rows - 1) {
             const q = at(r + 1, c);
             const g = Math.max(glowAt(p.x, p.y), glowAt(q.x, q.y));
-            ctx.strokeStyle = g
-              ? `rgba(${ar},${ag},${ab},${0.06 + g * 0.5})`
-              : "rgba(255,255,255,0.06)";
+            ctx.strokeStyle = g ? `rgba(${ar},${ag},${ab},${0.06 + g * 0.5})` : palette.line;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(q.x, q.y);
@@ -174,7 +202,6 @@ const KineticGrid = ({
         }
       }
 
-      // Nodes
       for (const p of points) {
         const g = glowAt(p.x, p.y);
         if (g > 0.02) {
@@ -183,7 +210,7 @@ const KineticGrid = ({
           ctx.arc(p.x, p.y, 1.2 + g * 1.8, 0, Math.PI * 2);
           ctx.fill();
         } else {
-          ctx.fillStyle = "rgba(255,255,255,0.12)";
+          ctx.fillStyle = palette.node;
           ctx.fillRect(p.x - 0.75, p.y - 0.75, 1.5, 1.5);
         }
       }
@@ -238,11 +265,15 @@ const KineticGrid = ({
       draw();
     };
 
+    // Canvas is fixed to the viewport, so client coords map 1:1.
+    const setTarget = (x: number, y: number) => {
+      tx = x;
+      ty = y;
+    };
+
     const onMove = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
-      const rect = wrap.getBoundingClientRect();
-      tx = e.clientX - rect.left;
-      ty = e.clientY - rect.top;
+      setTarget(e.clientX, e.clientY);
     };
 
     const onLeave = () => {
@@ -251,12 +282,25 @@ const KineticGrid = ({
     };
 
     const onClick = (e: MouseEvent) => {
-      const rect = wrap.getBoundingClientRect();
-      ripples.push({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-        start: performance.now(),
-      });
+      ripples.push({ x: e.clientX, y: e.clientY, start: performance.now() });
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (t) setTarget(t.clientX, t.clientY);
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (!t) return;
+      setTarget(t.clientX, t.clientY);
+      ripples.push({ x: t.clientX, y: t.clientY, start: performance.now() });
+    };
+
+    const onTouchEnd = () => {
+      // Let the warp drift away once the finger lifts.
+      tx = -9999;
+      ty = -9999;
     };
 
     const onResize = () => {
@@ -269,31 +313,41 @@ const KineticGrid = ({
 
     if (interactive) {
       window.addEventListener("pointermove", onMove, { passive: true });
-      wrap.addEventListener("pointerleave", onLeave);
-      wrap.addEventListener("click", onClick);
+      document.addEventListener("pointerleave", onLeave);
+      window.addEventListener("click", onClick, { passive: true });
+      window.addEventListener("touchstart", onTouchStart, { passive: true });
+      window.addEventListener("touchmove", onTouchMove, { passive: true });
+      window.addEventListener("touchend", onTouchEnd, { passive: true });
+      window.addEventListener("touchcancel", onTouchEnd, { passive: true });
       frame = requestAnimationFrame(step);
     }
 
     window.addEventListener("resize", onResize);
+    window.addEventListener("orientationchange", onResize);
+    window.visualViewport?.addEventListener("resize", onResize);
 
     return () => {
       if (frame) cancelAnimationFrame(frame);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onResize);
+      window.visualViewport?.removeEventListener("resize", onResize);
       window.removeEventListener("pointermove", onMove);
-      wrap.removeEventListener("pointerleave", onLeave);
-      wrap.removeEventListener("click", onClick);
+      document.removeEventListener("pointerleave", onLeave);
+      window.removeEventListener("click", onClick);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("touchcancel", onTouchEnd);
     };
-  }, [globalColor]);
+  }, [globalColor, isDark]);
 
   return (
-    <div ref={wrapRef} className={`relative overflow-hidden ${className}`}>
-      <canvas
-        ref={canvasRef}
-        aria-hidden
-        className="absolute inset-0 w-full h-full pointer-events-none"
-      />
-      <div className="relative z-10">{children}</div>
-    </div>
+    <canvas
+      ref={canvasRef}
+      aria-hidden
+      className={`fixed inset-0 w-full h-full pointer-events-none ${className}`}
+      style={{ zIndex: 0 }}
+    />
   );
 };
 
