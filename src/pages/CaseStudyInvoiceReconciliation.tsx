@@ -97,7 +97,7 @@ const stack = [
 
 const CaseStudyInvoiceReconciliation = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="relative z-10 min-h-screen bg-transparent text-foreground">
       <div className="container-narrow px-4 sm:px-6 py-10 sm:py-16 max-w-5xl mx-auto">
         <Link
           to="/"
