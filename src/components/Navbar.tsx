@@ -57,7 +57,7 @@ const Navbar = () => {
               alt="Marwin Emia M monogram logo"
               width={36}
               height={36}
-              className="w-8 h-8 md:w-9 md:h-9 drop-shadow-[0_0_10px_rgba(0,229,255,0.35)] group-hover:drop-shadow-[0_0_16px_rgba(0,229,255,0.6)] transition-all duration-300 group-hover:scale-105"
+              className="w-8 h-8 md:w-9 md:h-9 drop-shadow-[0_0_10px_rgba(212,175,55,0.4)] group-hover:drop-shadow-[0_0_16px_rgba(212,175,55,0.65)] transition-all duration-300 group-hover:scale-105"
             />
             <span className="text-base font-bold tracking-tight">
               <span className="text-foreground">Automate</span>
