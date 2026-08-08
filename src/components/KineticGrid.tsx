@@ -28,16 +28,16 @@ type Palette = { bg: string; accent: [number, number, number]; line: string; nod
 const PALETTES: Record<"default" | "monochrome", { dark: Palette; light: Palette }> = {
   default: {
     dark: {
-      bg: "#0d0f14",
-      accent: [96, 165, 250],
-      line: "rgba(255,255,255,0.06)",
-      node: "rgba(255,255,255,0.12)",
+      bg: "#0a0a09",
+      accent: [212, 175, 55],
+      line: "rgba(212,175,55,0.07)",
+      node: "rgba(212,175,55,0.14)",
     },
     light: {
-      bg: "#f4f6fb",
-      accent: [59, 90, 200],
-      line: "rgba(20,25,45,0.07)",
-      node: "rgba(20,25,45,0.14)",
+      bg: "#faf7f0",
+      accent: [166, 124, 27],
+      line: "rgba(60,50,25,0.08)",
+      node: "rgba(60,50,25,0.15)",
     },
   },
   monochrome: {
@@ -163,7 +163,7 @@ const KineticGrid = ({ globalColor = "default", className = "" }: KineticGridPro
       ctx.fillStyle = palette.bg;
       ctx.fillRect(0, 0, width, height);
 
-      const dotColor = isDark ? "255,255,255" : "20,25,45";
+      const dotColor = isDark ? "212,175,55" : "60,50,25";
       for (const d of dots) {
         ctx.fillStyle = `rgba(${dotColor},${d.a})`;
         ctx.fillRect(d.x, d.y, 1, 1);
