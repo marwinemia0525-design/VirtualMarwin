@@ -131,12 +131,12 @@ const AnimatedBackground = () => {
 
       {/* Parallax wrapper for orbs */}
       <motion.div className="absolute inset-0" style={{ y: yOrbs }}>
-        <FloatingOrb size={500} color="hsl(244 90% 60% / 0.35)" delay={0} duration={24} initialX="-5%" initialY="10%" reduce={!!reduce} />
+        <FloatingOrb size={500} color="hsl(44 78% 55% / 0.22)" delay={0} duration={24} initialX="-5%" initialY="10%" reduce={!!reduce} />
         {!isMobile && (
           <>
-            <FloatingOrb size={420} color="hsl(189 94% 55% / 0.28)" delay={6} duration={28} initialX="65%" initialY="55%" reduce={!!reduce} />
-            <FloatingOrb size={360} color="hsl(270 85% 65% / 0.25)" delay={3} duration={26} initialX="35%" initialY="80%" reduce={!!reduce} />
-            <FloatingOrb size={300} color="hsl(220 90% 60% / 0.22)" delay={9} duration={30} initialX="80%" initialY="5%" reduce={!!reduce} />
+            <FloatingOrb size={420} color="hsl(38 70% 45% / 0.20)" delay={6} duration={28} initialX="65%" initialY="55%" reduce={!!reduce} />
+            <FloatingOrb size={360} color="hsl(48 85% 65% / 0.16)" delay={3} duration={26} initialX="35%" initialY="80%" reduce={!!reduce} />
+            <FloatingOrb size={300} color="hsl(32 60% 40% / 0.16)" delay={9} duration={30} initialX="80%" initialY="5%" reduce={!!reduce} />
           </>
         )}
       </motion.div>

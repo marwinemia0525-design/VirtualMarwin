@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 const NODE_COUNT = 5;
 const LABELS = ["Trigger", "Process", "Automate", "Optimize", "Result"];
 
-// Electric SaaS brand palette (matches index.css dark tokens)
-const INDIGO = "#6366f1"; // primary
-const CYAN = "#22d3ee";   // accent
-const PURPLE = "#a855f7"; // highlight
-const BG_FROM = "#070818";
-const BG_VIA = "#0b0f24";
-const BG_TO = "#050614";
+// Gold-on-black brand palette (matches index.css dark tokens)
+const INDIGO = "#D4AF37"; // primary gold
+const CYAN = "#F2D479";   // accent champagne
+const PURPLE = "#B8860B"; // deep gold highlight
+const BG_FROM = "#0A0A09";
+const BG_VIA = "#12100B";
+const BG_TO = "#070706";
 
 const BrandedLoader = ({ onComplete }: { onComplete: () => void }) => {
   const [activeNode, setActiveNode] = useState(0);
