@@ -17,10 +17,11 @@ Shift the site from the electric indigo/cyan palette to a luxury gold-on-black i
 3. **Kinetic grid (`src/components/KineticGrid.tsx`)** - swap the hardcoded palettes: dark bg to near-black, grid lines/nodes to faint gold; light mode to ivory with warm grey lines; cursor/ripple accent to gold.
 4. **Branded loader (`src/components/BrandedLoader.tsx`)** - update its accent color to gold.
 5. **Sweep for stragglers** - check components for any remaining hardcoded blue/cyan classes and move them onto the semantic tokens.
+6. **M logo to gold (`public/logo.svg`)** - swap the cyan-to-indigo gradient for a champagne-to-gold-to-bronze gradient, and change the cyan glow shadows on the logo in the Navbar and Footer to a gold glow.
 
 ## Not changing
 
-Logo image, portrait, tool icons, screenshots, and layout stay as they are. (The current "M" logo is a blue/cyan gradient asset - it can be regenerated in gold as a follow-up if you want.)
+Portrait, tool icons, screenshots, and layout stay as they are.
 
 ## Technical notes
 
